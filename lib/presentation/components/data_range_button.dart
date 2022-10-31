@@ -31,9 +31,8 @@ class DateRangeButton extends StatelessWidget {
                             height: AppSize.s350,
                             width: AppSize.s350,
                             child: SfDateRangePicker(
-
                               onSubmit: (dateRange) {
-                                if (dateRange is PickerDateRange) {
+                                if (dateRange is PickerDateRange && dateRange.endDate!=null) {
                                   onSumbit.call(dateRange);
                                   Navigator.of(context).pop();
                                 }
