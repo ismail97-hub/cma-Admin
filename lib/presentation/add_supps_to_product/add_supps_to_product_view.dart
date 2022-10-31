@@ -70,7 +70,7 @@ class _AddSupplementsToProductViewState
               child: Text(AppStrings.save,
                   style: getSemiBoldStyle(color: ColorManager.primary)),
               style: ElevatedButton.styleFrom(
-                primary: ColorManager.white,
+                backgroundColor: ColorManager.white,
               ),
             ),
           )

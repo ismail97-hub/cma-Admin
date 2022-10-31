@@ -13,7 +13,6 @@ import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class CategoriesInsightsView extends StatefulWidget {
   const CategoriesInsightsView({ Key? key }) : super(key: key);

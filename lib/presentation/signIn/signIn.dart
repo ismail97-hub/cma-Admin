@@ -1,12 +1,10 @@
 import 'package:cma_admin/app/app_prefs.dart';
 import 'package:cma_admin/app/constant.dart';
 import 'package:cma_admin/app/di.dart';
-import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
 import 'package:cma_admin/presentation/components/custom_appbar.dart';
-import 'package:cma_admin/presentation/resources/assets_manager.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';
@@ -31,7 +29,7 @@ class _SignInViewState extends State<SignInView> {
   TextEditingController _passwordController = TextEditingController();
 
   SignInViewModel _viewModel = instance<SignInViewModel>();
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
 
   _bind() {
     _viewModel.start();

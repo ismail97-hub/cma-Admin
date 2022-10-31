@@ -1,7 +1,6 @@
 import 'package:cma_admin/data/network/app_api.dart';
 import 'package:cma_admin/data/request/request.dart';
 import 'package:cma_admin/data/responses/responses.dart';
-import 'package:cma_admin/domain/model/model.dart';
 
 abstract class RemoteDataSource {
   Future<SignInResponse> signIn(String userName, String password);

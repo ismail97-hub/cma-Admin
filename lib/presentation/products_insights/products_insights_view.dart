@@ -1,6 +1,5 @@
 import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/domain/model/model.dart';
-import 'package:cma_admin/presentation/products_insights/products_insights_viewmodel.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/components/color_column.dart';
 import 'package:cma_admin/presentation/components/custom_appbar.dart';
@@ -8,11 +7,11 @@ import 'package:cma_admin/presentation/components/custom_data_table.dart';
 import 'package:cma_admin/presentation/components/data_range_button.dart';
 import 'package:cma_admin/presentation/components/headar_text.dart';
 import 'package:cma_admin/presentation/components/not_found_widget.dart';
+import 'package:cma_admin/presentation/products_insights/products_insights_viewmodel.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ProductsInsightsView extends StatefulWidget {
   final ProductsInsightsArgs args;

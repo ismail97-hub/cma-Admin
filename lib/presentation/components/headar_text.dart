@@ -2,7 +2,6 @@ import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
-import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
 class HeaderText extends StatelessWidget {

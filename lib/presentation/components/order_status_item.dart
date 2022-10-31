@@ -1,11 +1,9 @@
 import 'package:cma_admin/app/enum.dart';
+import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
-import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
-
-import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:flutter/material.dart';
 
 
 

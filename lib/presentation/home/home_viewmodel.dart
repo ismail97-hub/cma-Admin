@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:cma_admin/app/app_prefs.dart';
-import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/presentation/base/baseviewmodel.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';

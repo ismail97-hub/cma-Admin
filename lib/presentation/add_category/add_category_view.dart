@@ -1,14 +1,11 @@
 import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/presentation/add_category/add_category_viewmodel.dart';
-import 'package:cma_admin/presentation/components/color_picker_dialogue.dart';
 import 'package:cma_admin/presentation/components/color_picker_label.dart';
 import 'package:cma_admin/presentation/components/custom_appbar.dart';
 import 'package:cma_admin/presentation/components/field_label.dart';
 import 'package:cma_admin/presentation/components/image_picker_widget.dart';
-import 'package:cma_admin/presentation/components/requiredlabel.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';

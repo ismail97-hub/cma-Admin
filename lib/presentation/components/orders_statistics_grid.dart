@@ -1,4 +1,3 @@
-import 'package:ant_icons/ant_icons.dart';
 import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/presentation/components/data_statistique_item.dart';
@@ -50,6 +49,6 @@ class OrdersStatisticsGrid extends StatelessWidget {
               icon: IconManger.euro,
             ),
           ]),
-    );;
+    );
   }
 }

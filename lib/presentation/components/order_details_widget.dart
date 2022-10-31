@@ -1,7 +1,6 @@
 import 'package:cma_admin/app/enum.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/presentation/components/image_column.dart';
-import 'package:cma_admin/presentation/components/order_status_item.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
