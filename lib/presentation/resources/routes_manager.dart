@@ -22,7 +22,7 @@ import 'package:cma_admin/presentation/update_product/update_product_view.dart';
 import 'package:cma_admin/presentation/update_supplement/update_supplement.dart';
 import 'package:cma_admin/presentation/all_waiters_insights/all_waiters_insights_view.dart';
 
-import '../add_product/add_product_View.dart';
+import '../add_product/add_product_view.dart';
 
 class Routes {
   static const String homeRoute = "/home";
