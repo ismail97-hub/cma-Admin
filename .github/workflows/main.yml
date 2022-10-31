@@ -11,7 +11,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-20.04
-    name: Deploy flutter web to remote server 
+    name: Deploy Flutter Web to remote server 
     steps:
       - uses: actions/checkout@v2
       - name: Set up Flutter 3.3.5
