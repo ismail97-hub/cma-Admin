@@ -22,6 +22,14 @@ jobs:
       - run: flutter pub get
       - name: Build flutter web
         run: flutter build web
+      - name: Delete web folder in Remote server
+        uses: appleboy/ssh-action@master
+        with:
+          script: |
+            rm -r admpanel/web
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}  
       - name: Deploy the package to the remote server
         uses: garygrossgarten/github-action-scp@release
         with:
@@ -38,7 +46,7 @@ jobs:
             cd admpanel/
             kill -9 `cat pid.txt` && rm pid.txt
             cd web/
-            nohup python3 -m http.server 8000 > admpanel/web.log 2>&1 & echo $! > admpanel/pid.txt
+            nohup python3 -m http.server 8000 > /root/admpanel/web.log 2>&1 & echo $! > /root/admpanel/pid.txt
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
