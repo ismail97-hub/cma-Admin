@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:cma_admin/app/constant.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
+import 'package:cma_admin/data/network/web_socket.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/domain/usecase/dashboard_usecase.dart';
 import 'package:cma_admin/presentation/base/baseviewmodel.dart';
@@ -13,10 +15,18 @@ class DashboardViewModel extends BaseViewModel with DashboardViewModelInput, Das
 
   DashboardUseCase _useCase;
   DashboardViewModel(this._useCase);
+  
+  late StompWS _webSocket = StompWS(Constant.refresh_dashboard_topic,(frame)=>callBack(frame));
 
   @override
-  void start() {}
+  void start() {
+    _webSocket.init();
+  }
 
+  callBack(frame){
+    getHomeData();
+  }
+   
   getHomeData() async {
     inputState.add(LoadingState(stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
     (await _useCase.execute(EMPTY)).fold(
@@ -53,6 +63,7 @@ class DashboardViewModel extends BaseViewModel with DashboardViewModelInput, Das
   @override
   void dispose() {
     _homeDataStreamController.close();
+    _webSocket.dispose();
     super.dispose();
   }
 }
