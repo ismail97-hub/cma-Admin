@@ -205,8 +205,11 @@ class OrderResponse extends BaseResponse {
   @JsonKey(name: "waiter")
   UserResponse? waiter;
 
+  @JsonKey(name: "assignedBy")
+  UserResponse? assignedBy;
+
   OrderResponse(this.status, this.items, this.totalAmount, this.itemsNumber,
-      this.waiter);
+      this.waiter,this.assignedBy);
 
   // from json
   factory OrderResponse.fromJson(Map<String, dynamic> json) =>

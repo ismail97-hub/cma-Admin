@@ -120,7 +120,8 @@ extension OrderResponseExtension on OrderResponse? {
         this?.items?.toDomain(),
         this?.totalAmount.orZeroD() ?? ZEROD,
         this?.itemsNumber?.orZero() ?? ZERO,
-        this?.waiter?.toDomain());
+        this?.waiter?.toDomain(),
+        this?.assignedBy?.toDomain());
   }
 }
 

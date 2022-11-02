@@ -127,7 +127,7 @@ class _OrdersViewState extends State<OrdersView> {
 
   Widget _getPaginatedDataTable(OrdersDataTableSource source){
     List<OrderModel> orders = source.ordersInsights.orders!;
-    return orders.isEmpty?NotfoundWidget("No orders Available"):Container(
+    return orders.isEmpty?NotfoundWidget(AppStrings.noOrdersAvailable):Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
       child: PaginatedDataTable(

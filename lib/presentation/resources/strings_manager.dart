@@ -63,6 +63,7 @@ class AppStrings {
   static const String categories = "Categories";
   static const String products = "Products";
   static const String supplements = "Supplements";
+  static const String cancelOrders = "Cancel Orders";
   static const String users = "Users";
   static const String logout = "Logout";
 
@@ -108,6 +109,13 @@ class AppStrings {
   //orders details
   static const String orderDetails = "Order details";
   static const String orderPriceTotal = "Total : ";
+  static const String assignedBy = "Assigned by : ";
+
+  //cancel Orders
+  static const String accept = "Accept";
+  static const String reject = "Reject";
+  static const String noOrdersAvailable = "No orders available";
+  static const String noPreCanceledOrdersAvailable = "No pre canceled orders available";
 
   // internal server error types
   static const String userNotFound = "User not found";

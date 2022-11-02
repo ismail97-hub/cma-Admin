@@ -7,6 +7,7 @@ class IconManger {
   //side navigation
   static const IconData dashboard = AntIcons.dashboard_outline;
   static const IconData orders = Ionicons.cart_outline;
+  static const IconData cancelOrders = Icons.remove_shopping_cart_outlined;
   static const IconData categories =  Ionicons.cube_outline;
   static const IconData products = Ionicons.bag_outline;
   static const IconData supplements = Ionicons.ice_cream_outline;

@@ -21,3 +21,20 @@ extension TopicString on String {
     }
   }
 }
+
+extension OrderStatusString on OrderStatus {
+  String toStr() {
+    switch (this) {
+      case  OrderStatus.INPROGRESS:
+       return 'INPROGRESS';
+      case OrderStatus.DONE:
+        return 'DONE';
+      case OrderStatus.PRE_CANCELED:
+        return 'PRE_CANCELED';
+      case OrderStatus.CANCELED:
+        return 'CANCELED';
+      default:
+        return 'INPROGRESS';
+    }
+  }
+}

@@ -24,45 +24,59 @@ class DetailsOrderWidget extends StatelessWidget {
               width: AppSize.s500,
               child: Scaffold(
                 backgroundColor: ColorManager.white,
-                body: Column(children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("${AppStrings.orderN}${order.id}",style: getBoldStyle(color: ColorManager.black)),
-                      Text("${order.waiter!.name}",style: getBoldStyle(color: ColorManager.black)),
-                      Text("${order.totalAmount} ${AppStrings.dh}",style: getBoldStyle(color: ColorManager.black))
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: AppPadding.p10),
-                    child: Divider(thickness: 0.5),
-                  ),
-                  ListView(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    children: items
-                        .map((item) => Column(
-                              children: [
-                                ListTile(
-                                  leading: ImageColumn(item.product!.image,width: AppSize.s70,height: AppSize.s70),
-                                  title: Text(item.product!.title,style: getSemiBoldStyle(color: ColorManager.black)),
-                                  subtitle: Text(item.supplementsString(),style: getMediumStyle(color: ColorManager.lightGrey)),
-                                  contentPadding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
-                                  trailing: Column(
-                                    children: [
-                                      Text("${item.quantity} x",style: getSemiBoldStyle(color: ColorManager.black)),
-                                      SizedBox(height: AppSize.s14),
-                                      Text("${item.amount} ${AppStrings.dh}",style: getSemiBoldStyle(color: ColorManager.black)),
-                                    ],
+                body: SingleChildScrollView(
+                  child: Column(children: [
+                    Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("${AppStrings.orderN}${order.id}",style: getBoldStyle(color: ColorManager.black)),
+                            Text("${order.waiter!.name}",style: getBoldStyle(color: ColorManager.black)),
+                            Text("${order.totalAmount} ${AppStrings.dh}",style: getBoldStyle(color: ColorManager.black))
+                          ],
+                        ),
+                        order.assignedBy==null?Container():SizedBox(height: AppSize.s12),
+                        order.assignedBy==null?Container():Row(
+                          children: [
+                            Text(AppStrings.assignedBy,style: getBoldStyle(color: ColorManager.lightGrey)),
+                            Text(order.assignedBy!.name,style: getBoldStyle(color: ColorManager.black)),
+                          ],
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: AppPadding.p10),
+                      child: Divider(thickness: 0.5),
+                    ),
+                    ListView(
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      children: items
+                          .map((item) => Column(
+                                children: [
+                                  ListTile(
+                                    leading: ImageColumn(item.product!.image,width: AppSize.s70,height: AppSize.s70),
+                                    title: Text(item.product!.title,style: getSemiBoldStyle(color: ColorManager.black)),
+                                    subtitle: Text(item.supplementsString(),style: getMediumStyle(color: ColorManager.lightGrey)),
+                                    contentPadding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                                    trailing: Column(
+                                      children: [
+                                        Text("${item.quantity} x",style: getSemiBoldStyle(color: ColorManager.black)),
+                                        SizedBox(height: AppSize.s14),
+                                        Text("${item.amount} ${AppStrings.dh}",style: getSemiBoldStyle(color: ColorManager.black)),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Divider(thickness: 0.5),
-                              ],
-                            ))
-                        .toList(),
-                  ),
-                ]),
+                                  Divider(thickness: 0.5),
+                                ],
+                              ))
+                          .toList(),
+                    ),
+                    SizedBox(height: AppSize.s50)
+                  ]),
+                ),
                 floatingActionButton: order.status!=OrderStatus.DONE?null:_getPrintButton(),
                 floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
               ),      

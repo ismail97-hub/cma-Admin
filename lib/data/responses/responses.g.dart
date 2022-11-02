@@ -173,9 +173,8 @@ OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) {
         .toList(),
     (json['totalAmount'] as num?)?.toDouble(),
     json['itemsNumber'] as int?,
-    json['waiter'] == null
-        ? null
-        : UserResponse.fromJson(json['waiter'] as Map<String, dynamic>),
+    json['waiter'] == null? null: UserResponse.fromJson(json['waiter'] as Map<String, dynamic>),
+    json['assignedBy'] == null? null: UserResponse.fromJson(json['assignedBy'] as Map<String, dynamic>),
   )
     ..id = json['id'] as int?
     ..createdAt = json['createdAt'] as String?
@@ -196,6 +195,7 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'totalAmount': instance.totalAmount,
       'itemsNumber': instance.itemsNumber,
       'waiter': instance.waiter,
+      'assignedBy': instance.assignedBy,
     };
 
 StatusCountResponse _$StatusCountResponseFromJson(Map<String, dynamic> json) {

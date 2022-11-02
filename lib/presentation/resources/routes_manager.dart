@@ -92,6 +92,7 @@ class RouteGenerator {
         initHomeModule();
         initDashboardModule();
         initOrdersModule();
+        initCancelOrdersModule();
         initCategoryModule();
         initProductsModule();
         initSupplementsModule();

@@ -25,6 +25,7 @@ class SideNavBar extends StatelessWidget {
         items: [
           _getSideNavItem(AppStrings.dashboard,IconManger.dashboard),
           _getSideNavItem(AppStrings.orders,IconManger.orders),
+          _getSideNavItem(AppStrings.cancelOrders,IconManger.cancelOrders),
           _getSideNavItem(AppStrings.categories,IconManger.categories),
           _getSideNavItem(AppStrings.products,IconManger.products),
           _getSideNavItem(AppStrings.supplements,IconManger.supplements),

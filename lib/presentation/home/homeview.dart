@@ -1,6 +1,7 @@
 import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
+import 'package:cma_admin/presentation/home/cancel_orders.dart/cancel_orders_view.dart';
 import 'package:cma_admin/presentation/home/category/category_view.dart';
 import 'package:cma_admin/presentation/home/components/side_nav_bar.dart';
 import 'package:cma_admin/presentation/home/dashboard/dashboard_view.dart';
@@ -26,6 +27,7 @@ class HomeViewState extends State<HomeView> {
   List<Widget> views = [
     DashboardView(),
     OrdersView(),
+    CancelOrdersView(),
     CategoryView(),
     ProductView(),
     SupplementView(),

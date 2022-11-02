@@ -154,6 +154,7 @@ class OrderModel {
   double totalAmount;
   int itemsNumber;
   User? waiter;
+  User? assignedBy;
 
   OrderModel(
       this.id,
@@ -165,10 +166,11 @@ class OrderModel {
       this.items,
       this.totalAmount,
       this.itemsNumber,
-      this.waiter);
+      this.waiter,
+      this.assignedBy);
 
   factory OrderModel.empty() => OrderModel(
-      0, EMPTY, EMPTY, EMPTY, false, OrderStatus.INPROGRESS, [], ZEROD, ZERO, User.empty());
+      0, EMPTY, EMPTY, EMPTY, false, OrderStatus.INPROGRESS, [], ZEROD, ZERO, User.empty(),User.empty());
 }
 
 class StatusCount {

@@ -23,6 +23,7 @@ import 'package:cma_admin/domain/usecase/waiter_insights_usecase.dart';
 import 'package:cma_admin/presentation/add_supps_to_product/add_supps_to_product_viewmodel.dart';
 import 'package:cma_admin/presentation/categories_insights/categories_insights_viewmodel.dart';
 import 'package:cma_admin/presentation/category_details/category_details_viewmodel.dart';
+import 'package:cma_admin/presentation/home/cancel_orders.dart/cancel_orders.viewmodel.dart';
 import 'package:cma_admin/presentation/home/category/category_viewmodel.dart';
 import 'package:cma_admin/presentation/home/dashboard/dashboard_viewmodel.dart';
 import 'package:cma_admin/presentation/home/home_viewmodel.dart';
@@ -49,6 +50,7 @@ import 'package:cma_admin/presentation/waiter_insights/waiter_insights_viewmodel
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../domain/usecase/cancel_orders_usecase.dart';
 import 'app_prefs.dart';
 
 final instance = GetIt.instance;
@@ -101,6 +103,13 @@ initOrdersModule(){
   if (!GetIt.I.isRegistered<OrdersUseCase>()) {
     instance.registerFactory<OrdersUseCase>(() => OrdersUseCase(instance()));
     instance.registerFactory<OrdersViewModel>(() => OrdersViewModel(instance()));
+  }
+}
+
+initCancelOrdersModule(){
+  if (!GetIt.I.isRegistered<CancelOrdersUseCase>()) {
+    instance.registerFactory<CancelOrdersUseCase>(() => CancelOrdersUseCase(instance()));
+    instance.registerFactory<CancelOrdersViewModel>(() => CancelOrdersViewModel(instance()));
   }
 }
 
@@ -275,6 +284,7 @@ resetModules() {
   initSignInModule();
   initHomeModule();
   initOrdersModule();
+  initCancelOrdersModule();
   initCategoryModule();
   initProductsModule();
   initSupplementsModule();

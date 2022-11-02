@@ -1,3 +1,4 @@
+import 'package:cma_admin/app/enum.dart';
 import 'package:cma_admin/data/network/failure.dart';
 import 'package:cma_admin/data/request/request.dart';
 import 'package:cma_admin/domain/model/model.dart';
@@ -31,5 +32,7 @@ abstract class Repository {
   Future<Either<Failure,OrdersInsights>> getOrdersInsights(String date1,String date2,String pageIndex);
   Future<Either<Failure,List<CategoryCount>>> getCategoriesQuantityConsumed(String date1,String date2);
   Future<Either<Failure,List<ProductCount>>> getProductsQuantityConsumedByCategory(String date1,String date2,String categoryId);
-
+  Future<Either<Failure,List<OrderModel>>> getOrdersByState(OrderStatus status);
+  Future<Either<Failure,void>> acceptCancelOrder(String id);
+  Future<Either<Failure,void>> rejectCancelOrder(String id);
 }

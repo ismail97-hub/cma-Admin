@@ -1,3 +1,4 @@
+import 'package:cma_admin/app/enum.dart';
 import 'package:cma_admin/data/data_source/remote_data_source.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/data/network/error_handler.dart';
@@ -306,9 +307,40 @@ class RepositoryImpl extends Repository {
 
   @override
   Future<Either<Failure, List<ProductCount>>> getProductsQuantityConsumedByCategory(String date1, String date2, String categoryId) async{
-       try {
+    try {
       final response = await _remoteDataSource.getProductsQuantityConsumedByCategory(date1, date2, categoryId);
       return Right(response.toDomain());
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<OrderModel>>> getOrdersByState(OrderStatus status) async{
+    try {
+      final response = await _remoteDataSource.getOrdersByState(status.toStr());
+      return Right(response.toDomain());
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+
+  }
+  
+  @override
+  Future<Either<Failure, void>> acceptCancelOrder(String id) async{
+    try {
+      final response = await _remoteDataSource.acceptCancelOrder(id);
+      return Right(response);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+  
+  @override
+  Future<Either<Failure, void>> rejectCancelOrder(String id) async{
+    try {
+      final response = await _remoteDataSource.rejectCancelOrder(id);
+      return Right(response);
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
     }

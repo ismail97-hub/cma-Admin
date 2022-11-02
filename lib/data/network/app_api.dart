@@ -142,5 +142,13 @@ abstract class AppServiceClient {
 
   @GET("/admin/category/{categoryId}/products/quantity/{date1}/{date2}")
   Future<List<ProductCountResponse>> getProductsQuantityConsumedByCategory(@Path() String date1,@Path() String date2,@Path() String categoryId);
+  
+  @GET("/order/status/{status}")
+  Future<List<OrderResponse>> getOrdersByState(@Path() String status);
 
+  @POST("/order/{id}/cancel")
+  Future<void> acceptCancelOrder(@Path() String id);
+
+  @POST("/order/{id}/cancel/reject")
+  Future<void> rejectCancelOrder(@Path() String id);
 }

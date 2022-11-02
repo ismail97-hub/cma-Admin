@@ -30,6 +30,9 @@ abstract class RemoteDataSource {
   Future<OrdersInsightsResponse> getOrdersInsights(String date1,String date2,String pageIndex);
   Future<List<CategoryCountResponse>> getCategoriesQuantityConsumed(String date1,String date2);
   Future<List<ProductCountResponse>> getProductsQuantityConsumedByCategory(String date1,String date2,String categoryId);
+  Future<List<OrderResponse>> getOrdersByState(String status);
+  Future<void> acceptCancelOrder(String id);
+  Future<void> rejectCancelOrder(String id);
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -211,5 +214,20 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   @override
   Future<List<ProductCountResponse>> getProductsQuantityConsumedByCategory(String date1, String date2, String categoryId) {
     return _appServiceClient.getProductsQuantityConsumedByCategory(date1, date2, categoryId);
+  }
+  
+  @override
+  Future<List<OrderResponse>> getOrdersByState(String status) {
+    return _appServiceClient.getOrdersByState(status);
+  }
+  
+  @override
+  Future<void> acceptCancelOrder(String id) {
+    return _appServiceClient.acceptCancelOrder(id);
+  }
+  
+  @override
+  Future<void> rejectCancelOrder(String id) {
+    return _appServiceClient.rejectCancelOrder(id);
   }
 }
