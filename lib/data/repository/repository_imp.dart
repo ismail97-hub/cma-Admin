@@ -345,6 +345,15 @@ class RepositoryImpl extends Repository {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
-
+  
+  @override
+  Future<Either<Failure, int>> getNumberOrdersByState(OrderStatus status) async{
+    try {
+      final response = await _remoteDataSource.getNumberOrdersByState(status.toStr());
+      return Right(response);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
    
 }

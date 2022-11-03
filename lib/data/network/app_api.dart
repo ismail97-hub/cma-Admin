@@ -151,4 +151,7 @@ abstract class AppServiceClient {
 
   @POST("/order/{id}/cancel/reject")
   Future<void> rejectCancelOrder(@Path() String id);
+
+  @GET("/order/status/{status}/count")
+  Future<int> getNumberOrdersByState(@Path() String status);
 }

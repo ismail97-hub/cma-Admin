@@ -13,6 +13,8 @@ import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../../app/functions.dart';
+import '../../components/order_details_widget.dart';
+import '../../components/popup_menu_column.dart';
 
 class CancelOrdersView extends StatefulWidget {
   const CancelOrdersView({Key? key}) : super(key: key);
@@ -29,6 +31,7 @@ class _CancelOrdersViewState extends State<CancelOrdersView> {
     "CreatedAt",
     "Items Count",
     "Amount",
+    "Actions",
     "Actions"
   ];
 
@@ -54,51 +57,74 @@ class _CancelOrdersViewState extends State<CancelOrdersView> {
         body: StreamBuilder<FlowState>(
             stream: _viewModel.outputState,
             builder: (context, snapshot) {
-              return snapshot.data?.getScreenWidget( context, _getContentScreenWidget(), () => _bind()) ??
+              return snapshot.data?.getScreenWidget(
+                      context, _getContentScreenWidget(), () => _bind()) ??
                   _getContentScreenWidget();
             }));
   }
 
-  Widget _getContentScreenWidget(){
+  Widget _getContentScreenWidget() {
     return StreamBuilder<List<OrderModel>>(
-      stream: _viewModel.outputPreCanceledOrders,
-      builder: (context, snapshot) {
-        List<OrderModel> preCanceledOrders = snapshot.data ?? [];
-        return SingleChildScrollView(
-          controller: ScrollController(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: AppSize.s20),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
-                child: HeaderText(AppStrings.cancelOrders),
-              ),
-              SizedBox(height: AppSize.s20),
-              _getDataTable(preCanceledOrders),
-            ],
-          ),
-        );
-      }
-    );
+        stream: _viewModel.outputPreCanceledOrders,
+        builder: (context, snapshot) {
+          List<OrderModel> preCanceledOrders = snapshot.data ?? [];
+          return SingleChildScrollView(
+            controller: ScrollController(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: AppSize.s20),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+                  child: HeaderText(AppStrings.cancelOrders),
+                ),
+                SizedBox(height: AppSize.s20),
+                _getDataTable(preCanceledOrders),
+              ],
+            ),
+          );
+        });
   }
 
-  _getDataTable(List<OrderModel> preCanceledOrders){
+  _getDataTable(List<OrderModel> preCanceledOrders) {
     return preCanceledOrders.isEmpty
-      ?NotfoundWidget(AppStrings.noPreCanceledOrdersAvailable)
-      :CustomDataTable(
-        columns: columns.map((column) => DataColumn(label: Text(column))).toList(), 
-        rows: preCanceledOrders.map((order) => DataRow(cells: [
-          DataCell(Text(order.id.toString())),
-          DataCell(Text(order.waiter?.name??EMPTY)),
-          DataCell(Text(dateFormat(order.createdAt))),
-          DataCell(Text(order.itemsNumber.toString())),
-          DataCell(Text(order.totalAmount.toString())),
-          DataCell(Row(children: [
-            ActionButton(onTap: ()=>_viewModel.acceptCancelOrder(context,order.id), title: AppStrings.accept, color: ColorManager.green),
-            SizedBox(width: AppSize.s10),
-            ActionButton(onTap: ()=>_viewModel.rejectCancelOrder(context,order.id), title: AppStrings.reject, color: ColorManager.red),
-          ],)),
-        ])).toList());
+        ? NotfoundWidget(AppStrings.noPreCanceledOrdersAvailable)
+        : CustomDataTable(
+            columns: columns
+                .map((column) => DataColumn(label: Text(column)))
+                .toList(),
+            rows: preCanceledOrders
+                .map((order) => DataRow(cells: [
+                      DataCell(Text(order.id.toString())),
+                      DataCell(Text(order.waiter?.name ?? EMPTY)),
+                      DataCell(Text(dateFormat(order.createdAt))),
+                      DataCell(Text(order.itemsNumber.toString())),
+                      DataCell(Text(order.totalAmount.toString())),
+                      DataCell(Row(
+                        children: [
+                          ActionButton(
+                              onTap: () => _viewModel.acceptCancelOrder(
+                                  context, order.id),
+                              title: AppStrings.accept,
+                              color: ColorManager.green),
+                          SizedBox(width: AppSize.s10),
+                          ActionButton(
+                              onTap: () => _viewModel.rejectCancelOrder(
+                                  context, order.id),
+                              title: AppStrings.reject,
+                              color: ColorManager.red),
+                        ],
+                      )),
+                      DataCell(PopUpMenuColumn(view: () {showDetails(order);}))
+                    ]))
+                .toList());
+  }
+
+  showDetails(OrderModel order) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(child: DetailsOrderWidget(order, print: () {}));
+        });
   }
 }

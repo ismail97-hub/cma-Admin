@@ -35,4 +35,5 @@ abstract class Repository {
   Future<Either<Failure,List<OrderModel>>> getOrdersByState(OrderStatus status);
   Future<Either<Failure,void>> acceptCancelOrder(String id);
   Future<Either<Failure,void>> rejectCancelOrder(String id);
+  Future<Either<Failure,int>> getNumberOrdersByState(OrderStatus status);
 }

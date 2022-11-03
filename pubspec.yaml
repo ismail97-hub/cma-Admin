@@ -66,6 +66,7 @@ dependencies:
   provider: ^6.0.3
   advanced_datatable: ^0.0.7+hotfix
   stomp_dart_client: ^0.4.4
+  easy_sidemenu: ^0.4.1
 
 
 dev_dependencies:

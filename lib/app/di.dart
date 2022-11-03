@@ -8,6 +8,7 @@ import 'package:cma_admin/domain/usecase/categories_insights_usecase.dart';
 import 'package:cma_admin/domain/usecase/category_details_usecase.dart';
 import 'package:cma_admin/domain/usecase/category_usecase.dart';
 import 'package:cma_admin/domain/usecase/dashboard_usecase.dart';
+import 'package:cma_admin/domain/usecase/home_usecase.dart';
 import 'package:cma_admin/domain/usecase/orders_usecase.dart';
 import 'package:cma_admin/domain/usecase/product_details_usecase.dart';
 import 'package:cma_admin/domain/usecase/product_usecase.dart';
@@ -88,14 +89,14 @@ Future<void> initAppModule() async {
 initSignInModule() {
   if (!GetIt.I.isRegistered<SignInUseCase>()) {
     instance.registerFactory<SignInUseCase>(() => SignInUseCase(instance()));
-    instance
-        .registerFactory<SignInViewModel>(() => SignInViewModel(instance()));
+    instance.registerFactory<SignInViewModel>(() => SignInViewModel(instance()));
   }
 }
 
 initHomeModule() {
   if (!GetIt.I.isRegistered<HomeViewModel>()) {
-    instance.registerLazySingleton<HomeViewModel>(() => HomeViewModel(instance()));
+    instance.registerLazySingleton<HomeUseCase>(() => HomeUseCase(instance()));
+    instance.registerLazySingleton<HomeViewModel>(() => HomeViewModel(instance(),instance()));
   }
 }
 

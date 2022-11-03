@@ -26,5 +26,6 @@ class CancelOrdersUseCase extends BaseUseCase<String,List<OrderModel>> {
   Future<Either<Failure,void>> rejectCancelOrder(int id) {
     return _repository.rejectCancelOrder(id.toString());
   }
+
   
 }

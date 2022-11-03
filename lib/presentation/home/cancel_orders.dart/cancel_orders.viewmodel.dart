@@ -10,6 +10,8 @@ import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/subjects.dart';
 
+import '../../resources/strings_manager.dart';
+
 class CancelOrdersViewModel extends BaseViewModel with CancelOrdersViewModelInput,CancelOrdersViewModelOutput {
   StreamController _preCanceledOrdersStreamController = BehaviorSubject<List<OrderModel>>();
   CancelOrdersUseCase _useCase;
@@ -29,6 +31,7 @@ class CancelOrdersViewModel extends BaseViewModel with CancelOrdersViewModelInpu
         inputState.add(ContentState());
       });
   }
+
 
   @override
   void dispose() {

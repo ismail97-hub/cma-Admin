@@ -33,6 +33,7 @@ abstract class RemoteDataSource {
   Future<List<OrderResponse>> getOrdersByState(String status);
   Future<void> acceptCancelOrder(String id);
   Future<void> rejectCancelOrder(String id);
+  Future<int> getNumberOrdersByState(String status);
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -229,5 +230,10 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   @override
   Future<void> rejectCancelOrder(String id) {
     return _appServiceClient.rejectCancelOrder(id);
+  }
+
+  @override
+  Future<int> getNumberOrdersByState(String status) {
+    return _appServiceClient.getNumberOrdersByState(status);
   }
 }
