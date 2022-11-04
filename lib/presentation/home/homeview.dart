@@ -23,7 +23,6 @@ class HomeView extends StatefulWidget {
 
 class HomeViewState extends State<HomeView> {
   HomeViewModel _viewModel = instance<HomeViewModel>();
-  PageController _pageController = PageController();
 
   List<Widget> views = [
     DashboardView(),
@@ -71,10 +70,7 @@ class HomeViewState extends State<HomeView> {
                               iconTheme: IconThemeData(color: ColorManager.black),
                             ),
                       drawer: !isMobile(context) ? null : _getnavSideNavigator(currentIndex),
-                      body: PageView(
-                        controller: _pageController,
-                        children: views,
-                      )
+                      body: views.elementAt(currentIndex) 
                 ))
             ],
           );
@@ -84,7 +80,11 @@ class HomeViewState extends State<HomeView> {
   }
 
   Widget _getnavSideNavigator(int currentIndex) {
-    return SideNavBar(page: _pageController);
+    return SideNavBar(
+      currentIndex: currentIndex, 
+      onTap: (int index) { 
+        _viewModel.onTap(context, index);
+      },);
   }
 
 

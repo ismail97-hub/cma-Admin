@@ -1,7 +1,9 @@
 
 import 'dart:async';
 
+import 'package:cma_admin/app/constant.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
+import 'package:cma_admin/data/network/web_socket.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/domain/usecase/cancel_orders_usecase.dart';
 import 'package:cma_admin/presentation/base/baseviewmodel.dart';
@@ -10,15 +12,17 @@ import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/subjects.dart';
 
-import '../../resources/strings_manager.dart';
 
 class CancelOrdersViewModel extends BaseViewModel with CancelOrdersViewModelInput,CancelOrdersViewModelOutput {
   StreamController _preCanceledOrdersStreamController = BehaviorSubject<List<OrderModel>>();
   CancelOrdersUseCase _useCase;
   CancelOrdersViewModel(this._useCase);
-
+  
+  late StompWS websocket = StompWS(Constant.refresh_precanceled_orders_count_topic, (frame)=>_getPreCanceledOrders());
+  
   @override
   void start() {
+    websocket.init();
     _getPreCanceledOrders();
   }
 
@@ -35,6 +39,7 @@ class CancelOrdersViewModel extends BaseViewModel with CancelOrdersViewModelInpu
 
   @override
   void dispose() {
+    websocket.dispose();
     _preCanceledOrdersStreamController.close();
     super.dispose();
   }

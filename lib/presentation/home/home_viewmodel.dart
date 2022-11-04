@@ -51,7 +51,7 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInput,HomeViewModelO
     if (isMobile(context)) {
       Navigator.of(context).pop();
     }
-    if (index==6) {
+    if (index==7) {
       logout(context);
     }
   }
