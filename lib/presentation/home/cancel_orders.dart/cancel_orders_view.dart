@@ -93,7 +93,7 @@ class _CancelOrdersViewState extends State<CancelOrdersView> {
             columns: columns
                 .map((column) => DataColumn(label: Text(column)))
                 .toList(),
-            rows: preCanceledOrders
+            rows: preCanceledOrders.reversed
                 .map((order) => DataRow(cells: [
                       DataCell(Text(order.id.toString())),
                       DataCell(Text(order.waiter?.name ?? EMPTY)),

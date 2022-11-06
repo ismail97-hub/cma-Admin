@@ -16,6 +16,8 @@ import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/popup_menu_column.dart';
+
 class UserView extends StatefulWidget {
   const UserView({Key? key}) : super(key: key);
 
@@ -33,7 +35,7 @@ class _UserViewState extends State<UserView> {
     "CreatedAt",
     "Role",
     "Active",
-    // "Actions"
+    "Actions"
   ];
 
   _bind() {
@@ -105,9 +107,10 @@ class _UserViewState extends State<UserView> {
                         DataCell(Switch(
                             value: user.active,
                             onChanged: (value) {_viewModel.activeToggle(context,user, users);})),
-                        // DataCell(PopUpMenuColumn(
-                        //     update: () {},
-                        //     )),
+                        DataCell(PopUpMenuColumn(
+                            update: () {
+                              Navigator.of(context).pushNamed(Routes.updateUserRoute,arguments: user).then((value) => _bind());},
+                            )),
                       ])).toList())
         ],
       ),

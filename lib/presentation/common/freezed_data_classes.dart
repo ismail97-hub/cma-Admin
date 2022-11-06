@@ -2,6 +2,8 @@ import 'package:cma_admin/domain/model/model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import '../../app/enum.dart';
+
 part 'freezed_data_classes.freezed.dart';
 
 @freezed
@@ -18,6 +20,16 @@ class AddUserObject with _$AddUserObject {
     String password,
     String username,
   ) = _AddUserObject;
+}
+
+@freezed
+class UpdateUserObject with _$UpdateUserObject {
+  factory UpdateUserObject(
+    PickerFile? image,
+    String name,
+    UserRole role,
+    String username,
+  ) = _UpdateUserObject;
 }
 
 @freezed
@@ -95,4 +107,14 @@ class OrdersViewObject with _$OrdersViewObject {
   factory OrdersViewObject(
     PickerDateRange dateRange,
   ) = _OrdersViewObject; 
+}
+
+
+@freezed
+class InfoObject with _$InfoObject {
+  factory InfoObject(
+    String telephone,
+    String address,
+    String wifiPassword,
+  ) = _InfoObject;
 }

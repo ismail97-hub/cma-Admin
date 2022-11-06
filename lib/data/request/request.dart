@@ -79,13 +79,10 @@ class UpdateUserRequest {
   String id;
   PickerFile? image;
   String name;
-  String password;
-
   String role;
   String username;
 
-  UpdateUserRequest(
-      this.id, this.image, this.name, this.password, this.role, this.username);
+  UpdateUserRequest(this.id, this.image, this.name,this.role, this.username);
 }
 
 class UpdateCategoryRequest {

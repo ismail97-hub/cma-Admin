@@ -12,6 +12,7 @@ class IconManger {
   static const IconData products = Ionicons.bag_outline;
   static const IconData supplements = Ionicons.ice_cream_outline;
   static const IconData users = Ionicons.people_outline;
+  static const IconData info = Icons.info_outline;
   static const IconData logout = AntIcons.logout_outline;
   
 

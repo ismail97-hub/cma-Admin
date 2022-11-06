@@ -23,6 +23,7 @@ class ErrorHandler implements Exception {
   late Failure failure;
 
   ErrorHandler.handle(dynamic error) {
+    print(error);
     if (error is DioError) {
       // dio error so its error from response of the API
       failure = _handleError(error);

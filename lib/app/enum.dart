@@ -6,7 +6,7 @@ enum OrderStatus {
 }
 
 extension TopicString on String {
-  OrderStatus toEnum() {
+  OrderStatus toOrderStatusEnum() {
     switch (this) {
       case 'INPROGRESS':
         return OrderStatus.INPROGRESS;
@@ -35,6 +35,47 @@ extension OrderStatusString on OrderStatus {
         return 'CANCELED';
       default:
         return 'INPROGRESS';
+    }
+  }
+}
+
+enum UserRole {
+  OWNER,
+  MANAGER,
+  WAITER,
+  BARMAN
+}
+
+extension UserRoleFromString on String {
+  UserRole toUserRoleEnum() {
+    switch (this) {
+      case 'OWNER':
+        return UserRole.OWNER;
+      case 'MANAGER':
+        return UserRole.MANAGER;
+      case 'WAITER':
+        return UserRole.WAITER;
+      case 'BARMAN':
+        return UserRole.BARMAN;
+      default:
+        return UserRole.WAITER;
+    }
+  }
+}
+
+extension UserRoleToString on UserRole{
+  String toStr() {
+    switch (this) {
+      case UserRole.OWNER:
+       return 'OWNER';
+      case UserRole.MANAGER:
+        return 'MANAGER';
+      case UserRole.WAITER:
+        return 'WAITER';
+      case UserRole.BARMAN:
+        return 'BARMAN';
+      default:
+        return 'WAITER';
     }
   }
 }

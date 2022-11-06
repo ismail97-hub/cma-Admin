@@ -62,6 +62,16 @@ abstract class AppServiceClient {
     @Part() required String username,
   });
 
+  @POST("/user/{id}/update")
+  @MultiPart()
+  Future<UserResponse> updateUser({
+    @Path() required String id,
+    @Part() PickerFile? image,
+    @Part() required String name,
+    @Path() required String role,
+    @Part() required String username,
+  });
+
   @POST("/category/save")
   @MultiPart()
   Future<CategoryResponse> addCategory({
@@ -154,4 +164,14 @@ abstract class AppServiceClient {
 
   @GET("/order/status/{status}/count")
   Future<int> getNumberOrdersByState(@Path() String status);
+
+  @GET("/info")
+  Future<InfoResponse> getInfo();
+
+  @PUT("/info")
+  @MultiPart()
+  Future<InfoResponse> updateInfo(
+    @Part() String telephone,
+    @Part() String address,
+    @Part() String wifiPassword);
 }

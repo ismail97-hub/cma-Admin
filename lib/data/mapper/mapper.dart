@@ -17,7 +17,7 @@ extension UserResponseExtension on UserResponse? {
   User toDomain() {
     return User(
         this?.id?.orZero() ?? ZERO,
-        dateFormat2(this?.createdAt?.orEmpty() ?? EMPTY),
+        dateFormat(this?.createdAt?.orEmpty() ?? EMPTY),
         this?.deletedAt?.orEmpty() ?? EMPTY,
         this?.modifiedAt?.orEmpty() ?? EMPTY,
         this?.active?.orFalse() ?? FALSE,
@@ -116,7 +116,7 @@ extension OrderResponseExtension on OrderResponse? {
         this?.deletedAt?.orEmpty() ?? EMPTY,
         this?.modifiedAt?.orEmpty() ?? EMPTY,
         this?.active.orFalse() ?? FALSE,
-        (this?.status.orEmpty() ?? EMPTY).toEnum(),
+        (this?.status.orEmpty() ?? EMPTY).toOrderStatusEnum(),
         this?.items?.toDomain(),
         this?.totalAmount.orZeroD() ?? ZEROD,
         this?.itemsNumber?.orZero() ?? ZERO,
@@ -222,6 +222,16 @@ extension OrdersInsightsResponseExtension on OrdersInsightsResponse?{
       this?.totalAmount?.orZeroD()??ZEROD, 
       this?.totalCount?.orZero()??ZERO, 
       this?.orders?.toDomain());
+  }
+}
+
+extension InfoResponseExtension on InfoResponse?{
+  Info toDomain(){
+    return Info(
+      this?.name?.orEmpty()??EMPTY, 
+      this?.telephone?.orEmpty()??EMPTY, 
+      this?.address?.orEmpty()??EMPTY, 
+      this?.wifiPassword?.orEmpty()??EMPTY);
   }
 }
 

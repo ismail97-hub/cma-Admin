@@ -383,6 +383,197 @@ abstract class _AddUserObject implements AddUserObject {
 }
 
 /// @nodoc
+class _$UpdateUserObjectTearOff {
+  const _$UpdateUserObjectTearOff();
+
+  _UpdateUserObject call(
+      PickerFile? image, String name, UserRole role, String username) {
+    return _UpdateUserObject(
+      image,
+      name,
+      role,
+      username,
+    );
+  }
+}
+
+/// @nodoc
+const $UpdateUserObject = _$UpdateUserObjectTearOff();
+
+/// @nodoc
+mixin _$UpdateUserObject {
+  PickerFile? get image => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  UserRole get role => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $UpdateUserObjectCopyWith<UpdateUserObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UpdateUserObjectCopyWith<$Res> {
+  factory $UpdateUserObjectCopyWith(
+          UpdateUserObject value, $Res Function(UpdateUserObject) then) =
+      _$UpdateUserObjectCopyWithImpl<$Res>;
+  $Res call({PickerFile? image, String name, UserRole role, String username});
+}
+
+/// @nodoc
+class _$UpdateUserObjectCopyWithImpl<$Res>
+    implements $UpdateUserObjectCopyWith<$Res> {
+  _$UpdateUserObjectCopyWithImpl(this._value, this._then);
+
+  final UpdateUserObject _value;
+  // ignore: unused_field
+  final $Res Function(UpdateUserObject) _then;
+
+  @override
+  $Res call({
+    Object? image = freezed,
+    Object? name = freezed,
+    Object? role = freezed,
+    Object? username = freezed,
+  }) {
+    return _then(_value.copyWith(
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as PickerFile?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: role == freezed
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as UserRole,
+      username: username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$UpdateUserObjectCopyWith<$Res>
+    implements $UpdateUserObjectCopyWith<$Res> {
+  factory _$UpdateUserObjectCopyWith(
+          _UpdateUserObject value, $Res Function(_UpdateUserObject) then) =
+      __$UpdateUserObjectCopyWithImpl<$Res>;
+  @override
+  $Res call({PickerFile? image, String name, UserRole role, String username});
+}
+
+/// @nodoc
+class __$UpdateUserObjectCopyWithImpl<$Res>
+    extends _$UpdateUserObjectCopyWithImpl<$Res>
+    implements _$UpdateUserObjectCopyWith<$Res> {
+  __$UpdateUserObjectCopyWithImpl(
+      _UpdateUserObject _value, $Res Function(_UpdateUserObject) _then)
+      : super(_value, (v) => _then(v as _UpdateUserObject));
+
+  @override
+  _UpdateUserObject get _value => super._value as _UpdateUserObject;
+
+  @override
+  $Res call({
+    Object? image = freezed,
+    Object? name = freezed,
+    Object? role = freezed,
+    Object? username = freezed,
+  }) {
+    return _then(_UpdateUserObject(
+      image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as PickerFile?,
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      role == freezed
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as UserRole,
+      username == freezed
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_UpdateUserObject implements _UpdateUserObject {
+  _$_UpdateUserObject(this.image, this.name, this.role, this.username);
+
+  @override
+  final PickerFile? image;
+  @override
+  final String name;
+  @override
+  final UserRole role;
+  @override
+  final String username;
+
+  @override
+  String toString() {
+    return 'UpdateUserObject(image: $image, name: $name, role: $role, username: $username)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _UpdateUserObject &&
+            (identical(other.image, image) ||
+                const DeepCollectionEquality().equals(other.image, image)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.role, role) ||
+                const DeepCollectionEquality().equals(other.role, role)) &&
+            (identical(other.username, username) ||
+                const DeepCollectionEquality()
+                    .equals(other.username, username)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(image) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(role) ^
+      const DeepCollectionEquality().hash(username);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UpdateUserObjectCopyWith<_UpdateUserObject> get copyWith =>
+      __$UpdateUserObjectCopyWithImpl<_UpdateUserObject>(this, _$identity);
+}
+
+abstract class _UpdateUserObject implements UpdateUserObject {
+  factory _UpdateUserObject(
+          PickerFile? image, String name, UserRole role, String username) =
+      _$_UpdateUserObject;
+
+  @override
+  PickerFile? get image => throw _privateConstructorUsedError;
+  @override
+  String get name => throw _privateConstructorUsedError;
+  @override
+  UserRole get role => throw _privateConstructorUsedError;
+  @override
+  String get username => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$UpdateUserObjectCopyWith<_UpdateUserObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 class _$AddCategoryObjectTearOff {
   const _$AddCategoryObjectTearOff();
 
@@ -1873,5 +2064,174 @@ abstract class _OrdersViewObject implements OrdersViewObject {
   @override
   @JsonKey(ignore: true)
   _$OrdersViewObjectCopyWith<_OrdersViewObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+class _$InfoObjectTearOff {
+  const _$InfoObjectTearOff();
+
+  _InfoObject call(String telephone, String address, String wifiPassword) {
+    return _InfoObject(
+      telephone,
+      address,
+      wifiPassword,
+    );
+  }
+}
+
+/// @nodoc
+const $InfoObject = _$InfoObjectTearOff();
+
+/// @nodoc
+mixin _$InfoObject {
+  String get telephone => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
+  String get wifiPassword => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $InfoObjectCopyWith<InfoObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $InfoObjectCopyWith<$Res> {
+  factory $InfoObjectCopyWith(
+          InfoObject value, $Res Function(InfoObject) then) =
+      _$InfoObjectCopyWithImpl<$Res>;
+  $Res call({String telephone, String address, String wifiPassword});
+}
+
+/// @nodoc
+class _$InfoObjectCopyWithImpl<$Res> implements $InfoObjectCopyWith<$Res> {
+  _$InfoObjectCopyWithImpl(this._value, this._then);
+
+  final InfoObject _value;
+  // ignore: unused_field
+  final $Res Function(InfoObject) _then;
+
+  @override
+  $Res call({
+    Object? telephone = freezed,
+    Object? address = freezed,
+    Object? wifiPassword = freezed,
+  }) {
+    return _then(_value.copyWith(
+      telephone: telephone == freezed
+          ? _value.telephone
+          : telephone // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      wifiPassword: wifiPassword == freezed
+          ? _value.wifiPassword
+          : wifiPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$InfoObjectCopyWith<$Res> implements $InfoObjectCopyWith<$Res> {
+  factory _$InfoObjectCopyWith(
+          _InfoObject value, $Res Function(_InfoObject) then) =
+      __$InfoObjectCopyWithImpl<$Res>;
+  @override
+  $Res call({String telephone, String address, String wifiPassword});
+}
+
+/// @nodoc
+class __$InfoObjectCopyWithImpl<$Res> extends _$InfoObjectCopyWithImpl<$Res>
+    implements _$InfoObjectCopyWith<$Res> {
+  __$InfoObjectCopyWithImpl(
+      _InfoObject _value, $Res Function(_InfoObject) _then)
+      : super(_value, (v) => _then(v as _InfoObject));
+
+  @override
+  _InfoObject get _value => super._value as _InfoObject;
+
+  @override
+  $Res call({
+    Object? telephone = freezed,
+    Object? address = freezed,
+    Object? wifiPassword = freezed,
+  }) {
+    return _then(_InfoObject(
+      telephone == freezed
+          ? _value.telephone
+          : telephone // ignore: cast_nullable_to_non_nullable
+              as String,
+      address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      wifiPassword == freezed
+          ? _value.wifiPassword
+          : wifiPassword // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_InfoObject implements _InfoObject {
+  _$_InfoObject(this.telephone, this.address, this.wifiPassword);
+
+  @override
+  final String telephone;
+  @override
+  final String address;
+  @override
+  final String wifiPassword;
+
+  @override
+  String toString() {
+    return 'InfoObject(telephone: $telephone, address: $address, wifiPassword: $wifiPassword)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _InfoObject &&
+            (identical(other.telephone, telephone) ||
+                const DeepCollectionEquality()
+                    .equals(other.telephone, telephone)) &&
+            (identical(other.address, address) ||
+                const DeepCollectionEquality()
+                    .equals(other.address, address)) &&
+            (identical(other.wifiPassword, wifiPassword) ||
+                const DeepCollectionEquality()
+                    .equals(other.wifiPassword, wifiPassword)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(telephone) ^
+      const DeepCollectionEquality().hash(address) ^
+      const DeepCollectionEquality().hash(wifiPassword);
+
+  @JsonKey(ignore: true)
+  @override
+  _$InfoObjectCopyWith<_InfoObject> get copyWith =>
+      __$InfoObjectCopyWithImpl<_InfoObject>(this, _$identity);
+}
+
+abstract class _InfoObject implements InfoObject {
+  factory _InfoObject(String telephone, String address, String wifiPassword) =
+      _$_InfoObject;
+
+  @override
+  String get telephone => throw _privateConstructorUsedError;
+  @override
+  String get address => throw _privateConstructorUsedError;
+  @override
+  String get wifiPassword => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$InfoObjectCopyWith<_InfoObject> get copyWith =>
       throw _privateConstructorUsedError;
 }

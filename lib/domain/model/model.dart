@@ -305,3 +305,20 @@ class SignInData {
 
   SignInData(this.token, this.user);
 }
+
+class Info{
+  String name;
+  
+  String telephone;
+  
+  String address;
+
+  String wifiPassword;
+
+  Info(
+    this.name,
+    this.telephone,
+    this.address,
+    this.wifiPassword,
+  );
+}

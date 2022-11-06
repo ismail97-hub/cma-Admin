@@ -18,6 +18,7 @@ abstract class Repository {
   Future<Either<Failure, Product>> addSupplementsToProduct(String productId, String suppsId);
   Future<Either<Failure, void>> deleteSupplementFromProduct(String productId, String suppId);
   Future<Either<Failure, SignInData>> addUser(AddUserRequest addUserRequest);
+  Future<Either<Failure, User>> updateUser(UpdateUserRequest updateUserRequest);
   Future<Either<Failure, Category>> addCategory(AddCategoryRequest addCategoryRequest);
   Future<Either<Failure, Supplement>> addSupplement(AddSupplementRequest addSupplementRequest);
   Future<Either<Failure, Supplement>> updateSupplement(UpdateSupplementRequest updateSupplementRequest);
@@ -36,4 +37,6 @@ abstract class Repository {
   Future<Either<Failure,void>> acceptCancelOrder(String id);
   Future<Either<Failure,void>> rejectCancelOrder(String id);
   Future<Either<Failure,int>> getNumberOrdersByState(OrderStatus status);
+  Future<Either<Failure,Info>> getInfo();
+  Future<Either<Failure,Info>> updateInfo(String telephone,String address,String wifiPassword);
 }

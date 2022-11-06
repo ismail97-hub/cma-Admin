@@ -31,12 +31,13 @@ class SideNavBar extends StatelessWidget {
                 items: [
                   _getSideNavItem(0,AppStrings.dashboard, IconManger.dashboard),
                   _getSideNavItem(1,AppStrings.orders, IconManger.orders),
-                  _getSideNavItem(2,AppStrings.cancelOrders, IconManger.cancelOrders,showBadge: true,badgeContent: count.toString()),
+                  _getSideNavItem(2,AppStrings.cancelOrders, IconManger.cancelOrders,showBadge: count!=ZERO,badgeContent: count.toString()),
                   _getSideNavItem(3,AppStrings.categories, IconManger.categories),
                   _getSideNavItem(4,AppStrings.products, IconManger.products),
                   _getSideNavItem(5,AppStrings.supplements, IconManger.supplements),
                   _getSideNavItem(6,AppStrings.users, IconManger.users),
-                  _getSideNavItem(7,AppStrings.logout, IconManger.logout),
+                  _getSideNavItem(7,AppStrings.info, IconManger.info),
+                  _getSideNavItem(8,AppStrings.logout, IconManger.logout),
                 ]);        
       }
     );

@@ -23,6 +23,7 @@ import 'package:cma_admin/presentation/update_supplement/update_supplement.dart'
 import 'package:cma_admin/presentation/all_waiters_insights/all_waiters_insights_view.dart';
 
 import '../add_product/add_product_view.dart';
+import '../update_user/update_user_view.dart';
 
 class Routes {
   static const String homeRoute = "/home";
@@ -30,6 +31,7 @@ class Routes {
   static const String addUserRoute = "/addUser";
   static const String addCategoryRoute = "/addCategory";
   static const String addSupplementRoute = "/addSupplement";
+  static const String updateUserRoute = "/updateUser";
   static const String updateSupplementRoute = "/updateSupplement";
   static const String updateCategoryRoute = "/updateCategory";
   static const String updateProductRoute = "/updateProduct";
@@ -51,6 +53,10 @@ class RouteGenerator {
       case Routes.loginRoute:
         initSignInModule();
         return CupertinoPageRoute(builder: (_) => SignInView());
+      case Routes.updateUserRoute:
+        initUpdateUserModule();
+        User user  = routeSettings.arguments as User;
+        return CupertinoPageRoute(builder: (_) => UpdateUserView(user)); 
       case Routes.updateSupplementRoute:
         initUpdateSupplementModule();
         Supplement supplement = routeSettings.arguments as Supplement;
@@ -97,6 +103,7 @@ class RouteGenerator {
         initProductsModule();
         initSupplementsModule();
         initUsersModule();
+        initUpdateInfoModule();
         return CupertinoPageRoute(
             builder: (_) => HomeView());
       case Routes.categoryDetailsRoute:

@@ -102,7 +102,6 @@ class _AppServiceClient implements AppServiceClient {
     return value;
   }
 
-
   @override
   Future<bool> activeTogle(type, id) async {
     const _extra = <String, dynamic>{};
@@ -244,6 +243,34 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<UserResponse> updateUser(
+      {required id,
+      image,
+      required name,
+      required role,
+      required username}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    if (image != null) {
+      _data.files.add(MapEntry(
+          'image',
+          MultipartFile.fromBytes(image.byte,filename: "image.${image.extensions}")));
+    }
+    _data.fields.add(MapEntry('name', name));
+    _data.fields.add(MapEntry('username', username));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserResponse>(
+            Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/user/$id/update',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<CategoryResponse> addCategory(
       {image, required label, required color}) async {
     const _extra = <String, dynamic>{};
@@ -254,7 +281,6 @@ class _AppServiceClient implements AppServiceClient {
       _data.files.add(MapEntry(
           'image',
           MultipartFile.fromBytes(image.byte,filename: "image.${image.extensions}")));
-
     }
     _data.fields.add(MapEntry('label', label));
     _data.fields.add(MapEntry('color', color));
@@ -389,7 +415,7 @@ class _AppServiceClient implements AppServiceClient {
     _data.fields.add(MapEntry('categoryId', categoryId));
     _data.fields.add(MapEntry('color', color));
     if (image != null) {
-      _data.files.add(MapEntry(
+     _data.files.add(MapEntry(
           'image',
           MultipartFile.fromBytes(image.byte,filename: "image.${image.extensions}")));
     }
@@ -446,7 +472,7 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<AllWaitersInsightsResponse> getAllWaitersInsights(date1,date2) async {
+  Future<AllWaitersInsightsResponse> getAllWaitersInsights(date1, date2) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -460,15 +486,16 @@ class _AppServiceClient implements AppServiceClient {
     return value;
   }
 
-    @override
-  Future<WaiterInsightsResponse> getWaiterInsights(date1,date2,id) async {
+  @override
+  Future<WaiterInsightsResponse> getWaiterInsights(date1, date2, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<WaiterInsightsResponse>(
             Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/admin/waiter/$id/insights/$date1/$date2',
+                .compose(
+                    _dio.options, '/admin/waiter/$id/insights/$date1/$date2',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = WaiterInsightsResponse.fromJson(_result.data!);
@@ -476,69 +503,73 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<OrdersInsightsResponse> getOrdersInsights(date1, date2, pageIndex) async {
+  Future<OrdersInsightsResponse> getOrdersInsights(
+      date1, date2, pageIndex) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OrdersInsightsResponse>(Options(
                 method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-            .compose(
-                _dio.options, '/admin/orders/insights/$date1/$date2?page=$pageIndex&size=10',
+            .compose(_dio.options,
+                '/admin/orders/insights/$date1/$date2?page=$pageIndex&size=10',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = OrdersInsightsResponse.fromJson(_result.data!);
     return value;
   }
-  
+
   @override
-  Future<List<CategoryCountResponse>> getCategoriesQuantityConsumed(date1, date2) async {
+  Future<List<CategoryCountResponse>> getCategoriesQuantityConsumed(
+      date1, date2) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<CategoryCountResponse>>(Options(
-                method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-            .compose(
-                _dio.options, '/admin/categories/quantity/$date1/$date2',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<List<CategoryCountResponse>>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(
+                    _dio.options, '/admin/categories/quantity/$date1/$date2',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) => CategoryCountResponse.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) =>
+            CategoryCountResponse.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
-    @override
-  Future<List<ProductCountResponse>> getProductsQuantityConsumedByCategory(date1, date2,categoryId) async {
+  @override
+  Future<List<ProductCountResponse>> getProductsQuantityConsumedByCategory(
+      date1, date2, categoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<ProductCountResponse>>(Options(
                 method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-            .compose(
-                _dio.options, '/admin/category/$categoryId/products/quantity/$date1/$date2',
+            .compose(_dio.options,
+                '/admin/category/$categoryId/products/quantity/$date1/$date2',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) => ProductCountResponse.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) =>
+            ProductCountResponse.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
-    @override
+  @override
   Future<List<OrderResponse>> getOrdersByState(status) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<OrderResponse>>(Options(
-                method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-            .compose(
-                _dio.options, '/order/status/$status',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        _setStreamType<List<OrderResponse>>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/order/status/$status',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
         .map((dynamic i) => OrderResponse.fromJson(i as Map<String, dynamic>))
         .toList();
@@ -557,7 +588,7 @@ class _AppServiceClient implements AppServiceClient {
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     return null;
   }
-  
+
   @override
   Future<void> rejectCancelOrder(id) async {
     const _extra = <String, dynamic>{};
@@ -571,17 +602,50 @@ class _AppServiceClient implements AppServiceClient {
     return null;
   }
 
-    @override
+  @override
   Future<int> getNumberOrdersByState(status) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<int>(_setStreamType<bool>(
+    final _result = await _dio.fetch<int>(_setStreamType<int>(
         Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
             .compose(_dio.options, '/order/status/$status/count',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<InfoResponse> getInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<InfoResponse>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/info',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = InfoResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<InfoResponse> updateInfo(telephone, address, wifiPassword) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry('telephone', telephone));
+    _data.fields.add(MapEntry('address', address));
+    _data.fields.add(MapEntry('wifiPassword', wifiPassword));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<InfoResponse>(
+            Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/info',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = InfoResponse.fromJson(_result.data!);
     return value;
   }
 

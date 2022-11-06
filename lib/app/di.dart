@@ -16,8 +16,10 @@ import 'package:cma_admin/domain/usecase/products_insights_usecase.dart';
 import 'package:cma_admin/domain/usecase/signIn_usecase.dart';
 import 'package:cma_admin/domain/usecase/supplement_usecase.dart';
 import 'package:cma_admin/domain/usecase/update_category_usecase.dart';
+import 'package:cma_admin/domain/usecase/update_info_usecase.dart';
 import 'package:cma_admin/domain/usecase/update_product_usecase.dart';
 import 'package:cma_admin/domain/usecase/update_supplement_usecase.dart';
+import 'package:cma_admin/domain/usecase/update_user_usecase.dart';
 import 'package:cma_admin/domain/usecase/user_usecase.dart';
 import 'package:cma_admin/domain/usecase/all_waiters_insights_usecase.dart';
 import 'package:cma_admin/domain/usecase/waiter_insights_usecase.dart';
@@ -44,9 +46,11 @@ import 'package:cma_admin/presentation/add_user/add_user_viewmodel.dart';
 import 'package:cma_admin/presentation/products_insights/products_insights_viewmodel.dart';
 import 'package:cma_admin/presentation/signIn/signIn_view_model.dart';
 import 'package:cma_admin/presentation/update_category/update_category_view_model.dart';
+import 'package:cma_admin/presentation/update_info/update_info_viewmodel.dart';
 import 'package:cma_admin/presentation/update_product/update_product_view_model.dart';
 import 'package:cma_admin/presentation/update_supplement/update_supplement_view_model.dart';
 import 'package:cma_admin/presentation/all_waiters_insights/all_waiters_insights_viewmodel.dart';
+import 'package:cma_admin/presentation/update_user/update_user_viewmodel.dart';
 import 'package:cma_admin/presentation/waiter_insights/waiter_insights_viewmodel.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -224,6 +228,20 @@ initAddProductModule() {
 
 /// init update
 
+initUpdateInfoModule(){
+  if (!GetIt.I.isRegistered<UpdateInfoUseCase>()) {
+    instance.registerFactory<UpdateInfoUseCase>(() => UpdateInfoUseCase(instance()));
+    instance.registerFactory<UpdateInfoViewModel>(() => UpdateInfoViewModel(instance()));
+  }
+}
+
+initUpdateUserModule(){
+  if (!GetIt.I.isRegistered<UpdateUserUseCase>()) {
+    instance.registerFactory<UpdateUserUseCase>(() => UpdateUserUseCase(instance()));
+    instance.registerFactory<UpdateUserViewModel>(() => UpdateUserViewModel(instance(),instance()));
+  }
+}
+
 initUpdateSupplementModule() {
   if (!GetIt.I.isRegistered<UpdateSupplementUseCase>()) {
     instance.registerFactory<UpdateSupplementUseCase>(
@@ -303,6 +321,8 @@ resetModules() {
   initCategoriesInsightsModule();
   initProductsInsightsModule();
   //update
+  initUpdateInfoModule();
+  initUpdateUserModule();
   initUpdateSupplementModule();
   initUpdateCategoryModule();
   initUpdateProductModule();

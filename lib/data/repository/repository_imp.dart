@@ -185,6 +185,16 @@ class RepositoryImpl extends Repository {
   }
 
   @override
+  Future<Either<Failure, User>> updateUser(UpdateUserRequest updateUserRequest) async {
+    try {
+      final response = await _remoteDataSource.updateUser(updateUserRequest);
+      return Right(response.toDomain());
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> deleteSupplementFromProduct(
       String productId, String suppId) async {
     try {
@@ -351,6 +361,26 @@ class RepositoryImpl extends Repository {
     try {
       final response = await _remoteDataSource.getNumberOrdersByState(status.toStr());
       return Right(response);
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, Info>> getInfo()async {
+    try {
+      final response = await _remoteDataSource.getInfo();
+      return Right(response.toDomain());
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, Info>> updateInfo(String telephone, String address, String wifiPassword) async{
+    try {
+      final response = await _remoteDataSource.updateInfo(telephone, address, wifiPassword);
+      return Right(response.toDomain());
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
     }

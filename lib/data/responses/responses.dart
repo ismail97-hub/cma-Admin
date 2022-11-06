@@ -474,3 +474,33 @@ class OrdersInsightsResponse {
   Map<String, dynamic> toJson() => _$OrdersInsightsResponseToJson(this);
 
 }
+
+@JsonSerializable()
+class InfoResponse {
+  @JsonKey(name: "name")
+  String? name;
+  
+  @JsonKey(name: "telephone")
+  String? telephone;
+  
+  @JsonKey(name: "address")
+  String? address;
+
+  @JsonKey(name: "wifiPassword")
+  String? wifiPassword;
+
+  InfoResponse(
+    this.name,
+    this.telephone,
+    this.address,
+    this.wifiPassword,
+  );
+
+  // from json
+  factory InfoResponse.fromJson(Map<String, dynamic> json) =>
+      _$InfoResponseFromJson(json);
+
+  // to json
+  Map<String, dynamic> toJson() => _$InfoResponseToJson(this);
+
+}

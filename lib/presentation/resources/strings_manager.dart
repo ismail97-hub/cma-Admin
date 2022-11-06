@@ -4,6 +4,9 @@ class AppStrings {
   static const String skip = "Skip";
   static const String username = "Username";
   static const String name = "name";
+  static const String address = "address";
+  static const String telephone = "telephone";
+  static const String wifiPassword = "wifi password";
   static const String role = "role";
   static const String mobileNumber = "Mobile Number";
   static const String usernameError = "Username is wrong";
@@ -65,6 +68,7 @@ class AppStrings {
   static const String supplements = "Supplements";
   static const String cancelOrders = "Cancel Orders";
   static const String users = "Users";
+  static const String info = "Info";
   static const String logout = "Logout";
 
   // home
@@ -175,7 +179,12 @@ class AppStrings {
 
   //Update
   static const String update = "Update";
+  static const String updateInfo = "Update Info";
   static const String updateSupplement = "Update Supplement";
   static const String updateProduct = "Update Product";
   static const String updateCategory = "Update Category";
+  static const String updateUser = "Update User";
+
+  //info
+  static const String successUpdateInfo = "Information has been updated";
 }

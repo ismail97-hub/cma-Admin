@@ -16,6 +16,7 @@ abstract class RemoteDataSource {
   Future<ProductResponse> addSupplementsToProduct(String productId, String suppsId);
   Future<void> deleteSupplementsToProduct(String productId, String suppId);
   Future<SignInResponse> addUser(AddUserRequest addUserRequest);
+  Future<UserResponse> updateUser(UpdateUserRequest updateUserRequest);
   Future<CategoryResponse> addCategory(AddCategoryRequest addCategoryRequest);
   Future<ProductResponse> addProduct(AddProductRequest addProductRequest);
   Future<SupplementResponse> addSupplement( AddSupplementRequest addSupplementRequest);
@@ -34,6 +35,8 @@ abstract class RemoteDataSource {
   Future<void> acceptCancelOrder(String id);
   Future<void> rejectCancelOrder(String id);
   Future<int> getNumberOrdersByState(String status);
+  Future<InfoResponse> getInfo();
+  Future<InfoResponse> updateInfo(String telephone,String address,String wifiPassword);
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -105,6 +108,16 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
         password: addUserRequest.password,
         role: addUserRequest.role,
         username: addUserRequest.username);
+  }
+
+  @override
+  Future<UserResponse> updateUser(UpdateUserRequest updateUserRequest) async {
+    return await _appServiceClient.updateUser(
+        image: updateUserRequest.image,
+        id: updateUserRequest.id, 
+        name: updateUserRequest.name, 
+        role: updateUserRequest.role, 
+        username: updateUserRequest.username);
   }
 
   @override
@@ -235,5 +248,15 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
   @override
   Future<int> getNumberOrdersByState(String status) {
     return _appServiceClient.getNumberOrdersByState(status);
+  }
+  
+  @override
+  Future<InfoResponse> getInfo() {
+    return _appServiceClient.getInfo();
+  }
+  
+  @override
+  Future<InfoResponse> updateInfo(String telephone, String address, String wifiPassword) {
+    return _appServiceClient.updateInfo(telephone, address, wifiPassword);
   }
 }
