@@ -29,7 +29,7 @@ class CancelOrdersViewModel extends BaseViewModel with CancelOrdersViewModelInpu
   _getPreCanceledOrders()async{
     inputState.add(LoadingState(stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
     (await _useCase.execute(EMPTY)).fold(
-      (failure) => inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)), 
+      (failure) => inputState.add(ErrorState(StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message)), 
       (preCanceledOrders) {
         inputPreCanceledOrders.add(preCanceledOrders);
         inputState.add(ContentState());

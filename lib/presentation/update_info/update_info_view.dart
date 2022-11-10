@@ -62,7 +62,7 @@ class _UpdateInfoViewState extends State<UpdateInfoView> {
               children: [
                 //title
                 Text(
-                  AppStrings.updateInfo,
+                  AppStrings.info,
                   style: getSemiBoldStyle(
                       color: ColorManager.black, fontSize: FontSize.s24),
                 ),
@@ -142,7 +142,7 @@ class _UpdateInfoViewState extends State<UpdateInfoView> {
                           onPressed: (snapshot.data ?? false)
                               ? () {_viewModel.updateInfo(context);}
                               : null,
-                          child: Text(AppStrings.update)),
+                          child: Text(AppStrings.save)),
                     );
                   },
                 ),

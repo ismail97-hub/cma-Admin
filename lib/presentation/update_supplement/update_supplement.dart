@@ -119,6 +119,7 @@ class _UpdateSupplementViewState extends State<UpdateSupplementView> {
               children: [
                 // image picker
                 ImagePickerWidget(
+                  imageUrl: widget.supplement.image,
                   setImage:(pickerFile){
                     _viewModel.setProfilePicture(pickerFile);
                   }, 

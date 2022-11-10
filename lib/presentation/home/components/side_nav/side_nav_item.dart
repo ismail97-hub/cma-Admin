@@ -7,16 +7,34 @@ import 'package:flutter/material.dart';
 import '../../../resources/values_manager.dart';
 
 class SideNavItem extends StatelessWidget {
-  const SideNavItem(
+  SideNavItem(
       {Key? key,
-      bool? isSelected,
+      required this.isSelected,
       bool? showBadge,
+      Color? selectedItemColor,
+      Color? unSelectedItemColor,
+      Color? selectedIconColor,
+      Color? unSelectedIconColor,
+      Color? selectedTextColor,
+      Color? unSelectedTextColor,
+      Color? hoverColor,
+      double? iconSize,
+      double? textSize,
+      this.badgeWidget,
       required this.onTap,
       required this.icon,
       required this.label,
       this.badgeContent})
-      : this.isSelected = isSelected ?? false,
-        this.showBadge = showBadge ?? false,
+      : this.showBadge = showBadge ?? false,
+        this.selectedItemColor = selectedItemColor ?? ColorManager.white,
+        this.unSelectedItemColor = unSelectedItemColor ?? ColorManager.primary,
+        this.selectedIconColor = selectedIconColor ?? ColorManager.primary,
+        this.unSelectedIconColor = unSelectedIconColor ?? ColorManager.white,
+        this.selectedTextColor = selectedTextColor ?? ColorManager.primary,
+        this.unSelectedTextColor = unSelectedTextColor ?? ColorManager.white,
+        this.hoverColor = hoverColor ?? ColorManager.lightGrey.withOpacity(0.3),
+        this.textSize = textSize ?? FontSize.s13,
+        this.iconSize = iconSize ?? AppSize.s22,
         super(key: key);
 
   final bool isSelected;
@@ -25,27 +43,37 @@ class SideNavItem extends StatelessWidget {
   final String label;
   final String? badgeContent;
   final Function onTap;
-  
+  final Color selectedItemColor;
+  final Color unSelectedItemColor;
+  final Color selectedIconColor;
+  final Color unSelectedIconColor;
+  final Color hoverColor;
+  final double iconSize;
+  final Color selectedTextColor;
+  final Color unSelectedTextColor;
+  final double textSize;
+  final Widget? badgeWidget;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: isSelected?ColorManager.white:ColorManager.primary,
+        color: isSelected?selectedItemColor:unSelectedItemColor,
         borderRadius: BorderRadius.circular(AppSize.s4)     
       ),
       child: ListTile(
         horizontalTitleGap: AppSize.s0,
         style: ListTileStyle.drawer,
         selected: isSelected,
-        iconColor: ColorManager.white,
-        selectedColor: ColorManager.primary,
-        hoverColor: ColorManager.lightGrey.withOpacity(0.3),
+        iconColor: unSelectedIconColor,
+        selectedColor: selectedIconColor,
+        hoverColor: hoverColor,
         onTap: ()=>onTap.call(),
-        leading: Icon(icon,size: AppSize.s22),
-        title: Text(label,style: getMediumStyle(color: isSelected?ColorManager.primary:ColorManager.white,fontSize: FontSize.s13)),
+        leading: Icon(icon,size: iconSize),
+        title: Text(label,style:getMediumStyle(color: isSelected?selectedTextColor:unSelectedTextColor,fontSize: textSize)),
         trailing: !showBadge
             ? null
-            : CircleAvatar(
+            : badgeWidget??CircleAvatar(
                 radius: 10,
                 backgroundColor:isSelected ? ColorManager.primary : ColorManager.white,
                 child: Text(badgeContent??EMPTY,

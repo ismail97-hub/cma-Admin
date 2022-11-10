@@ -85,6 +85,17 @@ class UpdateUserRequest {
   UpdateUserRequest(this.id, this.image, this.name,this.role, this.username);
 }
 
+class UpdateMyAccountRequest {
+  PickerFile? image;
+  String? oldPassword;
+  String? newPassword;
+  String name;
+  String role;
+  String username;
+
+  UpdateMyAccountRequest(this.image,this.oldPassword,this.newPassword,this.name,this.role, this.username);
+}
+
 class UpdateCategoryRequest {
   String id;
   PickerFile? image;

@@ -6,11 +6,9 @@ part of 'request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserRequest _$UserRequestFromJson(Map<String, dynamic> json) {
-  return UserRequest(
-    json['id'] as int,
-  );
-}
+UserRequest _$UserRequestFromJson(Map<String, dynamic> json) => UserRequest(
+      json['id'] as int,
+    );
 
 Map<String, dynamic> _$UserRequestToJson(UserRequest instance) =>
     <String, dynamic>{

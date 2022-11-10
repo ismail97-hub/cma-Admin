@@ -109,6 +109,7 @@ class _UpdateUserViewState extends State<UpdateUserView> {
               children: [
                 //image
                 ImagePickerWidget(
+                  imageUrl: widget.user.image,
                   setImage: (image)=>_viewModel.setImage(image), 
                   imageStream: _viewModel.outputImage),
                 SizedBox(height: AppSize.s30),

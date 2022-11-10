@@ -8,7 +8,13 @@
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "type": "dart",
+            "flutterMode": "debug",
+            
             "args": [
+                "-d",
+                "chrome",
+                "--web-renderer",
+                "html",
             ]
         }
     ]

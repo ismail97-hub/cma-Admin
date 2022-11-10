@@ -32,6 +32,8 @@ import 'package:cma_admin/presentation/home/dashboard/dashboard_viewmodel.dart';
 import 'package:cma_admin/presentation/home/home_viewmodel.dart';
 import 'package:cma_admin/presentation/home/orders/orders_viewmodel.dart';
 import 'package:cma_admin/presentation/home/product/product_viewmodel.dart';
+import 'package:cma_admin/presentation/home/settings/account_settings/account_settings_viewmodel.dart';
+import 'package:cma_admin/presentation/home/settings/settings_viewmodel.dart';
 import 'package:cma_admin/presentation/home/supplement/supplement_viewmodel.dart';
 import 'package:cma_admin/presentation/home/users/users_viewmodel.dart';
 import 'package:cma_admin/presentation/product_details/product_details_viewmodel.dart';
@@ -55,6 +57,7 @@ import 'package:cma_admin/presentation/waiter_insights/waiter_insights_viewmodel
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../domain/usecase/account_settings_usecase.dart';
 import '../domain/usecase/cancel_orders_usecase.dart';
 import 'app_prefs.dart';
 
@@ -148,6 +151,12 @@ initUsersModule() {
   if (!GetIt.I.isRegistered<UserUseCase>()) {
     instance.registerFactory<UserUseCase>(() => UserUseCase(instance()));
     instance.registerFactory<UserViewModel>(() => UserViewModel(instance()));
+  }
+}
+
+initSettingsModule(){
+  if (!GetIt.I.isRegistered<SettingsViewModel>()) {
+    instance.registerFactory<SettingsViewModel>(() => SettingsViewModel());
   }
 }
 
@@ -297,6 +306,13 @@ initProductsInsightsModule(){
   }
 }
 
+initAccountSettingsModule(){
+  if(!GetIt.I.isRegistered<AccountSettingsUseCase>()){
+    instance.registerFactory<AccountSettingsUseCase>(() => AccountSettingsUseCase(instance()));
+    instance.registerFactory<AccountSettingsViewModel>(() => AccountSettingsViewModel(instance()));
+  }
+}
+
 resetModules() {
   instance.reset(dispose: false);
   initAppModule();
@@ -308,6 +324,7 @@ resetModules() {
   initProductsModule();
   initSupplementsModule();
   initUsersModule();
+  initSettingsModule();
   initDashboardModule();
   initCategoryDetailsModule();
   initProductDetailsModule();
@@ -326,4 +343,6 @@ resetModules() {
   initUpdateSupplementModule();
   initUpdateCategoryModule();
   initUpdateProductModule();
+  //settings
+  initAccountSettingsModule();
 }

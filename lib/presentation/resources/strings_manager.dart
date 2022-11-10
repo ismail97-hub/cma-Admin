@@ -3,11 +3,11 @@ class AppStrings {
   static const String appName = "CMA-ADMIN";
   static const String skip = "Skip";
   static const String username = "Username";
-  static const String name = "name";
+  static const String name = "Name";
   static const String address = "address";
   static const String telephone = "telephone";
   static const String wifiPassword = "wifi password";
-  static const String role = "role";
+  static const String role = "Role";
   static const String mobileNumber = "Mobile Number";
   static const String usernameError = "Username is wrong";
   static const String passwordError = "password is wrong";
@@ -34,7 +34,6 @@ class AppStrings {
   static const String title = "title";
   static const String notifications = "Notifications";
   static const String search = "Search";
-  static const String settings = "Settings";
   static const String services = "Services";
   static const String stores = "Stores";
   static const String dh = "DH";
@@ -68,7 +67,7 @@ class AppStrings {
   static const String supplements = "Supplements";
   static const String cancelOrders = "Cancel Orders";
   static const String users = "Users";
-  static const String info = "Info";
+  static const String settings = "Settings";
   static const String logout = "Logout";
 
   // home
@@ -184,6 +183,16 @@ class AppStrings {
   static const String updateProduct = "Update Product";
   static const String updateCategory = "Update Category";
   static const String updateUser = "Update User";
+
+  //settings
+  static const String account = "Account";
+  static const String info = "Info";
+  static const String language = "Language";
+
+  //account
+  static const String oldPassword = "Old password";
+  static const String newPassword = "New password";
+  static const String confirmationNewPassword = "Confirmation new password";
 
   //info
   static const String successUpdateInfo = "Information has been updated";

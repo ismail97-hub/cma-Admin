@@ -124,7 +124,7 @@ class _DashboardViewState extends State<DashboardView> {
           child: Row(
             children: [
               Expanded(flex:3,child: HoursChart(homeData.hoursStatistics!, viewInsights: ()=>_homeViewModel.inputCurrentIndex.add(1))),
-              SizedBox(width: AppSize.s20),
+              SizedBox(width: AppSize.s10),
               Expanded(flex:2,child: QuantityChart(homeData.categoryCounts!,homeData.productCounts!)),
             ],
           ),
@@ -146,7 +146,7 @@ class _DashboardViewState extends State<DashboardView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(flex:3,child: _getOrdersDataTable(homeData.lastOrders!)),
-            SizedBox(width: AppSize.s20),
+            SizedBox(width: AppSize.s10),
             Expanded(flex:2,child: WaitersChart(homeData.waiters!)),
            ],
         )

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cma_admin/app/app_prefs.dart';
 import 'package:cma_admin/app/constant.dart';
 import 'package:cma_admin/app/functions.dart';
+import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/data/network/web_socket.dart';
 import 'package:cma_admin/domain/usecase/home_usecase.dart';
@@ -58,6 +59,7 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInput,HomeViewModelO
 
   logout(BuildContext context) {
     _appPreferences.logout();
+    HiveHelper.logout();
     Navigator.pushNamedAndRemoveUntil(
         context, Routes.loginRoute, ModalRoute.withName('/'),
         arguments: 0);

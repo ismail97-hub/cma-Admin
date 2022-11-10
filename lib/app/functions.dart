@@ -1,5 +1,10 @@
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+
+import '../domain/model/model.dart';
 
 bool isEmailValid(String email) {
   return RegExp(
@@ -33,6 +38,13 @@ dateToStringFormat(DateTime? dateTime) {
 
 dateToStringFormat2(DateTime? dateTime) {
   return DateFormat('dd MMMM yyyy').format(dateTime!);
+}
+
+startFilePicker(Function(PickerFile) setImage) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    Uint8List byte = result!.files.first.bytes!;
+    String extension = result.files.first.extension!;
+    setImage.call(PickerFile(byte, extension));
 }
 
 bool isMobile(BuildContext context) => MediaQuery.of(context).size.width < 700;

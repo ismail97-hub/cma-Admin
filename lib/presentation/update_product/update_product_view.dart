@@ -122,6 +122,7 @@ class _UpdateProductViewViewState extends State<UpdateProductView> {
               children: [
                 // image picker
                 ImagePickerWidget(
+                  imageUrl: widget.product.image,
                   setImage:(pickerFile){
                     _viewModel.setProfilePicture(pickerFile);
                   }, 

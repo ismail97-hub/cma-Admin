@@ -16,6 +16,7 @@ abstract class RemoteDataSource {
   Future<ProductResponse> addSupplementsToProduct(String productId, String suppsId);
   Future<void> deleteSupplementsToProduct(String productId, String suppId);
   Future<SignInResponse> addUser(AddUserRequest addUserRequest);
+  Future<UserResponse> updateMyAccount(UpdateMyAccountRequest updateMyAccountRequest);
   Future<UserResponse> updateUser(UpdateUserRequest updateUserRequest);
   Future<CategoryResponse> addCategory(AddCategoryRequest addCategoryRequest);
   Future<ProductResponse> addProduct(AddProductRequest addProductRequest);
@@ -108,6 +109,17 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
         password: addUserRequest.password,
         role: addUserRequest.role,
         username: addUserRequest.username);
+  }
+
+  @override
+  Future<UserResponse> updateMyAccount(UpdateMyAccountRequest updateMyAccountRequest) async{
+    return await _appServiceClient.updateMyAccount(
+      image: updateMyAccountRequest.image,
+      oldPassword: updateMyAccountRequest.oldPassword,
+      newPassword: updateMyAccountRequest.newPassword,
+      name: updateMyAccountRequest.name, 
+      role: updateMyAccountRequest.role, 
+      username: updateMyAccountRequest.username);
   }
 
   @override

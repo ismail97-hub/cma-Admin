@@ -62,13 +62,24 @@ abstract class AppServiceClient {
     @Part() required String username,
   });
 
-  @POST("/user/{id}/update")
+  @PUT("/user/update")
+  @MultiPart()
+  Future<UserResponse> updateMyAccount({
+    @Part() PickerFile? image,
+    @Part() String? oldPassword,
+    @Part() String? newPassword,
+    @Part() required String name,
+    @Part() required String role,
+    @Part() required String username,
+  });
+
+  @PUT("/user/{id}/update")
   @MultiPart()
   Future<UserResponse> updateUser({
     @Path() required String id,
     @Part() PickerFile? image,
     @Part() required String name,
-    @Path() required String role,
+    @Part() required String role,
     @Part() required String username,
   });
 

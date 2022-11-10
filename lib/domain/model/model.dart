@@ -4,16 +4,36 @@ import 'package:cma_admin/app/enum.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cma_admin/data/mapper/mapper.dart';
+import 'package:hive/hive.dart';
+part 'model.g.dart';
 
-class User {
+@HiveType(typeId:0)
+class User  extends HiveObject{
+  @HiveField(0)
   int id;
+  
+  @HiveField(1)
   String createdAt;
+  
+  @HiveField(2)
   String deletedAt;
+  
+  @HiveField(3)
   String modifiedAt;
+  
+  @HiveField(4)
   bool active;
+  
+  @HiveField(5)
   String image;
+  
+  @HiveField(6)
   String name;
+  
+  @HiveField(7)
   String role;
+  
+  @HiveField(8)
   String userName;
 
   User(

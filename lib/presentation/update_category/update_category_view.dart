@@ -115,6 +115,7 @@ class _UpdateCategoryViewState extends State<UpdateCategoryView> {
               children: [
                 // image picker
                 ImagePickerWidget(
+                  imageUrl: widget.category.image,
                   setImage:(pickerFile){
                     _viewModel.setProfilePicture(pickerFile);
                   }, 

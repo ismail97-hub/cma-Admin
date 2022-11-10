@@ -76,7 +76,8 @@ ThemeData getApplicationTheme() {
         labelStyle: getMediumStyle(color: ColorManager.darkGrey),
         // error style
         errorStyle: getRegularStyle(color: ColorManager.error),
-
+        filled: true,
+        fillColor: ColorManager.white,
         // enabled border
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(

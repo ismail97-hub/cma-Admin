@@ -1,6 +1,7 @@
 import 'package:cma_admin/app/app_prefs.dart';
 import 'package:cma_admin/app/constant.dart';
 import 'package:cma_admin/app/di.dart';
+import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
@@ -38,13 +39,14 @@ class _SignInViewState extends State<SignInView> {
 
     _viewModel.isUserLoggedInSuccessfullyStreamController.stream.listen((data) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        SignInData dataa = data;
-        _appPreferences.setUserToken(dataa.token.toString());
+        SignInData signInData = data;
+        _appPreferences.setUserToken(signInData.token.toString());
         _appPreferences.setIsUserLoggedIn();
-        _appPreferences.setUserRole(dataa.user!.role);
-        _appPreferences.setCurrentUserId(dataa.user!.id);
+        _appPreferences.setUserRole(signInData.user!.role);
+        _appPreferences.setCurrentUserId(signInData.user!.id);
+        HiveHelper.signIn(signInData.user!);
         resetModules();
-        if (dataa.user?.role == Constant.OWNER||dataa.user?.role == Constant.MANAGER) {
+        if (signInData.user?.role == Constant.OWNER||signInData.user?.role == Constant.MANAGER) {
           Navigator.pushNamedAndRemoveUntil(context,Routes.homeRoute, ModalRoute.withName('/'),arguments:0);
         } 
         else{

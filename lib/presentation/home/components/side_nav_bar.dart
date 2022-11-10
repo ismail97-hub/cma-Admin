@@ -36,7 +36,7 @@ class SideNavBar extends StatelessWidget {
                   _getSideNavItem(4,AppStrings.products, IconManger.products),
                   _getSideNavItem(5,AppStrings.supplements, IconManger.supplements),
                   _getSideNavItem(6,AppStrings.users, IconManger.users),
-                  _getSideNavItem(7,AppStrings.info, IconManger.info),
+                  _getSideNavItem(7,AppStrings.settings, IconManger.settings),
                   _getSideNavItem(8,AppStrings.logout, IconManger.logout),
                 ]);        
       }

@@ -118,3 +118,16 @@ class InfoObject with _$InfoObject {
     String wifiPassword,
   ) = _InfoObject;
 }
+
+@freezed
+class AccountSettingsViewObject with _$AccountSettingsViewObject {
+  factory AccountSettingsViewObject(
+    PickerFile? image,
+    String name,
+    UserRole role,
+    String username,
+    String? oldPassword,
+    String? newPassword,
+    String? confirmationNewPassword,
+  ) = _AccountSettingsViewObject;
+}

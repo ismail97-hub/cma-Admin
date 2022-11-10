@@ -18,6 +18,7 @@ abstract class Repository {
   Future<Either<Failure, Product>> addSupplementsToProduct(String productId, String suppsId);
   Future<Either<Failure, void>> deleteSupplementFromProduct(String productId, String suppId);
   Future<Either<Failure, SignInData>> addUser(AddUserRequest addUserRequest);
+  Future<Either<Failure, User>> updateMyAccount(UpdateMyAccountRequest updateMyAccountRequest);
   Future<Either<Failure, User>> updateUser(UpdateUserRequest updateUserRequest);
   Future<Either<Failure, Category>> addCategory(AddCategoryRequest addCategoryRequest);
   Future<Either<Failure, Supplement>> addSupplement(AddSupplementRequest addSupplementRequest);

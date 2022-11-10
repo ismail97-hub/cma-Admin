@@ -103,6 +103,8 @@ class RouteGenerator {
         initProductsModule();
         initSupplementsModule();
         initUsersModule();
+        initSettingsModule();
+        initAccountSettingsModule();
         initUpdateInfoModule();
         return CupertinoPageRoute(
             builder: (_) => HomeView());

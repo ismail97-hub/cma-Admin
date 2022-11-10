@@ -12,10 +12,13 @@ class IconManger {
   static const IconData products = Ionicons.bag_outline;
   static const IconData supplements = Ionicons.ice_cream_outline;
   static const IconData users = Ionicons.people_outline;
-  static const IconData info = Icons.info_outline;
+  static const IconData settings = Icons.settings;
   static const IconData logout = AntIcons.logout_outline;
   
-
+  static const IconData info = Icons.info_outline;
+  static const IconData account = Icons.person;
+  static const IconData language = Icons.language;
+  
   static const IconData appIcon = AntIcons.account_book;
   static const IconData add = Icons.add;
   static const IconData done = Icons.done;

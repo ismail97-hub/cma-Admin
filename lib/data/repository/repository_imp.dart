@@ -185,6 +185,16 @@ class RepositoryImpl extends Repository {
   }
 
   @override
+  Future<Either<Failure, User>> updateMyAccount(UpdateMyAccountRequest updateMyAccountRequest) async {
+    try {
+      final response = await _remoteDataSource.updateMyAccount(updateMyAccountRequest);
+      return Right(response.toDomain());
+    } catch (error) {
+      return Left(ErrorHandler.handle(error).failure);
+    }
+  }
+
+  @override
   Future<Either<Failure, User>> updateUser(UpdateUserRequest updateUserRequest) async {
     try {
       final response = await _remoteDataSource.updateUser(updateUserRequest);

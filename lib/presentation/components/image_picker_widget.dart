@@ -1,24 +1,30 @@
 import 'dart:typed_data';
 
+import 'package:cma_admin/app/constant.dart';
+import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/presentation/resources/assets_manager.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+
+import '../../app/functions.dart';
 
 class ImagePickerWidget extends StatelessWidget {
   final Function(PickerFile) setImage;
   final Stream<PickerFile?> imageStream;
-  const ImagePickerWidget({ Key? key,required this.setImage,required this.imageStream}) : super(key: key);
+  final String imageUrl;
+  const ImagePickerWidget({ Key? key,required this.setImage,required this.imageStream,String? imageUrl}) 
+    :this.imageUrl = imageUrl??EMPTY,    
+    super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        _startFilePicker();
+        startFilePicker((pickerFile) => setImage.call(pickerFile));
       },
       child: DottedBorder(
         borderType: BorderType.RRect,
@@ -42,7 +48,7 @@ class ImagePickerWidget extends StatelessWidget {
         PickerFile? pickerFile = snapshot.data;
         return pickerFile != null
             ? _imagePickedByUser(pickerFile.byte)
-            : Padding(
+            : imageUrl.isNotEmpty&&imageUrl!=Constant.ImageUrl?Image.network(imageUrl):Padding(
               padding: EdgeInsets.symmetric(vertical: AppPadding.p20),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,11 +80,5 @@ class ImagePickerWidget extends StatelessWidget {
       return Container();
     }
   }
-
-  _startFilePicker() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    Uint8List byte = result!.files.first.bytes!;
-    String extension = result.files.first.extension!;
-    setImage.call(PickerFile(byte, extension));
-  }
+  
 }

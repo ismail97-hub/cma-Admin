@@ -6,14 +6,13 @@ part of 'responses.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SignInResponse _$SignInResponseFromJson(Map<String, dynamic> json) {
-  return SignInResponse(
-    json['token'] as String?,
-    json['user'] == null
-        ? null
-        : UserResponse.fromJson(json['user'] as Map<String, dynamic>),
-  );
-}
+SignInResponse _$SignInResponseFromJson(Map<String, dynamic> json) =>
+    SignInResponse(
+      json['token'] as String?,
+      json['user'] == null
+          ? null
+          : UserResponse.fromJson(json['user'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$SignInResponseToJson(SignInResponse instance) =>
     <String, dynamic>{
@@ -21,20 +20,18 @@ Map<String, dynamic> _$SignInResponseToJson(SignInResponse instance) =>
       'user': instance.user,
     };
 
-UserResponse _$UserResponseFromJson(Map<String, dynamic> json) {
-  return UserResponse(
-    json['image'] as String?,
-    json['name'] as String?,
-    json['password'] as String?,
-    json['role'] as String?,
-    json['username'] as String?,
-  )
-    ..id = json['id'] as int?
-    ..createdAt = json['createdAt'] as String?
-    ..deletedAt = json['deletedAt'] as String?
-    ..modifiedAt = json['modifiedAt'] as String?
-    ..active = json['active'] as bool?;
-}
+UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
+      json['image'] as String?,
+      json['name'] as String?,
+      json['password'] as String?,
+      json['role'] as String?,
+      json['username'] as String?,
+    )
+      ..id = json['id'] as int?
+      ..createdAt = json['createdAt'] as String?
+      ..deletedAt = json['deletedAt'] as String?
+      ..modifiedAt = json['modifiedAt'] as String?
+      ..active = json['active'] as bool?;
 
 Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
     <String, dynamic>{
@@ -50,19 +47,18 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       'username': instance.userName,
     };
 
-CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) {
-  return CategoryResponse(
-    json['color'] as String?,
-    json['image'] as String?,
-    json['label'] as String?,
-    json['orderNumber'] as int?,
-  )
-    ..id = json['id'] as int?
-    ..createdAt = json['createdAt'] as String?
-    ..deletedAt = json['deletedAt'] as String?
-    ..modifiedAt = json['modifiedAt'] as String?
-    ..active = json['active'] as bool?;
-}
+CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) =>
+    CategoryResponse(
+      json['color'] as String?,
+      json['image'] as String?,
+      json['label'] as String?,
+      json['orderNumber'] as int?,
+    )
+      ..id = json['id'] as int?
+      ..createdAt = json['createdAt'] as String?
+      ..deletedAt = json['deletedAt'] as String?
+      ..modifiedAt = json['modifiedAt'] as String?
+      ..active = json['active'] as bool?;
 
 Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
     <String, dynamic>{
@@ -77,26 +73,25 @@ Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
       'orderNumber': instance.orderNumber,
     };
 
-ProductResponse _$ProductResponseFromJson(Map<String, dynamic> json) {
-  return ProductResponse(
-    json['color'] as String?,
-    json['image'] as String?,
-    json['title'] as String?,
-    json['orderNumber'] as int?,
-    (json['price'] as num?)?.toDouble(),
-    json['category'] == null
-        ? null
-        : CategoryResponse.fromJson(json['category'] as Map<String, dynamic>),
-    (json['supplements'] as List<dynamic>?)
-        ?.map((e) => SupplementResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  )
-    ..id = json['id'] as int?
-    ..createdAt = json['createdAt'] as String?
-    ..deletedAt = json['deletedAt'] as String?
-    ..modifiedAt = json['modifiedAt'] as String?
-    ..active = json['active'] as bool?;
-}
+ProductResponse _$ProductResponseFromJson(Map<String, dynamic> json) =>
+    ProductResponse(
+      json['color'] as String?,
+      json['image'] as String?,
+      json['title'] as String?,
+      json['orderNumber'] as int?,
+      (json['price'] as num?)?.toDouble(),
+      json['category'] == null
+          ? null
+          : CategoryResponse.fromJson(json['category'] as Map<String, dynamic>),
+      (json['supplements'] as List<dynamic>?)
+          ?.map((e) => SupplementResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    )
+      ..id = json['id'] as int?
+      ..createdAt = json['createdAt'] as String?
+      ..deletedAt = json['deletedAt'] as String?
+      ..modifiedAt = json['modifiedAt'] as String?
+      ..active = json['active'] as bool?;
 
 Map<String, dynamic> _$ProductResponseToJson(ProductResponse instance) =>
     <String, dynamic>{
@@ -114,20 +109,19 @@ Map<String, dynamic> _$ProductResponseToJson(ProductResponse instance) =>
       'supplements': instance.supplements,
     };
 
-SupplementResponse _$SupplementResponseFromJson(Map<String, dynamic> json) {
-  return SupplementResponse(
-    json['color'] as String?,
-    json['image'] as String?,
-    json['title'] as String?,
-    (json['price'] as num?)?.toDouble(),
-    json['orderNumber'] as int?,
-  )
-    ..id = json['id'] as int?
-    ..createdAt = json['createdAt'] as String?
-    ..deletedAt = json['deletedAt'] as String?
-    ..modifiedAt = json['modifiedAt'] as String?
-    ..active = json['active'] as bool?;
-}
+SupplementResponse _$SupplementResponseFromJson(Map<String, dynamic> json) =>
+    SupplementResponse(
+      json['color'] as String?,
+      json['image'] as String?,
+      json['title'] as String?,
+      (json['price'] as num?)?.toDouble(),
+      json['orderNumber'] as int?,
+    )
+      ..id = json['id'] as int?
+      ..createdAt = json['createdAt'] as String?
+      ..deletedAt = json['deletedAt'] as String?
+      ..modifiedAt = json['modifiedAt'] as String?
+      ..active = json['active'] as bool?;
 
 Map<String, dynamic> _$SupplementResponseToJson(SupplementResponse instance) =>
     <String, dynamic>{
@@ -143,18 +137,18 @@ Map<String, dynamic> _$SupplementResponseToJson(SupplementResponse instance) =>
       'orderNumber': instance.orderNumber,
     };
 
-OrderProdcutResponse _$OrderProdcutResponseFromJson(Map<String, dynamic> json) {
-  return OrderProdcutResponse(
-    json['product'] == null
-        ? null
-        : ProductResponse.fromJson(json['product'] as Map<String, dynamic>),
-    (json['supplements'] as List<dynamic>?)
-        ?.map((e) => SupplementResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    json['quantity'] as int?,
-    (json['amount'] as num?)?.toDouble(),
-  );
-}
+OrderProdcutResponse _$OrderProdcutResponseFromJson(
+        Map<String, dynamic> json) =>
+    OrderProdcutResponse(
+      json['product'] == null
+          ? null
+          : ProductResponse.fromJson(json['product'] as Map<String, dynamic>),
+      (json['supplements'] as List<dynamic>?)
+          ?.map((e) => SupplementResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      json['quantity'] as int?,
+      (json['amount'] as num?)?.toDouble(),
+    );
 
 Map<String, dynamic> _$OrderProdcutResponseToJson(
         OrderProdcutResponse instance) =>
@@ -165,27 +159,26 @@ Map<String, dynamic> _$OrderProdcutResponseToJson(
       'amount': instance.amount,
     };
 
-OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) {
-  return OrderResponse(
-    json['status'] as String?,
-    (json['items'] as List<dynamic>?)
-        ?.map((e) => OrderProdcutResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    (json['totalAmount'] as num?)?.toDouble(),
-    json['itemsNumber'] as int?,
-    json['waiter'] == null
-        ? null
-        : UserResponse.fromJson(json['waiter'] as Map<String, dynamic>),
-    json['assignedBy'] == null
-        ? null
-        : UserResponse.fromJson(json['assignedBy'] as Map<String, dynamic>),
-  )
-    ..id = json['id'] as int?
-    ..createdAt = json['createdAt'] as String?
-    ..deletedAt = json['deletedAt'] as String?
-    ..modifiedAt = json['modifiedAt'] as String?
-    ..active = json['active'] as bool?;
-}
+OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
+    OrderResponse(
+      json['status'] as String?,
+      (json['items'] as List<dynamic>?)
+          ?.map((e) => OrderProdcutResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      (json['totalAmount'] as num?)?.toDouble(),
+      json['itemsNumber'] as int?,
+      json['waiter'] == null
+          ? null
+          : UserResponse.fromJson(json['waiter'] as Map<String, dynamic>),
+      json['assignedBy'] == null
+          ? null
+          : UserResponse.fromJson(json['assignedBy'] as Map<String, dynamic>),
+    )
+      ..id = json['id'] as int?
+      ..createdAt = json['createdAt'] as String?
+      ..deletedAt = json['deletedAt'] as String?
+      ..modifiedAt = json['modifiedAt'] as String?
+      ..active = json['active'] as bool?;
 
 Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
     <String, dynamic>{
@@ -202,13 +195,12 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
       'assignedBy': instance.assignedBy,
     };
 
-StatusCountResponse _$StatusCountResponseFromJson(Map<String, dynamic> json) {
-  return StatusCountResponse(
-    json['done'] as int?,
-    json['canceled'] as int?,
-    json['inprogress'] as int?,
-  );
-}
+StatusCountResponse _$StatusCountResponseFromJson(Map<String, dynamic> json) =>
+    StatusCountResponse(
+      json['done'] as int?,
+      json['canceled'] as int?,
+      json['inprogress'] as int?,
+    );
 
 Map<String, dynamic> _$StatusCountResponseToJson(
         StatusCountResponse instance) =>
@@ -218,17 +210,16 @@ Map<String, dynamic> _$StatusCountResponseToJson(
       'inprogress': instance.inprogress,
     };
 
-WaiterResponse _$WaiterResponseFromJson(Map<String, dynamic> json) {
-  return WaiterResponse(
-    json['id'] as int?,
-    json['name'] as String?,
-    json['image'] as String?,
-    json['inprogress'] as int?,
-    json['done'] as int?,
-    json['canceled'] as int?,
-    (json['amount'] as num?)?.toDouble(),
-  );
-}
+WaiterResponse _$WaiterResponseFromJson(Map<String, dynamic> json) =>
+    WaiterResponse(
+      json['id'] as int?,
+      json['name'] as String?,
+      json['image'] as String?,
+      json['inprogress'] as int?,
+      json['done'] as int?,
+      json['canceled'] as int?,
+      (json['amount'] as num?)?.toDouble(),
+    );
 
 Map<String, dynamic> _$WaiterResponseToJson(WaiterResponse instance) =>
     <String, dynamic>{
@@ -242,18 +233,17 @@ Map<String, dynamic> _$WaiterResponseToJson(WaiterResponse instance) =>
     };
 
 AllWaitersInsightsResponse _$AllWaitersInsightsResponseFromJson(
-    Map<String, dynamic> json) {
-  return AllWaitersInsightsResponse(
-    json['statusCount'] == null
-        ? null
-        : StatusCountResponse.fromJson(
-            json['statusCount'] as Map<String, dynamic>),
-    (json['totalAmount'] as num?)?.toDouble(),
-    (json['waiters'] as List<dynamic>?)
-        ?.map((e) => WaiterResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
+        Map<String, dynamic> json) =>
+    AllWaitersInsightsResponse(
+      json['statusCount'] == null
+          ? null
+          : StatusCountResponse.fromJson(
+              json['statusCount'] as Map<String, dynamic>),
+      (json['totalAmount'] as num?)?.toDouble(),
+      (json['waiters'] as List<dynamic>?)
+          ?.map((e) => WaiterResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$AllWaitersInsightsResponseToJson(
         AllWaitersInsightsResponse instance) =>
@@ -264,16 +254,15 @@ Map<String, dynamic> _$AllWaitersInsightsResponseToJson(
     };
 
 WaiterInsightsResponse _$WaiterInsightsResponseFromJson(
-    Map<String, dynamic> json) {
-  return WaiterInsightsResponse(
-    json['waiter'] == null
-        ? null
-        : WaiterResponse.fromJson(json['waiter'] as Map<String, dynamic>),
-    (json['timeInsights'] as List<dynamic>?)
-        ?.map((e) => TimeInsightsResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
+        Map<String, dynamic> json) =>
+    WaiterInsightsResponse(
+      json['waiter'] == null
+          ? null
+          : WaiterResponse.fromJson(json['waiter'] as Map<String, dynamic>),
+      (json['timeInsights'] as List<dynamic>?)
+          ?.map((e) => TimeInsightsResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$WaiterInsightsResponseToJson(
         WaiterInsightsResponse instance) =>
@@ -283,14 +272,13 @@ Map<String, dynamic> _$WaiterInsightsResponseToJson(
     };
 
 CategoryCountResponse _$CategoryCountResponseFromJson(
-    Map<String, dynamic> json) {
-  return CategoryCountResponse(
-    json['id'] as int?,
-    json['color'] as String?,
-    json['label'] as String?,
-    json['quantity'] as int?,
-  );
-}
+        Map<String, dynamic> json) =>
+    CategoryCountResponse(
+      json['id'] as int?,
+      json['color'] as String?,
+      json['label'] as String?,
+      json['quantity'] as int?,
+    );
 
 Map<String, dynamic> _$CategoryCountResponseToJson(
         CategoryCountResponse instance) =>
@@ -301,15 +289,15 @@ Map<String, dynamic> _$CategoryCountResponseToJson(
       'quantity': instance.quantity,
     };
 
-ProductCountResponse _$ProductCountResponseFromJson(Map<String, dynamic> json) {
-  return ProductCountResponse(
-    json['id'] as int?,
-    json['color'] as String?,
-    json['title'] as String?,
-    json['categoryId'] as int?,
-    json['quantity'] as int?,
-  );
-}
+ProductCountResponse _$ProductCountResponseFromJson(
+        Map<String, dynamic> json) =>
+    ProductCountResponse(
+      json['id'] as int?,
+      json['color'] as String?,
+      json['title'] as String?,
+      json['categoryId'] as int?,
+      json['quantity'] as int?,
+    );
 
 Map<String, dynamic> _$ProductCountResponseToJson(
         ProductCountResponse instance) =>
@@ -321,15 +309,15 @@ Map<String, dynamic> _$ProductCountResponseToJson(
       'quantity': instance.quantity,
     };
 
-TimeInsightsResponse _$TimeInsightsResponseFromJson(Map<String, dynamic> json) {
-  return TimeInsightsResponse(
-    json['time'] as String?,
-    json['inprogress'] as int?,
-    json['done'] as int?,
-    json['canceled'] as int?,
-    (json['amount'] as num?)?.toDouble(),
-  );
-}
+TimeInsightsResponse _$TimeInsightsResponseFromJson(
+        Map<String, dynamic> json) =>
+    TimeInsightsResponse(
+      json['time'] as String?,
+      json['inprogress'] as int?,
+      json['done'] as int?,
+      json['canceled'] as int?,
+      (json['amount'] as num?)?.toDouble(),
+    );
 
 Map<String, dynamic> _$TimeInsightsResponseToJson(
         TimeInsightsResponse instance) =>
@@ -341,30 +329,29 @@ Map<String, dynamic> _$TimeInsightsResponseToJson(
       'amount': instance.amount,
     };
 
-HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) {
-  return HomeResponse(
-    json['statusCount'] == null
-        ? null
-        : StatusCountResponse.fromJson(
-            json['statusCount'] as Map<String, dynamic>),
-    (json['lastOrders'] as List<dynamic>?)
-        ?.map((e) => OrderResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    (json['totalAmount'] as num?)?.toDouble(),
-    (json['waiters'] as List<dynamic>?)
-        ?.map((e) => WaiterResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    (json['hoursInsights'] as List<dynamic>?)
-        ?.map((e) => TimeInsightsResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    (json['categoryCounts'] as List<dynamic>?)
-        ?.map((e) => CategoryCountResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    (json['productCounts'] as List<dynamic>?)
-        ?.map((e) => ProductCountResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
+HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) => HomeResponse(
+      json['statusCount'] == null
+          ? null
+          : StatusCountResponse.fromJson(
+              json['statusCount'] as Map<String, dynamic>),
+      (json['lastOrders'] as List<dynamic>?)
+          ?.map((e) => OrderResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      (json['totalAmount'] as num?)?.toDouble(),
+      (json['waiters'] as List<dynamic>?)
+          ?.map((e) => WaiterResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      (json['hoursInsights'] as List<dynamic>?)
+          ?.map((e) => TimeInsightsResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      (json['categoryCounts'] as List<dynamic>?)
+          ?.map(
+              (e) => CategoryCountResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      (json['productCounts'] as List<dynamic>?)
+          ?.map((e) => ProductCountResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
     <String, dynamic>{
@@ -378,22 +365,21 @@ Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
     };
 
 OrdersInsightsResponse _$OrdersInsightsResponseFromJson(
-    Map<String, dynamic> json) {
-  return OrdersInsightsResponse(
-    json['statusCount'] == null
-        ? null
-        : StatusCountResponse.fromJson(
-            json['statusCount'] as Map<String, dynamic>),
-    (json['timeInsights'] as List<dynamic>?)
-        ?.map((e) => TimeInsightsResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    (json['totalAmount'] as num?)?.toDouble(),
-    json['totalCount'] as int?,
-    (json['orders'] as List<dynamic>?)
-        ?.map((e) => OrderResponse.fromJson(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
+        Map<String, dynamic> json) =>
+    OrdersInsightsResponse(
+      json['statusCount'] == null
+          ? null
+          : StatusCountResponse.fromJson(
+              json['statusCount'] as Map<String, dynamic>),
+      (json['timeInsights'] as List<dynamic>?)
+          ?.map((e) => TimeInsightsResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      (json['totalAmount'] as num?)?.toDouble(),
+      json['totalCount'] as int?,
+      (json['orders'] as List<dynamic>?)
+          ?.map((e) => OrderResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$OrdersInsightsResponseToJson(
         OrdersInsightsResponse instance) =>
@@ -405,14 +391,12 @@ Map<String, dynamic> _$OrdersInsightsResponseToJson(
       'orders': instance.orders,
     };
 
-InfoResponse _$InfoResponseFromJson(Map<String, dynamic> json) {
-  return InfoResponse(
-    json['name'] as String?,
-    json['telephone'] as String?,
-    json['address'] as String?,
-    json['wifiPassword'] as String?,
-  );
-}
+InfoResponse _$InfoResponseFromJson(Map<String, dynamic> json) => InfoResponse(
+      json['name'] as String?,
+      json['telephone'] as String?,
+      json['address'] as String?,
+      json['wifiPassword'] as String?,
+    );
 
 Map<String, dynamic> _$InfoResponseToJson(InfoResponse instance) =>
     <String, dynamic>{
