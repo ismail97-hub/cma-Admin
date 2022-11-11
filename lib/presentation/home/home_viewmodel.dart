@@ -3,17 +3,14 @@ import 'dart:async';
 import 'package:cma_admin/app/app_prefs.dart';
 import 'package:cma_admin/app/constant.dart';
 import 'package:cma_admin/app/functions.dart';
-import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/data/network/web_socket.dart';
 import 'package:cma_admin/domain/usecase/home_usecase.dart';
 import 'package:cma_admin/presentation/base/baseviewmodel.dart';
-import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 
-import '../../app/di.dart';
 
 class HomeViewModel extends BaseViewModel with HomeViewModelInput,HomeViewModelOutput{
   StreamController _currentIndexStreamController = BehaviorSubject<int>();

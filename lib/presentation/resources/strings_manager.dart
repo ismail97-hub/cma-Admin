@@ -193,6 +193,8 @@ class AppStrings {
   static const String oldPassword = "Old password";
   static const String newPassword = "New password";
   static const String confirmationNewPassword = "Confirmation new password";
+  static const String photo = "Photo";
+  static const String change = "change";
 
   //info
   static const String successUpdateInfo = "Information has been updated";

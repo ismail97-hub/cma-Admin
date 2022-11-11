@@ -2,7 +2,12 @@ import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/components/action_button.dart';
+import 'package:cma_admin/presentation/components/custom_dropdown.dart';
+import 'package:cma_admin/presentation/components/custom_submit_button.dart';
+import 'package:cma_admin/presentation/components/custom_textfield.dart';
+import 'package:cma_admin/presentation/components/custom_upload_image.dart';
 import 'package:cma_admin/presentation/components/headar_text.dart';
+import 'package:cma_admin/presentation/components/responsive_widget.dart';
 import 'package:cma_admin/presentation/home/settings/account_settings/account_settings_viewmodel.dart';
 import 'package:cma_admin/presentation/home/settings/account_settings/components/profile_photo.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
@@ -92,35 +97,72 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
               SizedBox(height: AppSize.s20),
               _getSectionTitle("Profile"),
               SizedBox(height: AppSize.s14),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              // Name and Username
+              ResponsiveWidget(
                 children: [
-                  _getTextFieldWidget(AppStrings.name, _viewModel.outputErrorName,_nameTextEditingController),
-                  SizedBox(width: AppSize.s20),
-                  _getTextFieldWidget(AppStrings.username, _viewModel.outputErrorUsername,_usernameTextEditingController)
+                  // Name
+                  CustomTextField(
+                    label: AppStrings.name, 
+                    errorStream: _viewModel.outputErrorName, 
+                    textEditingController: _nameTextEditingController),
+                  SizedBox(width: AppSize.s20,height: AppSize.s14),
+                  // Username
+                  CustomTextField(
+                    label: AppStrings.username, 
+                    errorStream: _viewModel.outputErrorUsername, 
+                    textEditingController: _usernameTextEditingController),
                 ],
               ),
               SizedBox(height: AppSize.s14),
-              _getImageSection(),
+              // Upload Image
+              CustomUploadImage(
+                imageUrl: HiveHelper.getCurrentUser().image,
+                setImage: (image)=>_viewModel.setImage(image), 
+                imageStream: _viewModel.outputImage),
               SizedBox(height: AppSize.s14),
-              _getRoleDropDown(),
+              // Role
+              CustomDropDown<UserRole>(
+                label: AppStrings.role, 
+                stream: _viewModel.outputRoles, 
+                selectedItem: HiveHelper.getCurrentUser().role.toUserRoleEnum(),
+                itemAsString: (UserRole? role)=>role!.toStr(), 
+                onTap: (role){
+                  _viewModel.setRole(role);
+                }),
               SizedBox(height: AppSize.s20),
               _getSectionTitle("Password"),
               SizedBox(height: AppSize.s14),
-              _getTextFieldWidget(AppStrings.oldPassword, _viewModel.outputErrorOldPasswrd,_oldPasswordTextEditingController),
+              // Old pasword
+              CustomTextField(
+                obscureText: true,
+                label: AppStrings.oldPassword, 
+                errorStream: _viewModel.outputErrorOldPasswrd, 
+                textEditingController: _oldPasswordTextEditingController),
               SizedBox(height: AppSize.s14),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              // New password and confirmation
+              ResponsiveWidget(
                 children: [
-                  _getTextFieldWidget(AppStrings.newPassword, _viewModel.outputErrorNewPassword,_newPasswordTextEditingController),
-                  SizedBox(width: AppSize.s20),
-                  _getTextFieldWidget(AppStrings.confirmationNewPassword, _viewModel.outputErrorConfirmatioNewPassword,_confirmationPasswordTextEditingController)
+                  // New password
+                  CustomTextField(
+                    obscureText: true,
+                    label: AppStrings.newPassword, 
+                    errorStream: _viewModel.outputErrorNewPassword, 
+                    textEditingController: _newPasswordTextEditingController),
+                  SizedBox(width: AppSize.s20,height: AppSize.s14),
+                  // Confirmation new password
+                  CustomTextField(
+                    obscureText: true,
+                    label: AppStrings.confirmationNewPassword, 
+                    errorStream: _viewModel.outputErrorConfirmatioNewPassword, 
+                    textEditingController: _confirmationPasswordTextEditingController),  
                 ],
               ), 
               SizedBox(height: AppSize.s30),
-              _getSubmitButton()  
+              // Submit button
+              CustomSubmitButton(
+                buttonText: AppStrings.save, 
+                isAllInputValidStream: _viewModel.outputIsValidToUpdate, 
+                onTap: ()=>_viewModel.updateMyAccount(context))  
             ],
           ),
         ),
@@ -128,101 +170,10 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
     );
   }
 
-  _getSectionTitle(String title){
+  Widget _getSectionTitle(String title){
     return Text(title,style: getSemiBoldStyle(
       color: ColorManager.black, 
       fontSize:isMobile(context)?FontSize.s12:FontSize.s20));
+  }    
 
-  }
-
-  Widget _getTextFieldWidget(String label,Stream<String?> errorStream,TextEditingController textEditingController){
-    return Container(
-      width: AppSize.s250,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          FieldLabel(label,isRequired: true),
-          StreamBuilder<String?>(
-            stream: errorStream,
-            builder: (context, snapshot) {
-              return TextFormField(
-                  keyboardType: TextInputType.text,
-                  controller: textEditingController,
-                  decoration: InputDecoration(
-                      hintText: label,
-                      errorText: snapshot.data));
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _getImageSection(){
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        FieldLabel("Photo"),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ProfilePhoto(
-              imageUrl: HiveHelper.getCurrentUser().image,
-              setImage: (image)=> _viewModel.setImage(image), 
-              imageStream: _viewModel.outputImage),
-            SizedBox(width: AppSize.s24),
-            ActionButton(onTap: () {
-              startFilePicker((pickerFile)=>_viewModel.setImage(pickerFile));
-            }, title: "Change", color: ColorManager.primary)
-          ],
-        )
-      ],
-    );
-  }
-
-  _getRoleDropDown(){
-    return Container(
-      width: AppSize.s250,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          FieldLabel(AppStrings.role,isRequired: true),
-          StreamBuilder<List<UserRole>>(
-            stream: _viewModel.outputRoles,
-            builder: (context, snapshot) {
-              return DropdownSearch<UserRole>(
-                mode: Mode.MENU,
-                selectedItem: HiveHelper.getCurrentUser().role.toUserRoleEnum(),
-                items: snapshot.data,
-                itemAsString: (UserRole? userRole) => userRole!.toStr(),
-                dropdownSearchDecoration: InputDecoration(hintText: AppStrings.role),
-                onChanged: <UserRole>(value) {
-                  _viewModel.setRole(value);
-                },
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _getSubmitButton(){
-    return StreamBuilder<bool>(
-      stream: _viewModel.outputIsValidToUpdate,
-      builder: (context, snapshot) {
-        return SizedBox(
-          width: AppSize.s100,
-          height: AppSize.s40,
-          child: ElevatedButton(
-              onPressed: (snapshot.data ?? false)? () =>_viewModel.updateMyAccount(context,): null,
-              child: Text(AppStrings.save)),
-        );
-      },
-    );
-  }
 }
