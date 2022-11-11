@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:cma_admin/app/app_prefs.dart';
-import 'package:cma_admin/app/constant.dart';
 import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';

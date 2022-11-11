@@ -326,13 +326,18 @@ class SignInData {
   SignInData(this.token, this.user);
 }
 
+@HiveType(typeId:1)
 class Info{
+  @HiveField(0)
   String name;
   
+  @HiveField(1)
   String telephone;
   
+  @HiveField(2)
   String address;
-
+  
+  @HiveField(3)
   String wifiPassword;
 
   Info(
@@ -341,4 +346,6 @@ class Info{
     this.address,
     this.wifiPassword,
   );
+
+  factory Info.empty()=> Info(EMPTY,EMPTY,EMPTY,EMPTY);
 }

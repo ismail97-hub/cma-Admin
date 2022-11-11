@@ -6,12 +6,12 @@ import 'package:ionicons/ionicons.dart';
 class IconManger {
   //side navigation
   static const IconData dashboard = AntIcons.dashboard_outline;
-  static const IconData orders = Ionicons.cart_outline;
+  static const IconData orders = Icons.shopping_cart_outlined;
   static const IconData cancelOrders = Icons.remove_shopping_cart_outlined;
-  static const IconData categories =  Ionicons.cube_outline;
-  static const IconData products = Ionicons.bag_outline;
-  static const IconData supplements = Ionicons.ice_cream_outline;
-  static const IconData users = Ionicons.people_outline;
+  static const IconData categories =  Icons.category_outlined;
+  static const IconData products = Icons.shopping_bag_outlined;
+  static const IconData supplements = Icons.icecream;
+  static const IconData users = Icons.supervisor_account;
   static const IconData settings = Icons.settings;
   static const IconData logout = AntIcons.logout_outline;
   

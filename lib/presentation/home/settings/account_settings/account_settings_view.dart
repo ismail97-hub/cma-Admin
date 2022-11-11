@@ -1,7 +1,6 @@
 import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
-import 'package:cma_admin/presentation/components/action_button.dart';
 import 'package:cma_admin/presentation/components/custom_dropdown.dart';
 import 'package:cma_admin/presentation/components/custom_submit_button.dart';
 import 'package:cma_admin/presentation/components/custom_textfield.dart';
@@ -9,16 +8,13 @@ import 'package:cma_admin/presentation/components/custom_upload_image.dart';
 import 'package:cma_admin/presentation/components/headar_text.dart';
 import 'package:cma_admin/presentation/components/responsive_widget.dart';
 import 'package:cma_admin/presentation/home/settings/account_settings/account_settings_viewmodel.dart';
-import 'package:cma_admin/presentation/home/settings/account_settings/components/profile_photo.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../app/enum.dart';
 import '../../../../app/functions.dart';
-import '../../../components/field_label.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/font_manager.dart';
 

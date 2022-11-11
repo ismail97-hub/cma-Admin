@@ -9,6 +9,8 @@ class HiveHelper {
     await Hive.initFlutter();
     Hive.registerAdapter<User>(UserAdapter());
     await Hive.openBox<User>(Constant.userBox);
+    Hive.registerAdapter<Info>(InfoAdapter());
+    await Hive.openBox<Info>(Constant.infoBox);
   }
   
   static User getCurrentUser(){
@@ -20,7 +22,7 @@ class HiveHelper {
     box.add(user);
   }
 
-  static update(User user)async{
+  static updateMYAccount(User user)async{
     var box = Hive.box<User>(Constant.userBox);
     box.putAt(0, user);
   }
@@ -29,4 +31,20 @@ class HiveHelper {
     var box = Hive.box<User>(Constant.userBox);
     box.clear();
   }
+  
+  //info
+  static Info getInfo(){
+    return Hive.box<Info>(Constant.infoBox).getAt(0)??Info.empty();
+  }
+
+  static addInfo(Info info){
+    var box = Hive.box<Info>(Constant.infoBox);
+    box.add(info);
+  }
+
+  static updateInfo(Info info)async{
+    var box = Hive.box<Info>(Constant.infoBox);
+    box.putAt(0, info);
+  }
+
 }

@@ -1,8 +1,5 @@
 import 'dart:async';
-
-import 'package:cma_admin/app/app_prefs.dart';
 import 'package:cma_admin/app/constant.dart';
-import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/app/enum.dart';
 import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/domain/model/model.dart';
@@ -21,7 +18,6 @@ class AddUserViewModel extends BaseViewModel
 
   StreamController _nameStreamController = StreamController<String>.broadcast();
 
-  AppPreferences _appPreferences = instance<AppPreferences>();
 
   StreamController _passwordStreamController =
       StreamController<String>.broadcast();

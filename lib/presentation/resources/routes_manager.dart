@@ -105,7 +105,7 @@ class RouteGenerator {
         initUsersModule();
         initSettingsModule();
         initAccountSettingsModule();
-        initUpdateInfoModule();
+        initInfoSettingsModule();
         return CupertinoPageRoute(
             builder: (_) => HomeView());
       case Routes.categoryDetailsRoute:

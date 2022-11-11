@@ -10,4 +10,5 @@ class Constant {
   static const String WAITER = "WAITER";
   static const String BARMAN = "BARMAN";
   static const String userBox = "user";
+  static const String infoBox = "info";
 }

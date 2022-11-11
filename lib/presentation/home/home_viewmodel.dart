@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cma_admin/app/app_prefs.dart';
 import 'package:cma_admin/app/constant.dart';
 import 'package:cma_admin/app/functions.dart';
+import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/data/network/web_socket.dart';
 import 'package:cma_admin/domain/usecase/home_usecase.dart';
@@ -10,6 +11,9 @@ import 'package:cma_admin/presentation/base/baseviewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
+
+import '../common/state_renderer/state_render_impl.dart';
+import '../common/state_renderer/state_renderer.dart';
 
 
 class HomeViewModel extends BaseViewModel with HomeViewModelInput,HomeViewModelOutput{
@@ -24,6 +28,7 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInput,HomeViewModelO
   @override
   void start() {
     websocket.init();
+    _getInfo();
     _getPreCanceledOrdersCount();
   }
 
@@ -43,6 +48,14 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInput,HomeViewModelO
     _preCanceledOrdersCountStreamController.close();
     _currentIndexStreamController.close();
     super.dispose();
+  }
+
+  _getInfo()async{
+    (await _useCase.getInfo()).fold(
+      (failure) => null,      
+      (info) {
+        HiveHelper.addInfo(info);
+      });
   }
 
   @override

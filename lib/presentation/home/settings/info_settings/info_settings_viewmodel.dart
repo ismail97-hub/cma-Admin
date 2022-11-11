@@ -1,69 +1,41 @@
 
 import 'dart:async';
-
 import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/domain/model/model.dart';
-import 'package:cma_admin/domain/usecase/update_info_usecase.dart';
+import 'package:cma_admin/domain/usecase/info_settings_usecase.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:cma_admin/presentation/base/baseviewmodel.dart';
+import '../../../../app/hive_helper.dart';
+import '../../../common/freezed_data_classes.dart';
 
-import '../base/baseviewmodel.dart';
-import '../common/freezed_data_classes.dart';
 
-class UpdateInfoViewModel extends BaseViewModel with UpdateInfoViewModelInput,UpdateInfoViewModelOutput {
-  StreamController _infoStreamController = BehaviorSubject<Info>();
+class InfoSettingsViewModel extends BaseViewModel with UpdateInfoViewModelInput,UpdateInfoViewModelOutput {
   StreamController _telephoneStreamController = BehaviorSubject<String>();
   StreamController _adressStreamController = BehaviorSubject<String>();
   StreamController _wifiPasswordStreamController = BehaviorSubject<String>();
   StreamController _isValidToUpdateStreamController = BehaviorSubject<void>();
 
-  UpdateInfoUseCase _useCase;
-  UpdateInfoViewModel(this._useCase);
+  InfoSettingsUseCase _useCase;
+  InfoSettingsViewModel(this._useCase);
 
   InfoObject _viewObject = new InfoObject(EMPTY,EMPTY,EMPTY);
-  TextEditingController addressEditingController = TextEditingController();
-  TextEditingController telephoneEditingController = TextEditingController();
-  TextEditingController wifiPasswordEditingController = TextEditingController();
+
 
   @override
   void start() {
-    _getInfo();
-    addressEditingController.addListener(() { 
-      setAddress(addressEditingController.text);
-    });
-    
-    telephoneEditingController.addListener(() { 
-      setTelephone(telephoneEditingController.text);
-    });
-    
-    wifiPasswordEditingController.addListener(() { 
-      setWifiPassword(wifiPasswordEditingController.text);
-    });
-  }
-
-  _getInfo()async{
-    inputState.add(LoadingState(stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
-    (await _useCase.getInfo()).fold(
-      (failure) => inputState.add(ErrorState(StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message)), 
-      (info) {
-        setAddress(info.address);
-        setTelephone(info.telephone);
-        setWifiPassword(info.wifiPassword);
-        addressEditingController.text = info.address;
-        telephoneEditingController.text = info.telephone;
-        wifiPasswordEditingController.text = info.wifiPassword;
-        inputInfo.add(info);
-        inputState.add(ContentState());
-      });
+    Info info = HiveHelper.getInfo(); 
+    setAddress(info.address);
+    setTelephone(info.telephone);
+    setWifiPassword(info.wifiPassword);
   }
 
   @override
   void dispose() {
     _adressStreamController.close();
-    _infoStreamController.close();
     _telephoneStreamController.close();
     _wifiPasswordStreamController.close();
     super.dispose();
@@ -72,15 +44,15 @@ class UpdateInfoViewModel extends BaseViewModel with UpdateInfoViewModelInput,Up
   @override
   updateInfo(BuildContext context) async{
     inputState.add(LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
-    (await _useCase.execute(UpdateInfoUseCaseInput(
+    (await _useCase.execute(InfoSettingsUseCaseInput(
       _viewObject.telephone, 
       _viewObject.address, 
       _viewObject.wifiPassword))).fold(
         (failure) => inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)), 
         (info) {
+          HiveHelper.updateInfo(info);
           Navigator.of(context).pop();
           inputState.add(SuccessState(AppStrings.successUpdateInfo));
-          inputInfo.add(info);
         });
   }
 
@@ -121,9 +93,6 @@ class UpdateInfoViewModel extends BaseViewModel with UpdateInfoViewModelInput,Up
   Sink get inputAddress => _adressStreamController.sink;
   
   @override
-  Sink get inputInfo => _infoStreamController.sink;  
-  
-  @override
   Sink get inputTelephone => _telephoneStreamController.sink;
   
   @override
@@ -145,10 +114,7 @@ class UpdateInfoViewModel extends BaseViewModel with UpdateInfoViewModelInput,Up
         outputIsWifiPasswordValid.map((isWifiPassword) => isWifiPassword?null:"Invalid Wifi password");
   
   @override
-  Stream<Info> get outputInfo => _infoStreamController.stream.map((info) => info);
-  
-  @override
-  Stream<bool> get outputIsAddressValid => _infoStreamController.stream.map((adress) => _isAdressValid(adress));
+  Stream<bool> get outputIsAddressValid => _adressStreamController.stream.map((adress) => _isAdressValid(adress));
   
   @override
   Stream<bool> get outputIsTelephoneValid => _telephoneStreamController.stream.map((telephone) => _isTelephoneValid(telephone));
@@ -187,7 +153,6 @@ abstract class UpdateInfoViewModelInput {
   setTelephone(String telephone);
   setAddress(String adress);
   setWifiPassword(String wifiPassword);
-  Sink get inputInfo;
   Sink get inputAddress;
   Sink get inputTelephone;
   Sink get inputWifiPassword;
@@ -196,7 +161,6 @@ abstract class UpdateInfoViewModelInput {
 
 
 abstract class UpdateInfoViewModelOutput {
-  Stream<Info> get outputInfo;
   Stream<bool> get outputIsAddressValid;
   Stream<String?> get outputErrorAddress;
   Stream<bool> get outputIsTelephoneValid;

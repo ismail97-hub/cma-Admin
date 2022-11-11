@@ -5,28 +5,23 @@ import 'package:cma_admin/domain/repository/repository.dart';
 import 'package:cma_admin/domain/usecase/base_usecase.dart';
 import 'package:dartz/dartz.dart';
 
-class UpdateInfoUseCase extends BaseUseCase<UpdateInfoUseCaseInput,Info>{
+class InfoSettingsUseCase extends BaseUseCase<InfoSettingsUseCaseInput,Info>{
   Repository _repository;
-  UpdateInfoUseCase(this._repository);
+  InfoSettingsUseCase(this._repository);
 
   @override
-  Future<Either<Failure, Info>> execute(UpdateInfoUseCaseInput input) {
+  Future<Either<Failure, Info>> execute(InfoSettingsUseCaseInput input) {
     return _repository.updateInfo(input.telephone, input.address, input.wifiPassword);
   }
-
-  Future<Either<Failure,Info>> getInfo(){
-    return _repository.getInfo();
-  }
-  
-  
+      
 }
 
-class UpdateInfoUseCaseInput {
+class InfoSettingsUseCaseInput {
   String telephone;  
   String address;
   String wifiPassword;
 
-  UpdateInfoUseCaseInput(
+  InfoSettingsUseCaseInput(
     this.telephone,
     this.address,
     this.wifiPassword,

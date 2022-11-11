@@ -4,9 +4,9 @@ class AppStrings {
   static const String skip = "Skip";
   static const String username = "Username";
   static const String name = "Name";
-  static const String address = "address";
-  static const String telephone = "telephone";
-  static const String wifiPassword = "wifi password";
+  static const String address = "Address";
+  static const String telephone = "Telephone";
+  static const String wifiPassword = "Wifi password";
   static const String role = "Role";
   static const String mobileNumber = "Mobile Number";
   static const String usernameError = "Username is wrong";

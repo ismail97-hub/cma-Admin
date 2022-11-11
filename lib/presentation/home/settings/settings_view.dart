@@ -3,13 +3,13 @@ import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/presentation/home/settings/account_settings/account_settings_view.dart';
 import 'package:cma_admin/presentation/home/settings/components/settings_side_nav.dart';
+import 'package:cma_admin/presentation/home/settings/info_settings/info_settings_view.dart';
 import 'package:cma_admin/presentation/home/settings/settings_viewmodel.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/icon_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
-import 'package:cma_admin/presentation/update_info/update_info_view.dart';
 import 'package:flutter/material.dart';
 
 
@@ -25,7 +25,7 @@ class _SettingsViewState extends State<SettingsView> with TickerProviderStateMix
   late TabController _tabController;
   List<Widget> _views = [
     AccountSettingsView(),
-    UpdateInfoView(),
+    InfoSettingsView(),
     Center(child: Text(AppStrings.language)),
   ];
 
@@ -78,6 +78,7 @@ class _SettingsViewState extends State<SettingsView> with TickerProviderStateMix
             controller: _tabController,
             labelColor: ColorManager.black,
             unselectedLabelColor: ColorManager.lightGrey,
+            indicatorColor: ColorManager.black,
             tabs: [
               Tab(icon: Icon(IconManger.account)),
               Tab(icon: Icon(IconManger.info)),

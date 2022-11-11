@@ -1,7 +1,5 @@
 
 import 'dart:async';
-
-import 'package:cma_admin/app/app_prefs.dart';
 import 'package:cma_admin/app/enum.dart';
 import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
@@ -22,8 +20,7 @@ class UpdateUserViewModel extends BaseViewModel with UpdateUserViewModelInput,Up
   StreamController _imageStreamController = BehaviorSubject<PickerFile>();
   StreamController _isValidToUpdateStreamController = BehaviorSubject<void>(); 
   UpdateUserUseCase _useCase;
-  AppPreferences _appPreferences;
-  UpdateUserViewModel(this._useCase,this._appPreferences);
+  UpdateUserViewModel(this._useCase);
   UpdateUserObject _viewObject = new UpdateUserObject(null, EMPTY, UserRole.WAITER, EMPTY);
 
   @override

@@ -1,4 +1,3 @@
-import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/presentation/resources/language_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

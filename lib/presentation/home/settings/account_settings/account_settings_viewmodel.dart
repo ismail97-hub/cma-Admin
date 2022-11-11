@@ -11,12 +11,8 @@ import 'package:cma_admin/presentation/common/freezed_data_classes.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../../../../app/di.dart';
 import '../../../../domain/usecase/account_settings_usecase.dart';
-import '../../../resources/routes_manager.dart';
 
 class AccountSettingsViewModel extends BaseViewModel with AccountSettingsViewModelInput,AccountSettingsViewModelOutput{
   StreamController _rolesStreamController = BehaviorSubject<List<UserRole>>();
