@@ -6,6 +6,7 @@ import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/data/network/web_socket.dart';
+import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/domain/usecase/home_usecase.dart';
 import 'package:cma_admin/presentation/base/baseviewmodel.dart';
 import 'package:flutter/cupertino.dart';
@@ -54,7 +55,11 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInput,HomeViewModelO
     (await _useCase.getInfo()).fold(
       (failure) => null,      
       (info) {
-        HiveHelper.addInfo(info);
+        if(HiveHelper.getInfo()==Info.empty()){
+          HiveHelper.addInfo(info);
+        }else{
+          HiveHelper.updateInfo(info);
+        }
       });
   }
 
