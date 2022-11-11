@@ -13,6 +13,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 
+import '../../app/di.dart';
+
 class HomeViewModel extends BaseViewModel with HomeViewModelInput,HomeViewModelOutput{
   StreamController _currentIndexStreamController = BehaviorSubject<int>();
   StreamController _preCanceledOrdersCountStreamController = BehaviorSubject<int>();
@@ -53,16 +55,8 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInput,HomeViewModelO
       Navigator.of(context).pop();
     }
     if (index==8) {
-      logout(context);
+      logout(context,_appPreferences);
     }
-  }
-
-  logout(BuildContext context) {
-    _appPreferences.logout();
-    HiveHelper.logout();
-    Navigator.pushNamedAndRemoveUntil(
-        context, Routes.loginRoute, ModalRoute.withName('/'),
-        arguments: 0);
   }
 
   @override

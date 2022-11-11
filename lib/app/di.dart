@@ -309,7 +309,7 @@ initProductsInsightsModule(){
 initAccountSettingsModule(){
   if(!GetIt.I.isRegistered<AccountSettingsUseCase>()){
     instance.registerFactory<AccountSettingsUseCase>(() => AccountSettingsUseCase(instance()));
-    instance.registerFactory<AccountSettingsViewModel>(() => AccountSettingsViewModel(instance()));
+    instance.registerFactory<AccountSettingsViewModel>(() => AccountSettingsViewModel(instance(),instance()));
   }
 }
 

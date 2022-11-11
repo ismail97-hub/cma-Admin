@@ -25,23 +25,15 @@ class _SplashViewState extends State<SplashView> {
     _appPreferences.isUserLoggedIn().then((isUserLoggedIn) => {
           if (isUserLoggedIn)
             {
-              _appPreferences.getUserRole().then((role) {
-                if (role == Constant.OWNER) {
-                  Navigator.pushNamedAndRemoveUntil(context,
-                      Routes.homeRoute, ModalRoute.withName('/'),
-                      arguments: 0);
-                } else if ((role == Constant.MANAGER)) {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, Routes.homeRoute, ModalRoute.withName('/'),
-                      arguments: 0);
-                }
-              })
+              Navigator.pushNamedAndRemoveUntil(
+                context, Routes.homeRoute, ModalRoute.withName('/'),
+                arguments: 0)
             }
           else
             {
               Navigator.pushNamedAndRemoveUntil(
-                  context, Routes.loginRoute, ModalRoute.withName('/'),
-                  arguments: 0)
+                context, Routes.loginRoute, ModalRoute.withName('/'),
+                arguments: 0)
             }
         });
   }

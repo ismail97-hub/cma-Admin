@@ -5,6 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 import '../domain/model/model.dart';
+import '../presentation/resources/routes_manager.dart';
+import 'app_prefs.dart';
+import 'di.dart';
+import 'hive_helper.dart';
 
 bool isEmailValid(String email) {
   return RegExp(
@@ -38,6 +42,15 @@ dateToStringFormat(DateTime? dateTime) {
 
 dateToStringFormat2(DateTime? dateTime) {
   return DateFormat('dd MMMM yyyy').format(dateTime!);
+}
+
+logout(BuildContext context,AppPreferences appPreferences){
+  appPreferences.logout();
+  HiveHelper.logout();
+  resetModules();
+  Navigator.pushNamedAndRemoveUntil(
+      context, Routes.loginRoute, ModalRoute.withName('/'),
+      arguments: 0);
 }
 
 startFilePicker(Function(PickerFile) setImage) async {

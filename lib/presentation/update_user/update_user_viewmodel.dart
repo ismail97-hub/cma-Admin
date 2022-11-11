@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:cma_admin/app/app_prefs.dart';
 import 'package:cma_admin/app/enum.dart';
+import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/domain/usecase/update_user_usecase.dart';
@@ -38,8 +39,7 @@ class UpdateUserViewModel extends BaseViewModel with UpdateUserViewModelInput,Up
   }
    
   _getRoles()async{
-    String role = await _appPreferences.getUserRole();
-    UserRole currentUserRole = role.toUserRoleEnum();
+    UserRole currentUserRole = HiveHelper.getCurrentUser().role.toUserRoleEnum();
     if (currentUserRole==UserRole.OWNER) {
       inputRoles.add(UserRole.values);
     } else {

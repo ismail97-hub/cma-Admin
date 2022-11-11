@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:cma_admin/app/app_prefs.dart';
 import 'package:cma_admin/app/constant.dart';
 import 'package:cma_admin/app/di.dart';
+import 'package:cma_admin/app/enum.dart';
+import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/domain/usecase/add_user_usecase.dart';
 import 'package:cma_admin/presentation/base/baseviewmodel.dart';
@@ -222,21 +224,20 @@ class AddUserViewModel extends BaseViewModel
   }
 
   RoleChecked() {
-    _appPreferences.getUserRole().then((role) {
-      if (role == Constant.OWNER) {
-        rolechecked = [
-          Constant.MANAGER,
-          Constant.OWNER,
-          Constant.WAITER,
-          Constant.BARMAN
-        ];
-      } else if (role == Constant.MANAGER) {
-        rolechecked = [
-          Constant.WAITER,
-          Constant.BARMAN,
-        ];
-      }
-    });
+    UserRole role = HiveHelper.getCurrentUser().role.toUserRoleEnum();
+    if (role == Constant.OWNER) {
+      rolechecked = [
+        Constant.MANAGER,
+        Constant.OWNER,
+        Constant.WAITER,
+        Constant.BARMAN
+      ];
+    } else if (role == Constant.MANAGER) {
+      rolechecked = [
+        Constant.WAITER,
+        Constant.BARMAN,
+      ];
+    }
 
     return rolechecked;
   }

@@ -1,6 +1,8 @@
 
 import 'dart:async';
+import 'package:cma_admin/app/app_prefs.dart';
 import 'package:cma_admin/app/enum.dart';
+import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/domain/model/model.dart';
@@ -9,9 +11,12 @@ import 'package:cma_admin/presentation/common/freezed_data_classes.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../../app/di.dart';
 import '../../../../domain/usecase/account_settings_usecase.dart';
+import '../../../resources/routes_manager.dart';
 
 class AccountSettingsViewModel extends BaseViewModel with AccountSettingsViewModelInput,AccountSettingsViewModelOutput{
   StreamController _rolesStreamController = BehaviorSubject<List<UserRole>>();
@@ -24,7 +29,8 @@ class AccountSettingsViewModel extends BaseViewModel with AccountSettingsViewMod
   StreamController _confirmationNewPasswordStreamController = BehaviorSubject<String>();
   StreamController _isValidToUpdateStreamController = BehaviorSubject<void>(); 
   AccountSettingsUseCase _useCase;
-  AccountSettingsViewModel(this._useCase);
+  AppPreferences _appPreferences;
+  AccountSettingsViewModel(this._useCase,this._appPreferences);
   AccountSettingsViewObject _viewObject = new AccountSettingsViewObject(null, EMPTY, UserRole.WAITER,EMPTY,EMPTY,EMPTY,EMPTY);
 
   @override
@@ -74,8 +80,7 @@ class AccountSettingsViewModel extends BaseViewModel with AccountSettingsViewMod
       (failure) => inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)), 
       (user)async{
         inputState.add(ContentState());
-        Navigator.of(context).pop();
-        HiveHelper.update(user);
+        logout(context, _appPreferences);
       });
   }
   

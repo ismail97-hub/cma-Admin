@@ -42,8 +42,6 @@ class _SignInViewState extends State<SignInView> {
         SignInData signInData = data;
         _appPreferences.setUserToken(signInData.token.toString());
         _appPreferences.setIsUserLoggedIn();
-        _appPreferences.setUserRole(signInData.user!.role);
-        _appPreferences.setCurrentUserId(signInData.user!.id);
         HiveHelper.signIn(signInData.user!);
         resetModules();
         if (signInData.user?.role == Constant.OWNER||signInData.user?.role == Constant.MANAGER) {
