@@ -93,7 +93,7 @@ class _CategoryViewState extends State<CategoryView> {
           _getHeaders(categories),
           SizedBox(height: AppSize.s20),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+            padding: EdgeInsets.symmetric(horizontal: AppPadding.p6),
             child: _getStatiqueGrid(categories),
           ),
           SizedBox(height: AppSize.s20),
@@ -133,7 +133,7 @@ class _CategoryViewState extends State<CategoryView> {
 
   Widget _getHeaders(List<Category> categories) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

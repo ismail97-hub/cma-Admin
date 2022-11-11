@@ -16,7 +16,7 @@ class OrdersStatisticsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+      padding: EdgeInsets.symmetric(horizontal: AppPadding.p6),
       child: ResponsiveGrid(
           widthPourcentage: isMobile(context)
               ? 0.5

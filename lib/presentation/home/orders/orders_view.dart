@@ -90,7 +90,7 @@ class _OrdersViewState extends State<OrdersView> {
 
   Widget _getHeaders(){
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:[
@@ -108,7 +108,7 @@ class _OrdersViewState extends State<OrdersView> {
   Widget _getCharts(List<TimeInsights> timesInsights){
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
       child: isDesktop(context)?Row(
         children: [
           Expanded(child: AmountChart(timesInsights,_viewModel.ordersViewObject.dateRange)),
@@ -129,7 +129,7 @@ class _OrdersViewState extends State<OrdersView> {
     List<OrderModel> orders = source.ordersInsights.orders!;
     return orders.isEmpty?NotfoundWidget(AppStrings.noOrdersAvailable):Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
       child: PaginatedDataTable(
         onPageChanged: (index)async{
           if (index==source.ordersInsights.orders!.length) {

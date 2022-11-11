@@ -90,7 +90,7 @@ class _SupplementViewState extends State<SupplementView> {
           _getHeaders(supplements),
           SizedBox(height: AppSize.s20),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+            padding: EdgeInsets.symmetric(horizontal: AppPadding.p6),
             child: _getStatiqueGrid(supplements),
           ),
           SizedBox(height: AppSize.s20),
@@ -129,7 +129,7 @@ class _SupplementViewState extends State<SupplementView> {
 
   Widget _getHeaders(List<Supplement> supplements) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

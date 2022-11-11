@@ -15,7 +15,7 @@ class CustomDataTable extends StatelessWidget {
       this.headerColor,
       bool? card,
       EdgeInsets? padding})
-      : padding = padding ?? const EdgeInsets.symmetric(horizontal: AppPadding.p30),
+      : padding = padding ?? const EdgeInsets.symmetric(horizontal: AppPadding.p20),
         card = card ?? true,
         super(key: key);
 

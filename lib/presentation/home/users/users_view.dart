@@ -90,7 +90,7 @@ class _UserViewState extends State<UserView> {
           _getHeaders(users),
           SizedBox(height: AppSize.s20),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+            padding: EdgeInsets.symmetric(horizontal: AppPadding.p6),
             child: _getStatiqueGrid(users),
           ),
           SizedBox(height: AppSize.s20),
@@ -119,7 +119,7 @@ class _UserViewState extends State<UserView> {
 
   Widget _getHeaders(List<User> users) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

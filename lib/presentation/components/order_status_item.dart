@@ -15,7 +15,7 @@ class OrderStatusItem extends StatelessWidget {
   Widget build(BuildContext context) {
     StatusObjectView statusObjectView = status.getObject(); 
     return Container(
-      width: AppSize.s100,
+      width: AppSize.s80,
       height: AppSize.s30,
       decoration: BoxDecoration(
         color: statusObjectView.color.withOpacity(0.3),

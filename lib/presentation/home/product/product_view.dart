@@ -94,7 +94,7 @@ class _ProductViewState extends State<ProductView> {
           _getHeaders(products),
           SizedBox(height: AppSize.s20),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+            padding: EdgeInsets.symmetric(horizontal: AppPadding.p6),
             child: _getStatiqueGrid(products),
           ),
           SizedBox(height: AppSize.s20),
@@ -136,7 +136,7 @@ class _ProductViewState extends State<ProductView> {
 
   Widget _getHeaders(List<Product> products) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

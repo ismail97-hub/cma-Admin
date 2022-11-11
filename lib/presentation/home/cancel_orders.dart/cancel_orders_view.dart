@@ -75,7 +75,7 @@ class _CancelOrdersViewState extends State<CancelOrdersView> {
               children: [
                 SizedBox(height: AppSize.s20),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
                   child: HeaderText(AppStrings.cancelOrders),
                 ),
                 SizedBox(height: AppSize.s20),
@@ -90,6 +90,7 @@ class _CancelOrdersViewState extends State<CancelOrdersView> {
     return preCanceledOrders.isEmpty
         ? NotfoundWidget(AppStrings.noPreCanceledOrdersAvailable)
         : CustomDataTable(
+            padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
             columns: columns
                 .map((column) => DataColumn(label: Text(column)))
                 .toList(),

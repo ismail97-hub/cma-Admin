@@ -65,10 +65,7 @@ class _DashboardViewState extends State<DashboardView> {
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data
-                  ?.getScreenWidget(context, _getcontentScreenWidget(), () {
-                _bind();
-              }) ??
-              _getcontentScreenWidget();
+                  ?.getScreenWidget(context, _getcontentScreenWidget(),()=>_bind())??_getcontentScreenWidget();
         });
   }
 
@@ -88,8 +85,9 @@ class _DashboardViewState extends State<DashboardView> {
                   _getHeaders(),
                   SizedBox(height: AppSize.s14),
                   OrdersStatisticsGrid(homeData.statusCount!, homeData.totalAmount),
+                  SizedBox(height: AppSize.s20),
                   _getChartsSection(homeData),
-                  SizedBox(height: AppSize.s18),
+                  SizedBox(height: AppSize.s20),
                   _getOrdersAndWaitersSection(homeData),
                   SizedBox(height: AppSize.s30)
                 ],
@@ -103,7 +101,7 @@ class _DashboardViewState extends State<DashboardView> {
 
   Widget _getHeaders() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+      padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -117,7 +115,7 @@ class _DashboardViewState extends State<DashboardView> {
 
   Widget _getChartsSection(HomeData homeData) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
+        padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
         child: isDesktop(context)
         ?SizedBox(
           height: AppSize.s400,
@@ -140,7 +138,7 @@ class _DashboardViewState extends State<DashboardView> {
 
   Widget _getOrdersAndWaitersSection(HomeData homeData){
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:AppPadding.p30),
+      padding: const EdgeInsets.symmetric(horizontal:AppPadding.p20),
       child: isDesktop(context)
         ?Row(
           crossAxisAlignment: CrossAxisAlignment.start,
