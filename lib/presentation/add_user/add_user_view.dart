@@ -1,9 +1,13 @@
 
 import 'package:cma_admin/app/di.dart';
+import 'package:cma_admin/app/enum.dart';
 import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/presentation/add_user/add_user_viewmodel.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/components/custom_appbar.dart';
+import 'package:cma_admin/presentation/components/custom_dropdown.dart';
+import 'package:cma_admin/presentation/components/custom_submit_button.dart';
+import 'package:cma_admin/presentation/components/custom_textfield.dart';
 import 'package:cma_admin/presentation/components/field_label.dart';
 import 'package:cma_admin/presentation/components/image_picker_widget.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
@@ -49,13 +53,6 @@ class _AddUserViewState extends State<AddUserView> {
 
     _nameTextEditingController.addListener(() {
       _viewModel.setName(_nameTextEditingController.text);
-    });
-
-    _viewModel.isUserLoggedInSuccessfullyStreamController.stream
-        .listen((isSuccessLoggedIn) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
-      });
     });
   }
 
@@ -119,6 +116,7 @@ class _AddUserViewState extends State<AddUserView> {
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //image
                 ImagePickerWidget(
@@ -126,79 +124,40 @@ class _AddUserViewState extends State<AddUserView> {
                   imageStream: _viewModel.outputProfilePicture),
                 SizedBox(height: AppSize.s30),
                 // name field
-                FieldLabel(AppStrings.name,isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputErrorName,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller:
-                            _nameTextEditingController,
-                        decoration: InputDecoration(
-                            hintText: AppStrings.name,
-                            errorText: snapshot.data));
-                  },
-                ),
+                CustomTextField(
+                  width: double.infinity,
+                  label: AppStrings.name, 
+                  errorStream: _viewModel.outputErrorName, 
+                  textEditingController: _nameTextEditingController),
                 SizedBox(height: AppSize.s30),
                 // role field
-                FieldLabel(AppStrings.role,isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputRole,
-                  builder: (context, snapshot) {
-                    return DropdownSearch(
-                      mode: Mode.MENU,
-                      showSelectedItems: true,
-                      items: _viewModel.rolechecked,
-                      dropdownSearchDecoration: InputDecoration(hintText: AppStrings.role),
-                      onChanged: (value) {
-                        _viewModel.setRole(value.toString());
-                      },
-                    );
-                  },
-                ),
+                CustomDropDown<UserRole>(
+                  width: double.infinity,
+                  selectedItem: UserRole.WAITER,
+                  label: AppStrings.role, 
+                  stream: _viewModel.outputRoles, 
+                  itemAsString: (UserRole? role)=> role!.toStr(), 
+                  onTap: (role)=>_viewModel.setRole(role)),
                 SizedBox(height: AppSize.s30),
                 // username field
-                FieldLabel(AppStrings.username,isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputErrorUserName,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: _userNameTextEditingController,
-                        decoration: InputDecoration(
-                            hintText: AppStrings.username,
-                            errorText: snapshot.data));
-                  },
-                ),
+                CustomTextField(
+                  width: double.infinity,
+                  label: AppStrings.username, 
+                  errorStream: _viewModel.outputErrorUserName, 
+                  textEditingController: _userNameTextEditingController),
                 SizedBox(height: AppSize.s30),
                 // password field
-                FieldLabel(AppStrings.password,isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputErrorPassword,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                      keyboardType: TextInputType.visiblePassword,
-                      controller: _passwordEditingController,
-                      decoration: InputDecoration(
-                        labelText: AppStrings.password,
-                        errorText: snapshot.data,
-                      ),
-                    );
-                  },
-                ),
+                CustomTextField(
+                  width: double.infinity,
+                  label: AppStrings.password, 
+                  errorStream: _viewModel.outputErrorPassword, 
+                  textEditingController: _passwordEditingController),
                 SizedBox(height: AppSize.s40),
-                StreamBuilder<bool>(
-                  stream: _viewModel.outputIsAllInputsValid,
-                  builder: (context, snapshot) {
-                    return SizedBox(
-                      width: double.infinity,
-                      height: AppSize.s40,
-                      child: ElevatedButton(
-                          onPressed: (snapshot.data ?? false)? () {_viewModel.register(context);}: null,
-                          child: Text(AppStrings.create)),
-                    );
-                  },
-                ),
+                CustomSubmitButton(
+                  width: double.infinity,
+                  isAllInputValidStream: _viewModel.outputIsAllInputsValid, 
+                  onTap: ()=>_viewModel.register(context), 
+                  buttonText: AppStrings.create),
               ],
             ),
           ),

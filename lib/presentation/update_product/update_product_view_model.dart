@@ -17,42 +17,33 @@ class UpdateProductViewModel extends BaseViewModel
     with UpdateProductViewModelInput, UpdateProductViewModelOutput {
   final _categorieStreamController = BehaviorSubject<List<Category>>();
   StreamController _colorStreamController = StreamController<Color>.broadcast();
-  StreamController _priceStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _titleStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _categoryIdStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _profilePictureStreamController =
-      StreamController<PickerFile?>.broadcast();
-
-  StreamController _isAllInputsValidStreamController =
-      StreamController<bool>.broadcast();
-
-  StreamController isUpdateProductSuccessfullyStreamController =
-      StreamController<bool>();
-
+  StreamController _priceStreamController = StreamController<String>.broadcast();
+  StreamController _titleStreamController = StreamController<String>.broadcast();
+  StreamController _categoryIdStreamController = StreamController<String>.broadcast();
+  StreamController _imageStreamController = StreamController<PickerFile?>.broadcast();
+  StreamController _isAllInputsValidStreamController = StreamController<bool>.broadcast();
+  
   UpdateProductUseCase _updateProductUseCase;
-  CategoryUseCase _categoryUseCase;
+  UpdateProductViewModel(this._updateProductUseCase);
 
-  var updateProductViewObject = UpdateProductObject("", "", "", null, "", "");
-
-  UpdateProductViewModel(this._updateProductUseCase, this._categoryUseCase);
-
-  //  -- inputs
+  var updateProductViewObject = UpdateProductObject(EMPTY, EMPTY, EMPTY, null,EMPTY,EMPTY);
   @override
   void start() {
     inputState.add(ContentState());
     loadCategory();
   }
 
+  init(Product product){
+    setId(product.id.toString());
+    setTitle(product.title);
+    setColor(product.color);
+    setCategoryId(product.category!.id.toString());
+    setPrice(product.price.toString());
+  }
+
   @override
   updateProduct(BuildContext context) async {
-    inputState.add(
-        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    inputState.add(LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
     (await _updateProductUseCase.execute(UpdateProductUseCaseInput(
       updateProductViewObject.id,
       updateProductViewObject.categoryId,
@@ -61,24 +52,18 @@ class UpdateProductViewModel extends BaseViewModel
       updateProductViewObject.price,
       updateProductViewObject.title,
     ))).fold(
-      (failure) => {
-        inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message))
-      }, (data) {
+    (failure) => inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)), 
+    (data) {
       inputState.add(ContentState());
-      // Navigator.of(context).pop();
-      isUpdateProductSuccessfullyStreamController.add(true);
+      Navigator.of(context).pop();
       Navigator.of(context).pop();
     });
   }
 
   loadCategory() async {
-    inputState.add(LoadingState(
-        stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
-    (await _categoryUseCase.execute(EMPTY)).fold(
-      (failure) {
-        inputState.add(ErrorState(
-            StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
-      },
+    inputState.add(LoadingState(stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
+    (await _updateProductUseCase.getCategories(EMPTY)).fold(
+      (failure)=>inputState.add(ErrorState(StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message)),
       (categories) async {
         inputState.add(ContentState());
         inputCategories.add(categories);
@@ -88,8 +73,7 @@ class UpdateProductViewModel extends BaseViewModel
 
   @override
   void dispose() {
-    _isAllInputsValidStreamController.close();
-    _profilePictureStreamController.close();
+    _imageStreamController.close();
     _colorStreamController.close();
     _titleStreamController.close();
     _priceStreamController.close();
@@ -99,11 +83,11 @@ class UpdateProductViewModel extends BaseViewModel
     super.dispose();
   }
 
+  //  -- inputs
   @override
   setColor(Color color) {
     inputPickerColor.add(color);
-    updateProductViewObject = updateProductViewObject.copyWith(
-        color: colorToHex(color, includeHashSign: false));
+    updateProductViewObject = updateProductViewObject.copyWith(color: colorToHex(color, includeHashSign: false));
   }
 
   @override
@@ -142,8 +126,8 @@ class UpdateProductViewModel extends BaseViewModel
   }
 
   @override
-  setProfilePicture(PickerFile file) {
-    inputProfilePicture.add(file);
+  setImage(PickerFile file) {
+    inputImage.add(file);
     updateProductViewObject = updateProductViewObject.copyWith(image: file);
     _validate();
   }
@@ -159,7 +143,7 @@ class UpdateProductViewModel extends BaseViewModel
   Sink get inputCategoryId => _categoryIdStreamController.sink;
 
   @override
-  Sink get inputProfilePicture => _profilePictureStreamController.sink;
+  Sink get inputImage => _imageStreamController.sink;
 
   @override
   Sink get inputTitle => _titleStreamController.sink;
@@ -200,8 +184,8 @@ class UpdateProductViewModel extends BaseViewModel
       .map((isPriceValid) => isPriceValid ? null : "price must be integer");
 
   @override
-  Stream<PickerFile?> get outputProfilePicture =>
-      _profilePictureStreamController.stream.map((file) => file);
+  Stream<PickerFile?> get outputImage =>
+      _imageStreamController.stream.map((file) => file);
 
   @override
   Stream<bool> get outputIsAllInputsValid =>
@@ -240,7 +224,7 @@ abstract class UpdateProductViewModelInput {
 
   setColor(Color color);
 
-  setProfilePicture(PickerFile file);
+  setImage(PickerFile file);
 
   setCategoryId(String id);
 
@@ -250,7 +234,7 @@ abstract class UpdateProductViewModelInput {
 
   Sink get inputPickerColor;
 
-  Sink get inputProfilePicture;
+  Sink get inputImage;
 
   Sink get inputPrice;
 
@@ -266,7 +250,7 @@ abstract class UpdateProductViewModelInput {
 abstract class UpdateProductViewModelOutput {
   Stream<Color> get outputPickerColor;
 
-  Stream<PickerFile?> get outputProfilePicture;
+  Stream<PickerFile?> get outputImage;
 
   Stream<String?> get outputCategoryId;
 

@@ -12,10 +12,13 @@ class UpdateProductUseCase
   UpdateProductUseCase(this._repository);
 
   @override
-  Future<Either<Failure, Product>> execute(
-      UpdateProductUseCaseInput input) async {
-    return await _repository.updateProduct(UpdateProductRequest(input.id,
-        input.categoryId, input.color, input.image, input.price, input.title));
+  Future<Either<Failure, Product>> execute(UpdateProductUseCaseInput input) async {
+    return await _repository.updateProduct(UpdateProductRequest(input.id,input.categoryId, input.color, input.image, input.price, input.title));
+  }
+
+  @override
+  Future<Either<Failure, List<Category>>> getCategories(String input) {
+    return _repository.getAllCategory();
   }
 }
 

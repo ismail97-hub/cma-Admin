@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/domain/usecase/update_category_usecase.dart';
 import 'package:cma_admin/presentation/base/baseviewmodel.dart';
@@ -8,32 +9,27 @@ import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-class UpdateCategoryViewModel extends BaseViewModel
-    with UpdateCategoryViewModelInput, UpdateCategoryViewModelOutput {
+class UpdateCategoryViewModel extends BaseViewModel with UpdateCategoryViewModelInput, UpdateCategoryViewModelOutput {
   StreamController _colorStreamController = StreamController<Color>.broadcast();
-
-  StreamController _profilePictureStreamController =
-      StreamController<PickerFile?>.broadcast();
-
-  StreamController _labelStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _isAllInputsValidStreamController =
-      StreamController<bool>.broadcast();
-
-  StreamController isUpdateCategorySuccessfullyStreamController =
-      StreamController<bool>();
+  StreamController _imageStreamController = StreamController<PickerFile?>.broadcast();
+  StreamController _labelStreamController = StreamController<String>.broadcast();
+  StreamController _isAllInputsValidStreamController = StreamController<bool>.broadcast();
 
   UpdateCategoryUseCase _updateCategoryUseCase;
 
-  var updateCategoryViewObject = UpdateCategoryObject("", "", null, "");
+  var updateCategoryViewObject = UpdateCategoryObject(EMPTY,EMPTY, null,EMPTY);
 
   UpdateCategoryViewModel(this._updateCategoryUseCase);
 
-  //  -- inputs
   @override
   void start() {
     inputState.add(ContentState());
+  }
+
+  init(Category category){
+   setColor(category.color);
+   setId(category.id.toString());
+   setLabel(category.label);
   }
 
   @override
@@ -45,12 +41,10 @@ class UpdateCategoryViewModel extends BaseViewModel
       updateCategoryViewObject.image,
       updateCategoryViewObject.label,
     ))).fold(
-      (failure) => {
-        inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message))
-      }, 
+      (failure) => inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)), 
       (data) {
         inputState.add(ContentState());
-        isUpdateCategorySuccessfullyStreamController.add(true);
+        Navigator.of(context).pop();
         Navigator.of(context).pop();
       }
     );
@@ -59,19 +53,17 @@ class UpdateCategoryViewModel extends BaseViewModel
   @override
   void dispose() {
     _isAllInputsValidStreamController.close();
-    _profilePictureStreamController.close();
+    _imageStreamController.close();
     _colorStreamController.close();
     _labelStreamController.close();
-    isUpdateCategorySuccessfullyStreamController.close();
-
     super.dispose();
   }
 
+  //  -- inputs
   @override
   setColor(Color color) {
     inputPickerColor.add(color);
-    updateCategoryViewObject = updateCategoryViewObject.copyWith(
-        color: colorToHex(color, includeHashSign: false));
+    updateCategoryViewObject = updateCategoryViewObject.copyWith(color: colorToHex(color, includeHashSign: false));
   }
 
   @override
@@ -86,8 +78,8 @@ class UpdateCategoryViewModel extends BaseViewModel
   }
 
   @override
-  setProfilePicture(PickerFile file) {
-    inputProfilePicture.add(file);
+  setImage(PickerFile file) {
+    inputImage.add(file);
     updateCategoryViewObject = updateCategoryViewObject.copyWith(image: file);
     _validate();
   }
@@ -100,7 +92,7 @@ class UpdateCategoryViewModel extends BaseViewModel
   Sink get inputPickerColor => _colorStreamController.sink;
 
   @override
-  Sink get inputProfilePicture => _profilePictureStreamController.sink;
+  Sink get inputImage => _imageStreamController.sink;
 
   @override
   Sink get inputLabel => _labelStreamController.sink;
@@ -123,8 +115,8 @@ class UpdateCategoryViewModel extends BaseViewModel
       .map((isLabelValid) => isLabelValid ? null : "invalid Label");
 
   @override
-  Stream<PickerFile?> get outputProfilePicture =>
-      _profilePictureStreamController.stream.map((file) => file);
+  Stream<PickerFile?> get outputImage =>
+      _imageStreamController.stream.map((file) => file);
 
   @override
   Stream<bool> get outputIsAllInputsValid =>
@@ -149,13 +141,13 @@ abstract class UpdateCategoryViewModelInput {
 
   setColor(Color color);
 
-  setProfilePicture(PickerFile file);
+  setImage(PickerFile file);
 
   setLabel(String label);
 
   Sink get inputPickerColor;
 
-  Sink get inputProfilePicture;
+  Sink get inputImage;
 
   Sink get inputLabel;
 
@@ -165,7 +157,7 @@ abstract class UpdateCategoryViewModelInput {
 abstract class UpdateCategoryViewModelOutput {
   Stream<Color> get outputPickerColor;
 
-  Stream<PickerFile?> get outputProfilePicture;
+  Stream<PickerFile?> get outputImage;
 
   Stream<bool> get outputIsLabelValid;
 

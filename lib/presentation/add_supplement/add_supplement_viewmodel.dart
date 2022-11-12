@@ -11,32 +11,21 @@ import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+import '../../data/mapper/mapper.dart';
+
 class AddSupplementViewModel extends BaseViewModel
     with AddSupplementViewModelInput, AddSupplementViewModelOutput {
   StreamController _colorStreamController = StreamController<Color>.broadcast();
-  StreamController _priceStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _titleStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _profilePictureStreamController =
-      StreamController<PickerFile?>.broadcast();
-
-  StreamController _isAllInputsValidStreamController =
-      StreamController<void>.broadcast();
-
-  StreamController isUserLoggedInSuccessfullyStreamController =
-      StreamController<bool>();
+  StreamController _priceStreamController = StreamController<String>.broadcast();
+  StreamController _titleStreamController = StreamController<String>.broadcast();
+  StreamController _imageStreamController = StreamController<PickerFile?>.broadcast();
+  StreamController _isAllInputsValidStreamController = StreamController<void>.broadcast();
 
   AddSupplementUseCase _addSupplementUseCase;
-
-  var addSupplementViewObject = AddSupplementObject(
-      ColorManager.grey.value.toRadixString(16), null, "", "");
-
   AddSupplementViewModel(this._addSupplementUseCase);
 
-  //  -- inputs
+  var addSupplementViewObject = AddSupplementObject(ColorManager.grey.value.toRadixString(16),null,EMPTY,EMPTY);
+
   @override
   void start() {
     inputState.add(ContentState());
@@ -51,14 +40,11 @@ class AddSupplementViewModel extends BaseViewModel
       addSupplementViewObject.image,
       addSupplementViewObject.price,
       addSupplementViewObject.title,
-    )))
-        .fold(
-            (failure) => {
-                  inputState.add(ErrorState(
-                      StateRendererType.POPUP_ERROR_STATE, failure.message))
-                }, (data) {
+    ))).fold(
+    (failure) => inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)), 
+    (data) {
       inputState.add(ContentState());
-      isUserLoggedInSuccessfullyStreamController.add(true);
+      Navigator.of(context).pop();
       Navigator.of(context).pop();
     });
   }
@@ -66,7 +52,7 @@ class AddSupplementViewModel extends BaseViewModel
   @override
   void dispose() {
     _isAllInputsValidStreamController.close();
-    _profilePictureStreamController.close();
+    _imageStreamController.close();
     _colorStreamController.close();
     _titleStreamController.close();
     _priceStreamController.close();
@@ -74,6 +60,7 @@ class AddSupplementViewModel extends BaseViewModel
     super.dispose();
   }
 
+  //  -- inputs
   @override
   setColor(Color color) {
     inputPickerColor.add(color);
@@ -104,8 +91,8 @@ class AddSupplementViewModel extends BaseViewModel
   }
 
   @override
-  setProfilePicture(PickerFile file) {
-    inputProfilePicture.add(file);
+  setImage(PickerFile file) {
+    inputImage.add(file);
     addSupplementViewObject = addSupplementViewObject.copyWith(image: file);
     _validate();
   }
@@ -114,7 +101,7 @@ class AddSupplementViewModel extends BaseViewModel
   Sink get inputPickerColor => _colorStreamController.sink;
 
   @override
-  Sink get inputProfilePicture => _profilePictureStreamController.sink;
+  Sink get inputImage => _imageStreamController.sink;
 
   @override
   Sink get inputTitle => _titleStreamController.sink;
@@ -148,8 +135,8 @@ class AddSupplementViewModel extends BaseViewModel
       .map((isPriceValid) => isPriceValid ? null : "price must be integer");
 
   @override
-  Stream<PickerFile?> get outputProfilePicture =>
-      _profilePictureStreamController.stream.map((file) => file);
+  Stream<PickerFile?> get outputImage =>
+      _imageStreamController.stream.map((file) => file);
 
   @override
   Stream<bool> get outputIsAllInputsValid =>
@@ -179,7 +166,7 @@ abstract class AddSupplementViewModelInput {
 
   setColor(Color color);
 
-  setProfilePicture(PickerFile file);
+  setImage(PickerFile file);
 
   setPrice(String price);
 
@@ -187,7 +174,7 @@ abstract class AddSupplementViewModelInput {
 
   Sink get inputPickerColor;
 
-  Sink get inputProfilePicture;
+  Sink get inputImage;
 
   Sink get inputPrice;
 
@@ -199,7 +186,7 @@ abstract class AddSupplementViewModelInput {
 abstract class AddSupplementViewModelOutput {
   Stream<Color> get outputPickerColor;
 
-  Stream<PickerFile?> get outputProfilePicture;
+  Stream<PickerFile?> get outputImage;
 
   Stream<bool> get outputIsPriceValid;
 

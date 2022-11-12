@@ -7,6 +7,7 @@ class CustomDropDown<T> extends StatelessWidget {
   final String label;
   final Stream<List<T>> stream;
   final bool isRequired;
+  final double width;
   final T? selectedItem;
   final String Function(T?) itemAsString;
   final Function(T) onTap;
@@ -14,16 +15,18 @@ class CustomDropDown<T> extends StatelessWidget {
     required this.label, 
     required this.stream, 
     bool? isRequired, 
+    double? width,
     this.selectedItem, 
     required this.itemAsString, 
     required this.onTap}) 
   : this.isRequired = isRequired ??true, 
+    this.width = width ?? AppSize.s250,
   super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: AppSize.s250,
+      width: width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -15,6 +15,11 @@ import 'package:cma_admin/presentation/update_product/update_product_view_model.
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
+import '../components/custom_color_picker.dart';
+import '../components/custom_dropdown.dart';
+import '../components/custom_submit_button.dart';
+import '../components/custom_textfield.dart';
+
 class UpdateProductView extends StatefulWidget {
   final Product product;
   const UpdateProductView(this.product, {Key? key}) : super(key: key);
@@ -37,26 +42,19 @@ class _UpdateProductViewViewState extends State<UpdateProductView> {
   }
 
   _bind() {
+    _viewModel.init(widget.product);
     _viewModel.start();
+    _priceTextEditingController.text = widget.product.price.toString();
+    _titleTextEditingController.text = widget.product.title;
 
     _titleTextEditingController.addListener(() {
       _viewModel.setTitle(_titleTextEditingController.text);
     });
-    _titleTextEditingController.text = widget.product.title;
 
     _priceTextEditingController.addListener(() {
       _viewModel.setPrice(_priceTextEditingController.text);
     });
-    _priceTextEditingController.text = widget.product.price.toString();
 
-    _viewModel.setId(widget.product.id.toString());
-    _viewModel.setColor(widget.product.color);
-    _viewModel.setCategoryId(widget.product.category!.id.toString());
-
-    _viewModel.isUpdateProductSuccessfullyStreamController.stream
-        .listen((isSuccessUpdateProduct) {
-      Navigator.of(context).pop();
-    });
   }
 
   @override
@@ -68,10 +66,7 @@ class _UpdateProductViewViewState extends State<UpdateProductView> {
         builder: (context, snapshot) {
           return Center(
             child: snapshot.data?.getScreenWidget(context, _getContentWidget(),
-                    () {
-                  _viewModel.updateProduct(context);
-                }) ??
-                _getContentWidget(),
+            ()=>_viewModel.updateProduct(context)) ?? _getContentWidget(),
           );
         },
       ),
@@ -120,90 +115,47 @@ class _UpdateProductViewViewState extends State<UpdateProductView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // image picker
-                ImagePickerWidget(
-                  imageUrl: widget.product.image,
-                  setImage:(pickerFile){
-                    _viewModel.setProfilePicture(pickerFile);
-                  }, 
-                  imageStream: _viewModel.outputProfilePicture),
-                SizedBox(height: AppSize.s30),
-                // title field
-                FieldLabel(AppStrings.title,isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputErrorTitle,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: _titleTextEditingController,
-                        decoration: InputDecoration(
-                            hintText: AppStrings.label,
-                            errorText: snapshot.data));
-                  },
-                ),
-                SizedBox(height: AppSize.s30),
-                // price field
-                FieldLabel(AppStrings.price,isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputErrorPrice,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                        controller: _priceTextEditingController,
-                        keyboardType: TextInputType.text,
-                        onChanged: (value) {
-                          _viewModel.setPrice(value);
-                        },
-                        decoration: InputDecoration(
-                            hintText: AppStrings.price,
-                            errorText: snapshot.data));
-                  },
-                ),
-                SizedBox(height: AppSize.s30),
-                // Category field
-                FieldLabel(AppStrings.addCategory,isRequired: true,),
-                StreamBuilder<List<Category>?>(
-                  stream: _viewModel.outputCategories,
-                  builder: (context, snapshot) {
-                    List<Category>? categories = snapshot.data;
-                    return DropdownSearch<Category>(
-                      mode: Mode.MENU,
-                      selectedItem: widget.product.category,
-                      items: categories,
-                      itemAsString: (Category? category) => category!.label,
-                      dropdownSearchDecoration: InputDecoration(hintText: AppStrings.addCategory),
-                      onChanged: (category) {
-                        _viewModel.setCategoryId(category!.id.toString());
-                      },
-                    );
-                  },
-                ),
-                SizedBox(height: AppSize.s30),
-                // color field
-                FieldLabel(AppStrings.color),
-                StreamBuilder<Color?>(
-                  stream: _viewModel.outputPickerColor,
-                  builder: (context, snapshot) {
-                    Color color = snapshot.data ?? widget.product.color;
-                    return ColorPickerForm(
-                      color: color,
-                      setColor: (color)=>_viewModel.setColor(color),
-                    );
-                  },
-                ),
-                SizedBox(height: AppSize.s40),
-                // button
-                StreamBuilder<bool>(
-                  stream: _viewModel.outputIsAllInputsValid,
-                  builder: (context, snapshot) {
-                    return SizedBox(
-                      width: double.infinity,
-                      height: AppSize.s40,
-                      child: ElevatedButton(
-                          onPressed: (snapshot.data ?? false)?()=>_viewModel.updateProduct(context): null,
-                          child: Text(AppStrings.update)),
-                    );
-                  },
-                ),
+                // image field
+            ImagePickerWidget(
+              imageUrl: widget.product.image,
+              setImage: (image)=>_viewModel.setImage(image), 
+              imageStream: _viewModel.outputImage),
+            SizedBox(height: AppSize.s30),
+            // title 
+            CustomTextField(
+              width: double.infinity,
+              label: AppStrings.title, 
+              errorStream: _viewModel.outputErrorTitle, 
+              textEditingController: _titleTextEditingController),
+            SizedBox(height: AppSize.s30),
+            // price field
+            CustomTextField(
+              width: double.infinity,
+              label: AppStrings.price, 
+              errorStream: _viewModel.outputErrorPrice, 
+              textEditingController: _priceTextEditingController),
+            SizedBox(height: AppSize.s30),
+            // category field
+            CustomDropDown<Category>(
+              width: double.infinity,
+              selectedItem: widget.product.category,
+              label: AppStrings.category, 
+              stream: _viewModel.outputCategories, 
+              itemAsString: (Category? category)=>category!.label, 
+              onTap: (category)=>_viewModel.setCategoryId(category.id.toString())),
+            SizedBox(height: AppSize.s30),
+            // color field
+            CustomColorPicker(
+              initColor: widget.product.color,
+              stream: _viewModel.outputPickerColor, 
+              onTap: (color)=>_viewModel.setColor(color)),
+            SizedBox(height: AppSize.s40),
+            // Button
+            CustomSubmitButton(
+              width: double.infinity,
+              isAllInputValidStream: _viewModel.outputIsAllInputsValid, 
+              onTap: ()=>_viewModel.updateProduct(context), 
+              buttonText: AppStrings.create),
               ],
             ),
           ),

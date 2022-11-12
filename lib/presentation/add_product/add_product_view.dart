@@ -3,6 +3,10 @@ import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/presentation/add_product/add_product_viewmodel.dart';
 import 'package:cma_admin/presentation/components/color_picker_label.dart';
 import 'package:cma_admin/presentation/components/custom_appbar.dart';
+import 'package:cma_admin/presentation/components/custom_color_picker.dart';
+import 'package:cma_admin/presentation/components/custom_dropdown.dart';
+import 'package:cma_admin/presentation/components/custom_submit_button.dart';
+import 'package:cma_admin/presentation/components/custom_textfield.dart';
 import 'package:cma_admin/presentation/components/field_label.dart';
 import 'package:cma_admin/presentation/components/image_picker_widget.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
@@ -28,6 +32,7 @@ class _AddProductViewViewState extends State<AddProductView> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _titleTextEditingController = TextEditingController();
+  TextEditingController _priceTextEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -40,15 +45,14 @@ class _AddProductViewViewState extends State<AddProductView> {
     if (widget.category!=null) {
       _viewModel.setCategoryId(widget.category!.id.toString());      
     }
-    _viewModel.loadCategory();
     _titleTextEditingController.addListener(() {
       _viewModel.setTitle(_titleTextEditingController.text);
     });
 
-    _viewModel.isUserLoggedInSuccessfullyStreamController.stream
-        .listen((isSuccessAddProduct) {
-      Navigator.of(context).pop();
+    _priceTextEditingController.addListener(() {
+      _viewModel.setPrice(_priceTextEditingController.text);
     });
+
   }
 
   @override
@@ -114,90 +118,40 @@ class _AddProductViewViewState extends State<AddProductView> {
           children: [
             // image field
             ImagePickerWidget(
-              setImage: (image)=>_viewModel.setProfilePicture(image), 
-              imageStream: _viewModel.outputProfilePicture),
+              setImage: (image)=>_viewModel.setImage(image), 
+              imageStream: _viewModel.outputImage),
             SizedBox(height: AppSize.s30),
-            // title field
-            FieldLabel(AppStrings.title,isRequired: true),
-            StreamBuilder<String?>(
-              stream: _viewModel.outputErrorTitle,
-              builder: (context, snapshot) {
-                return TextFormField(
-                    keyboardType: TextInputType.text,
-                    controller: _titleTextEditingController,
-                    decoration: InputDecoration(
-                        hintText: AppStrings.label,
-                        errorText: snapshot.data));
-              },
-            ),
+            // title 
+            CustomTextField(
+              width: double.infinity,
+              label: AppStrings.title, 
+              errorStream: _viewModel.outputErrorTitle, 
+              textEditingController: _titleTextEditingController),
             SizedBox(height: AppSize.s30),
             // price field
-            FieldLabel(AppStrings.price,isRequired: true),
-            StreamBuilder<String?>(
-              stream: _viewModel.outputErrorPrice,
-              builder: (context, snapshot) {
-                return TextFormField(
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      _viewModel.setPrice(value);
-                    },
-                    decoration: InputDecoration(
-                        hintText: AppStrings.price,
-                        errorText: snapshot.data));
-              },
-            ),
+            CustomTextField(
+              width: double.infinity,
+              label: AppStrings.price, 
+              errorStream: _viewModel.outputErrorPrice, 
+              textEditingController: _priceTextEditingController),
             SizedBox(height: AppSize.s30),
             // category field
-            FieldLabel(AppStrings.category,isRequired: true),
-            StreamBuilder<List<Category>?>(
-              stream: _viewModel.outputCategories,
-              builder: (context, snapshot) {
-                List<Category>? categories = snapshot.data;
-                return DropdownSearch<Category>(
-                  mode: Mode.MENU,
-                  items: categories,
-                  selectedItem: widget.category,
-                  itemAsString: (Category? category) => category!.label,
-                  dropdownSearchDecoration:InputDecoration(
-                    hintText:  AppStrings.addCategory,
-                  ),
-                  onChanged: (category) {
-                    _viewModel.setCategoryId(category!.id.toString());
-                  },
-                );
-              },
-            ),
+            CustomDropDown<Category>(
+              width: double.infinity,
+              label: AppStrings.category, 
+              stream: _viewModel.outputCategories, 
+              itemAsString: (Category? category)=>category!.label, 
+              onTap: (category)=>_viewModel.setCategoryId(category.id.toString())),
             SizedBox(height: AppSize.s30),
             // color field
-            FieldLabel(AppStrings.color),
-            StreamBuilder<Color?>(
-              stream: _viewModel.outputPickerColor,
-              builder: (context, snapshot) {
-                Color color = snapshot.data ?? ColorManager.grey;
-                return ColorPickerForm(
-                  color: color,
-                  setColor: (color)=>_viewModel.setColor(color),
-                );
-              },
-            ),
+            CustomColorPicker(stream: _viewModel.outputPickerColor, onTap: (color)=>_viewModel.setColor(color)),
             SizedBox(height: AppSize.s40),
             // Button
-            StreamBuilder<bool>(
-              stream: _viewModel.outputIsAllInputsValid,
-              builder: (context, snapshot) {
-                return SizedBox(
-                  width: double.infinity,
-                  height: AppSize.s40,
-                  child: ElevatedButton(
-                      onPressed: (snapshot.data ?? false)
-                          ? () {
-                              _viewModel.addProduct(context);
-                            }
-                          : null,
-                      child: Text(AppStrings.create)),
-                );
-              },
-            ),
+            CustomSubmitButton(
+              width: double.infinity,
+              isAllInputValidStream: _viewModel.outputIsAllInputsValid, 
+              onTap: ()=>_viewModel.addProduct(context), 
+              buttonText: AppStrings.create),
           ],
         ),
       ),

@@ -2,6 +2,8 @@ import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/presentation/add_category/add_category_viewmodel.dart';
 import 'package:cma_admin/presentation/components/color_picker_label.dart';
 import 'package:cma_admin/presentation/components/custom_appbar.dart';
+import 'package:cma_admin/presentation/components/custom_color_picker.dart';
+import 'package:cma_admin/presentation/components/custom_textfield.dart';
 import 'package:cma_admin/presentation/components/field_label.dart';
 import 'package:cma_admin/presentation/components/image_picker_widget.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
@@ -12,6 +14,8 @@ import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
+
+import '../components/custom_submit_button.dart';
 
 class AddCategoryView extends StatefulWidget {
   const AddCategoryView({Key? key}) : super(key: key);
@@ -37,11 +41,6 @@ class _AddCategoryViewState extends State<AddCategoryView> {
 
     _labelTextEditingController.addListener(() {
       _viewModel.setLabel(_labelTextEditingController.text);
-    });
-
-    _viewModel.isAddCategorySuccessfullyStreamController.stream
-        .listen((isSuccessAddCategory) {
-      Navigator.of(context).pop();
     });
   }
 
@@ -108,50 +107,27 @@ class _AddCategoryViewState extends State<AddCategoryView> {
               children: [
                 // image picker
                 ImagePickerWidget(
-                  setImage:(pickerFile){
-                    _viewModel.setProfilePicture(pickerFile);
-                  }, 
-                  imageStream: _viewModel.outputProfilePicture),
+                  setImage:(image)=>_viewModel.setImage(image), 
+                  imageStream: _viewModel.outputImage),
                 SizedBox(height: AppSize.s30),
                 // label field
-                FieldLabel(AppStrings.label, isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputErrorLabel,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: _labelTextEditingController,
-                        decoration: InputDecoration(
-                            hintText: AppStrings.label,
-                            errorText: snapshot.data));
-                  },
-                ),
+                CustomTextField(
+                  width: double.infinity,
+                  label: AppStrings.label, 
+                  errorStream: _viewModel.outputErrorLabel, 
+                  textEditingController: _labelTextEditingController),
                 SizedBox(height: AppSize.s30),
                 //color field
-                FieldLabel(AppStrings.color),
-                StreamBuilder<Color?>(
-                  stream: _viewModel.outputPickerColor,
-                  builder: (context, snapshot) {
-                    Color color = snapshot.data ?? ColorManager.grey;
-                    return ColorPickerForm(
-                      color: color, setColor: (color ) => _viewModel.setColor(color),
-                    );
-                  },
-                ),
+                CustomColorPicker(
+                  stream: _viewModel.outputPickerColor, 
+                  onTap: (color)=>_viewModel.setColor(color)),
                 SizedBox(height: AppSize.s40),
                 //submit button
-                StreamBuilder<bool>(
-                  stream: _viewModel.outputIsAllInputsValid,
-                  builder: (context, snapshot) {
-                    return SizedBox(
-                      width: double.infinity,
-                      height: AppSize.s40,
-                      child: ElevatedButton(
-                          onPressed: (snapshot.data ?? false)? () { _viewModel.addCategory(context);}: null,
-                          child: Text(AppStrings.create)),
-                    );
-                  },
-                ),
+                CustomSubmitButton(
+                  width: double.infinity,
+                  isAllInputValidStream: _viewModel.outputIsAllInputsValid, 
+                  onTap: ()=>_viewModel.addCategory(context), 
+                  buttonText: AppStrings.create),
               ],
             ),
           )),

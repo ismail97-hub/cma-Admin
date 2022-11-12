@@ -7,6 +7,9 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
 import '../../app/functions.dart';
+import '../components/custom_dropdown.dart';
+import '../components/custom_submit_button.dart';
+import '../components/custom_textfield.dart';
 import '../components/field_label.dart';
 import '../components/image_picker_widget.dart';
 import '../resources/color_manager.dart';
@@ -34,14 +37,15 @@ class _UpdateUserViewState extends State<UpdateUserView> {
   _bind(){
     _viewModel.init(widget.user);
     _viewModel.start();
+    _nameTextEditingController.text = widget.user.name;
+    _usernameTextEditingController.text=widget.user.userName; 
+    
     _nameTextEditingController.addListener(() { 
       _viewModel.setName(_nameTextEditingController.text);
     });
-    _nameTextEditingController.text = widget.user.name;
     _usernameTextEditingController.addListener(() { 
       _viewModel.setUsername(_usernameTextEditingController.text);
     });
-    _usernameTextEditingController.text=widget.user.userName; 
   }
 
   @override
@@ -114,63 +118,33 @@ class _UpdateUserViewState extends State<UpdateUserView> {
                   imageStream: _viewModel.outputImage),
                 SizedBox(height: AppSize.s30),
                 // name field
-                FieldLabel(AppStrings.name,isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputErrorName,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: _nameTextEditingController,
-                        decoration: InputDecoration(
-                            hintText: AppStrings.name,
-                            errorText: snapshot.data));
-                  },
-                ),
+                CustomTextField(
+                  width: double.infinity,
+                  label: AppStrings.name, 
+                  errorStream: _viewModel.outputErrorName, 
+                  textEditingController: _nameTextEditingController),
                 SizedBox(height: AppSize.s30),
                 // role field
-                FieldLabel(AppStrings.role,isRequired: true),
-                StreamBuilder<List<UserRole>>(
-                  stream: _viewModel.outputRoles,
-                  builder: (context, snapshot) {
-                    return DropdownSearch<UserRole>(
-                      mode: Mode.MENU,
-                      selectedItem: widget.user.role.toUserRoleEnum(),
-                      items: snapshot.data,
-                      itemAsString: (UserRole? userRole) => userRole!.toStr(),
-                      dropdownSearchDecoration: InputDecoration(hintText: AppStrings.role),
-                      onChanged: <UserRole>(value) {
-                        _viewModel.setRole(value);
-                      },
-                    );
-                  },
-                ),
+                CustomDropDown<UserRole>(
+                  width: double.infinity,
+                  selectedItem: widget.user.role.toUserRoleEnum(),
+                  label: AppStrings.role, 
+                  stream: _viewModel.outputRoles, 
+                  itemAsString: (UserRole? role)=> role!.toStr(), 
+                  onTap: (role)=>_viewModel.setRole(role)),
                 SizedBox(height: AppSize.s30),
                 // username field
-                FieldLabel(AppStrings.username,isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputErrorUsername,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: _usernameTextEditingController,
-                        decoration: InputDecoration(
-                            hintText: AppStrings.username,
-                            errorText: snapshot.data));
-                  },
-                ),
+                CustomTextField(
+                  width: double.infinity,
+                  label: AppStrings.username, 
+                  errorStream: _viewModel.outputErrorUsername, 
+                  textEditingController: _usernameTextEditingController),
                 SizedBox(height: AppSize.s40),
-                StreamBuilder<bool>(
-                  stream: _viewModel.outputIsValidToUpdate,
-                  builder: (context, snapshot) {
-                    return SizedBox(
-                      width: double.infinity,
-                      height: AppSize.s40,
-                      child: ElevatedButton(
-                          onPressed: (snapshot.data ?? false)? () {_viewModel.updateUser(context,widget.user.id);}: null,
-                          child: Text(AppStrings.update)),
-                    );
-                  },
-                ),
+                CustomSubmitButton(
+                  width: double.infinity,
+                  isAllInputValidStream: _viewModel.outputIsValidToUpdate, 
+                  onTap: ()=>_viewModel.updateUser(context, widget.user.id), 
+                  buttonText: AppStrings.update),
               ],
             ),
           ),

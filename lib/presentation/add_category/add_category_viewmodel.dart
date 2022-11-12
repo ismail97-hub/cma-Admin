@@ -9,30 +9,21 @@ import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+import '../../data/mapper/mapper.dart';
+
 class AddCategoryViewModel extends BaseViewModel
     with AddCategoryViewModelInput, AddCategoryViewModelOutput {
   StreamController _colorStreamController = StreamController<Color>.broadcast();
-
-  StreamController _profilePictureStreamController =
-      StreamController<PickerFile?>.broadcast();
-
-  StreamController _labelStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _isAllInputsValidStreamController =
-      StreamController<void>.broadcast();
-
-  StreamController isAddCategorySuccessfullyStreamController =
-      StreamController<bool>();
-
+  StreamController _imageStreamController = StreamController<PickerFile?>.broadcast();
+  StreamController _labelStreamController = StreamController<String>.broadcast();
+  StreamController _isAllInputsValidStreamController = StreamController<void>.broadcast();
+ 
   AddCategoryUseCase _addCategoryUseCase;
-
-  var addCategoryViewObject =
-      AddCategoryObject(ColorManager.grey.value.toRadixString(16), null, "");
-
   AddCategoryViewModel(this._addCategoryUseCase);
 
-  //  -- inputs
+  var addCategoryViewObject = AddCategoryObject(ColorManager.grey.value.toRadixString(16), null, EMPTY);
+
+
   @override
   void start() {
     inputState.add(ContentState());
@@ -40,20 +31,16 @@ class AddCategoryViewModel extends BaseViewModel
 
   @override
   addCategory(BuildContext context) async {
-    inputState.add(
-        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    inputState.add(LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
     (await _addCategoryUseCase.execute(AddCategoryUseCaseInput(
       addCategoryViewObject.color,
       addCategoryViewObject.image,
       addCategoryViewObject.label,
-    )))
-        .fold(
-            (failure) => {
-                  inputState.add(ErrorState(
-                      StateRendererType.POPUP_ERROR_STATE, failure.message))
-                }, (data) {
+    ))).fold(
+    (failure) => inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)), 
+    (data) {
       inputState.add(ContentState());
-      isAddCategorySuccessfullyStreamController.add(true);
+      Navigator.of(context).pop();
       Navigator.of(context).pop();
     });
   }
@@ -61,19 +48,18 @@ class AddCategoryViewModel extends BaseViewModel
   @override
   void dispose() {
     _isAllInputsValidStreamController.close();
-    _profilePictureStreamController.close();
+    _imageStreamController.close();
     _colorStreamController.close();
     _labelStreamController.close();
-    isAddCategorySuccessfullyStreamController.close();
 
     super.dispose();
   }
 
+  //  -- inputs
   @override
   setColor(Color color) {
     inputPickerColor.add(color);
-    addCategoryViewObject = addCategoryViewObject.copyWith(
-        color: colorToHex(color, includeHashSign: false));
+    addCategoryViewObject = addCategoryViewObject.copyWith(color: colorToHex(color, includeHashSign: false));
   }
 
   @override
@@ -88,8 +74,8 @@ class AddCategoryViewModel extends BaseViewModel
   }
 
   @override
-  setProfilePicture(PickerFile file) {
-    inputProfilePicture.add(file);
+  setImage(PickerFile file) {
+    inputImage.add(file);
     addCategoryViewObject = addCategoryViewObject.copyWith(image: file);
     _validate();
   }
@@ -98,7 +84,7 @@ class AddCategoryViewModel extends BaseViewModel
   Sink get inputPickerColor => _colorStreamController.sink;
 
   @override
-  Sink get inputProfilePicture => _profilePictureStreamController.sink;
+  Sink get inputImage => _imageStreamController.sink;
 
   @override
   Sink get inputLabel => _labelStreamController.sink;
@@ -121,8 +107,8 @@ class AddCategoryViewModel extends BaseViewModel
       .map((isLabelValid) => isLabelValid ? null : "invalid Label");
 
   @override
-  Stream<PickerFile?> get outputProfilePicture =>
-      _profilePictureStreamController.stream.map((file) => file);
+  Stream<PickerFile?> get outputImage =>
+      _imageStreamController.stream.map((file) => file);
 
   @override
   Stream<bool> get outputIsAllInputsValid =>
@@ -147,13 +133,13 @@ abstract class AddCategoryViewModelInput {
 
   setColor(Color color);
 
-  setProfilePicture(PickerFile file);
+  setImage(PickerFile file);
 
   setLabel(String label);
 
   Sink get inputPickerColor;
 
-  Sink get inputProfilePicture;
+  Sink get inputImage;
 
   Sink get inputLabel;
 
@@ -163,7 +149,7 @@ abstract class AddCategoryViewModelInput {
 abstract class AddCategoryViewModelOutput {
   Stream<Color> get outputPickerColor;
 
-  Stream<PickerFile?> get outputProfilePicture;
+  Stream<PickerFile?> get outputImage;
 
   Stream<bool> get outputIsLabelValid;
 

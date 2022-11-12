@@ -14,6 +14,10 @@ import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:cma_admin/presentation/update_supplement/update_supplement_view_model.dart';
 import 'package:flutter/material.dart';
 
+import '../components/custom_color_picker.dart';
+import '../components/custom_submit_button.dart';
+import '../components/custom_textfield.dart';
+
 class UpdateSupplementView extends StatefulWidget {
   final Supplement supplement;
   const UpdateSupplementView(this.supplement, {Key? key}) : super(key: key);
@@ -36,23 +40,15 @@ class _UpdateSupplementViewState extends State<UpdateSupplementView> {
   }
 
   _bind() {
+    _viewModel.init(widget.supplement);
     _viewModel.start();
-
+    _priceTextEditingController.text = widget.supplement.price.toString();
+    _titleTextEditingController.text = widget.supplement.title;
     _titleTextEditingController.addListener(() {
       _viewModel.setTitle(_titleTextEditingController.text);
     });
-    _titleTextEditingController.text = widget.supplement.title;
-
     _priceTextEditingController.addListener(() {
       _viewModel.setPrice(_priceTextEditingController.text);
-    });
-    _priceTextEditingController.text = widget.supplement.price.toString();
-    _viewModel.setId(widget.supplement.id.toString());
-    _viewModel.setColor(widget.supplement.color);
-
-    _viewModel.isSupplementUpdatedSuccessfullyStreamController.stream
-        .listen((isSuccessUpdateSupplement) {
-      Navigator.of(context).pop();
     });
   }
 
@@ -64,11 +60,7 @@ class _UpdateSupplementViewState extends State<UpdateSupplementView> {
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
           return Center(
-            child: snapshot.data?.getScreenWidget(context, _getContentWidget(),
-                    () {
-                  _viewModel.updateSupplement(context);
-                }) ??
-                _getContentWidget(),
+            child: snapshot.data?.getScreenWidget(context, _getContentWidget(),()=>_viewModel.updateSupplement(context))??_getContentWidget(),
           );
         },
       ),
@@ -117,68 +109,38 @@ class _UpdateSupplementViewState extends State<UpdateSupplementView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // image picker
-                ImagePickerWidget(
-                  imageUrl: widget.supplement.image,
-                  setImage:(pickerFile){
-                    _viewModel.setProfilePicture(pickerFile);
-                  }, 
-                  imageStream: _viewModel.outputProfilePicture),
-                SizedBox(height: AppSize.s30),
-                // title field
-                FieldLabel(AppStrings.title,isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputErrorTitle,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: _titleTextEditingController,
-                        decoration: InputDecoration(
-                            hintText: AppStrings.title,
-                            errorText: snapshot.data));
-                  },
-                ),
-                SizedBox(height: AppSize.s30),
-                // price field
-                FieldLabel(AppStrings.price,isRequired: true),
-                StreamBuilder<String?>(
-                  stream: _viewModel.outputErrorPrice,
-                  builder: (context, snapshot) {
-                    return TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: _priceTextEditingController,
-                        decoration: InputDecoration(
-                            hintText: AppStrings.price,
-                            errorText: snapshot.data));
-                  },
-                ),
-                SizedBox(height: AppSize.s30),
-                // color field
-                FieldLabel(AppStrings.color),
-                StreamBuilder<Color?>(
-                  stream: _viewModel.outputPickerColor,
-                  builder: (context, snapshot) {
-                    Color color = snapshot.data ?? widget.supplement.color;
-                    return ColorPickerForm(
-                      color: color,
-                      setColor: (color)=>_viewModel.setColor(color),
-                    );
-                  },
-                ),
-                SizedBox(height: AppSize.s40),
-                // button
-                StreamBuilder<bool>(
-                  stream: _viewModel.outputIsAllInputsValid,
-                  builder: (context, snapshot) {
-                    return SizedBox(
-                      width: double.infinity,
-                      height: AppSize.s40,
-                      child: ElevatedButton(
-                          onPressed: (snapshot.data ?? false)? () =>_viewModel.updateSupplement(context): null,
-                          child: Text(AppStrings.update)),
-                    );
-                  },
-                ),
+                // image
+              ImagePickerWidget(
+                imageUrl: widget.supplement.image,
+                setImage: (image)=>_viewModel.setImage(image), 
+                imageStream: _viewModel.outputImage),
+              SizedBox(height: AppSize.s30),
+              // title field
+              CustomTextField(
+                width: double.infinity,
+                label: AppStrings.title, 
+                errorStream: _viewModel.outputErrorTitle, 
+                textEditingController: _titleTextEditingController),
+              SizedBox(height: AppSize.s30),
+              // price field
+              CustomTextField(
+                width: double.infinity,
+                label: AppStrings.price, 
+                errorStream: _viewModel.outputErrorPrice, 
+                textEditingController: _priceTextEditingController),
+              SizedBox(height: AppSize.s30),
+              // color field
+              CustomColorPicker(
+                initColor: widget.supplement.color,
+                stream: _viewModel.outputPickerColor, 
+                onTap: (color)=>_viewModel.setColor(color)),
+              SizedBox(height: AppSize.s40),
+              // button
+              CustomSubmitButton(
+                width: double.infinity,
+                isAllInputValidStream: _viewModel.outputIsAllInputsValid, 
+                onTap: ()=>_viewModel.updateSupplement(context), 
+                buttonText: AppStrings.update),
               ],
             ),
           ),

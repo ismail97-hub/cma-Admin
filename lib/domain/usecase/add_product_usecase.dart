@@ -5,8 +5,7 @@ import 'package:cma_admin/domain/repository/repository.dart';
 import 'package:cma_admin/domain/usecase/base_usecase.dart';
 import 'package:dartz/dartz.dart';
 
-class AddProductUseCase
-    implements BaseUseCase<AddProductUseCaseInput, Product> {
+class AddProductUseCase implements BaseUseCase<AddProductUseCaseInput, Product> {
   Repository _repository;
 
   AddProductUseCase(this._repository);
@@ -15,6 +14,11 @@ class AddProductUseCase
   Future<Either<Failure, Product>> execute(AddProductUseCaseInput input) async {
     return await _repository.addProduct(AddProductRequest(
         input.categoryId, input.color, input.image, input.price, input.title));
+  }
+
+  @override
+  Future<Either<Failure, List<Category>>> getCategories(String input) {
+    return _repository.getAllCategory();
   }
 }
 

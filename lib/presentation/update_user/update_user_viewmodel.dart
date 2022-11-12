@@ -36,8 +36,7 @@ class UpdateUserViewModel extends BaseViewModel with UpdateUserViewModelInput,Up
   }
    
   _getRoles()async{
-    UserRole currentUserRole = HiveHelper.getCurrentUser().role.toUserRoleEnum();
-    if (currentUserRole==UserRole.OWNER) {
+    if (HiveHelper.getCurrentUser().role.toUserRoleEnum()==UserRole.OWNER) {
       inputRoles.add(UserRole.values);
     } else {
       inputRoles.add([UserRole.WAITER,UserRole.BARMAN]);

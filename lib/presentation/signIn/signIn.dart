@@ -126,6 +126,7 @@ class _SignInViewState extends State<SignInView> {
                   stream: _viewModel.outputIsPasswordValid,
                   builder: (context, snapshot) {
                     return TextFormField(
+                      obscureText: true,
                       keyboardType: TextInputType.visiblePassword,
                       controller: _passwordController,
                       decoration: InputDecoration(

@@ -10,40 +10,36 @@ import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+import '../../data/mapper/mapper.dart';
+
 class UpdateSupplementViewModel extends BaseViewModel
     with UpdateSupplementViewModelInput, UpdateSupplementViewModelOutput {
   StreamController _colorStreamController = StreamController<Color>.broadcast();
-  StreamController _priceStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _titleStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _profilePictureStreamController =
-      StreamController<PickerFile?>.broadcast();
-
-  StreamController _isAllInputsValidStreamController =
-      StreamController<bool>.broadcast();
-
-  StreamController isSupplementUpdatedSuccessfullyStreamController =
-      StreamController<bool>();
+  StreamController _priceStreamController = StreamController<String>.broadcast();
+  StreamController _titleStreamController = StreamController<String>.broadcast();
+  StreamController _imageStreamController = StreamController<PickerFile?>.broadcast();
+  StreamController _isAllInputsValidStreamController = StreamController<bool>.broadcast();
 
   UpdateSupplementUseCase _updateSupplementUseCase;
-
-  var updateSupplementViewObject = UpdateSupplementObject("", "", null, "", "");
-
   UpdateSupplementViewModel(this._updateSupplementUseCase);
+  var updateSupplementViewObject = UpdateSupplementObject(EMPTY, EMPTY, null, EMPTY,EMPTY);
 
-  //  -- inputs
   @override
   void start() {
     inputState.add(ContentState());
   }
 
+  init(Supplement supplement){
+    setId(supplement.id.toString());
+    setPrice(supplement.price.toString());
+    setTitle(supplement.title);
+    setColor(supplement.color);
+  }
+
   @override
   void dispose() {
     _isAllInputsValidStreamController.close();
-    _profilePictureStreamController.close();
+    _imageStreamController.close();
     _colorStreamController.close();
     _titleStreamController.close();
     _priceStreamController.close();
@@ -52,43 +48,36 @@ class UpdateSupplementViewModel extends BaseViewModel
 
   @override
   updateSupplement(BuildContext context) async {
-    inputState.add(
-        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    inputState.add(LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
     (await _updateSupplementUseCase.execute(UpdateSupplementUseCaseInput(
       updateSupplementViewObject.id,
       updateSupplementViewObject.color.toString(),
       updateSupplementViewObject.image,
       updateSupplementViewObject.price,
       updateSupplementViewObject.title,
-    )))
-        .fold(
-            (failure) => {
-                  inputState.add(ErrorState(
-                      StateRendererType.POPUP_ERROR_STATE, failure.message))
-                }, (data) {
+    ))).fold(
+    (failure) => inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)), 
+    (data) {
       inputState.add(ContentState());
-      // Navigator.of(context).pop();
-      isSupplementUpdatedSuccessfullyStreamController.add(true);
+      Navigator.of(context).pop();
       Navigator.of(context).pop();
     });
   }
 
+  //  -- inputs
   @override
   setColor(Color color) {
     inputPickerColor.add(color);
-    updateSupplementViewObject = updateSupplementViewObject.copyWith(
-        color: colorToHex(color, includeHashSign: false));
+    updateSupplementViewObject = updateSupplementViewObject.copyWith(color: colorToHex(color, includeHashSign: false));
   }
 
   @override
   setTitle(String title) {
     inputTitle.add(title);
     if (_isTitleValid(title)) {
-      updateSupplementViewObject =
-          updateSupplementViewObject.copyWith(title: title);
+      updateSupplementViewObject = updateSupplementViewObject.copyWith(title: title);
     } else {
-      updateSupplementViewObject =
-          updateSupplementViewObject.copyWith(title: "");
+      updateSupplementViewObject = updateSupplementViewObject.copyWith(title: "");
     }
     _validate();
   }
@@ -97,11 +86,9 @@ class UpdateSupplementViewModel extends BaseViewModel
   setPrice(String price) {
     inputPrice.add(price);
     if (_isPriceValid(price)) {
-      updateSupplementViewObject =
-          updateSupplementViewObject.copyWith(price: price);
+      updateSupplementViewObject = updateSupplementViewObject.copyWith(price: price);
     } else {
-      updateSupplementViewObject =
-          updateSupplementViewObject.copyWith(price: "");
+      updateSupplementViewObject = updateSupplementViewObject.copyWith(price: "");
     }
     _validate();
   }
@@ -111,10 +98,9 @@ class UpdateSupplementViewModel extends BaseViewModel
   }
 
   @override
-  setProfilePicture(PickerFile file) {
-    inputProfilePicture.add(file);
-    updateSupplementViewObject =
-        updateSupplementViewObject.copyWith(image: file);
+  setImage(PickerFile file) {
+    inputImage.add(file);
+    updateSupplementViewObject = updateSupplementViewObject.copyWith(image: file);
     _validate();
   }
 
@@ -122,7 +108,7 @@ class UpdateSupplementViewModel extends BaseViewModel
   Sink get inputPickerColor => _colorStreamController.sink;
 
   @override
-  Sink get inputProfilePicture => _profilePictureStreamController.sink;
+  Sink get inputImage => _imageStreamController.sink;
 
   @override
   Sink get inputTitle => _titleStreamController.sink;
@@ -156,12 +142,12 @@ class UpdateSupplementViewModel extends BaseViewModel
       .map((isPriceValid) => isPriceValid ? null : "price must be integer");
 
   @override
-  Stream<PickerFile?> get outputProfilePicture =>
-      _profilePictureStreamController.stream.map((file) => file);
+  Stream<PickerFile?> get outputImage =>
+      _imageStreamController.stream.map((file) => file);
 
   @override
   Stream<bool> get outputIsAllInputsValid =>
-      _isAllInputsValidStreamController.stream.map((_) => _validateAllInputs());
+    _isAllInputsValidStreamController.stream.map((_) => _validateAllInputs());
 
   // -- private methods
   bool _isTitleValid(String title) {
@@ -186,7 +172,7 @@ abstract class UpdateSupplementViewModelInput {
   updateSupplement(BuildContext context);
   setColor(Color color);
 
-  setProfilePicture(PickerFile file);
+  setImage(PickerFile file);
 
   setPrice(String price);
 
@@ -194,7 +180,7 @@ abstract class UpdateSupplementViewModelInput {
 
   Sink get inputPickerColor;
 
-  Sink get inputProfilePicture;
+  Sink get inputImage;
 
   Sink get inputPrice;
 
@@ -206,7 +192,7 @@ abstract class UpdateSupplementViewModelInput {
 abstract class UpdateSupplementViewModelOutput {
   Stream<Color> get outputPickerColor;
 
-  Stream<PickerFile?> get outputProfilePicture;
+  Stream<PickerFile?> get outputImage;
 
   Stream<bool> get outputIsPriceValid;
 

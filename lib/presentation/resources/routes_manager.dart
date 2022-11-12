@@ -19,7 +19,7 @@ import 'package:cma_admin/presentation/signIn/signIn.dart';
 import 'package:cma_admin/presentation/splash/splash.dart';
 import 'package:cma_admin/presentation/update_category/update_category_view.dart';
 import 'package:cma_admin/presentation/update_product/update_product_view.dart';
-import 'package:cma_admin/presentation/update_supplement/update_supplement.dart';
+import 'package:cma_admin/presentation/update_supplement/update_supplement_view.dart';
 import 'package:cma_admin/presentation/all_waiters_insights/all_waiters_insights_view.dart';
 
 import '../add_product/add_product_view.dart';

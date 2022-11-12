@@ -2,6 +2,9 @@ import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/presentation/add_supplement/add_supplement_viewmodel.dart';
 import 'package:cma_admin/presentation/components/color_picker_label.dart';
 import 'package:cma_admin/presentation/components/custom_appbar.dart';
+import 'package:cma_admin/presentation/components/custom_color_picker.dart';
+import 'package:cma_admin/presentation/components/custom_submit_button.dart';
+import 'package:cma_admin/presentation/components/custom_textfield.dart';
 import 'package:cma_admin/presentation/components/field_label.dart';
 import 'package:cma_admin/presentation/components/image_picker_widget.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
@@ -25,6 +28,7 @@ class _AddSupplementViewState extends State<AddSupplementView> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _titleTextEditingController = TextEditingController();
+  TextEditingController _priceTextEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -34,12 +38,13 @@ class _AddSupplementViewState extends State<AddSupplementView> {
 
   _bind() {
     _viewModel.start();
+    
+    _priceTextEditingController.addListener(() { 
+      _viewModel.setPrice(_priceTextEditingController.text);
+    });
 
     _titleTextEditingController.addListener((){
       _viewModel.setTitle(_titleTextEditingController.text);
-    });
-    _viewModel.isUserLoggedInSuccessfullyStreamController.stream.listen((isSuccessAddCategory) {
-      Navigator.of(context).pop();
     });
   }
 
@@ -106,65 +111,32 @@ class _AddSupplementViewState extends State<AddSupplementView> {
             children: [
               // image
               ImagePickerWidget(
-                setImage: (image)=>_viewModel.setProfilePicture(image), 
-                imageStream: _viewModel.outputProfilePicture),
+                setImage: (image)=>_viewModel.setImage(image), 
+                imageStream: _viewModel.outputImage),
               SizedBox(height: AppSize.s30),
               // title field
-              FieldLabel(AppStrings.title,isRequired: true),
-              StreamBuilder<String?>(
-                stream: _viewModel.outputErrorTitle,
-                builder: (context, snapshot) {
-                  return TextFormField(
-                      keyboardType: TextInputType.text,
-                      controller: _titleTextEditingController,
-                      decoration: InputDecoration(
-                          hintText: AppStrings.title,
-                          errorText: snapshot.data));
-                },
-              ),
+              CustomTextField(
+                width: double.infinity,
+                label: AppStrings.title, 
+                errorStream: _viewModel.outputErrorTitle, 
+                textEditingController: _titleTextEditingController),
               SizedBox(height: AppSize.s30),
               // price field
-              FieldLabel(AppStrings.price,isRequired: true),
-              StreamBuilder<String?>(
-                stream: _viewModel.outputErrorPrice,
-                builder: (context, snapshot) {
-                  return TextFormField(
-                      onChanged: (value) {
-                        _viewModel.setPrice(value);
-                      },
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          hintText: AppStrings.price,
-                          errorText: snapshot.data));
-                },
-              ),
+              CustomTextField(
+                width: double.infinity,
+                label: AppStrings.price, 
+                errorStream: _viewModel.outputErrorPrice, 
+                textEditingController: _priceTextEditingController),
               SizedBox(height: AppSize.s30),
               // color field
-              FieldLabel(AppStrings.color),
-              StreamBuilder<Color?>(
-                stream: _viewModel.outputPickerColor,
-                builder: (context, snapshot) {
-                  Color color = snapshot.data ?? ColorManager.grey;
-                  return ColorPickerForm(
-                    color: color,
-                    setColor: (color)=>_viewModel.setColor(color),
-                  );
-                },
-              ),
+              CustomColorPicker(stream: _viewModel.outputPickerColor, onTap: (color)=>_viewModel.setColor(color)),
               SizedBox(height: AppSize.s40),
               // button
-              StreamBuilder<bool>(
-                stream: _viewModel.outputIsAllInputsValid,
-                builder: (context, snapshot) {
-                  return SizedBox(
-                    width: double.infinity,
-                    height: AppSize.s40,
-                    child: ElevatedButton(
-                        onPressed: (snapshot.data ?? false)? ()=>_viewModel.addSupplement(context): null,
-                        child: Text(AppStrings.create)),
-                  );
-                },
-              ),
+              CustomSubmitButton(
+                width: double.infinity,
+                isAllInputValidStream: _viewModel.outputIsAllInputsValid, 
+                onTap: ()=>_viewModel.addSupplement(context), 
+                buttonText: AppStrings.create),
             ],
           ),
         ),

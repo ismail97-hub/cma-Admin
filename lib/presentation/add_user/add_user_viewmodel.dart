@@ -9,74 +9,67 @@ import 'package:cma_admin/presentation/common/freezed_data_classes.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
-class AddUserViewModel extends BaseViewModel
-    with AddUserViewModelInput, AddUserViewModelOutput {
-  StreamController _userNameStreamController =
-      StreamController<String>.broadcast();
-  StreamController _roleStreamController = StreamController<String>.broadcast();
+import '../../data/mapper/mapper.dart';
+import '../resources/routes_manager.dart';
 
-  StreamController _nameStreamController = StreamController<String>.broadcast();
-
-
-  StreamController _passwordStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _profilePictureStreamController =
-      StreamController<PickerFile?>.broadcast();
-
-  StreamController _isAllInputsValidStreamController =
-      StreamController<void>.broadcast();
-
-  StreamController isUserLoggedInSuccessfullyStreamController =
-      StreamController<bool>();
+class AddUserViewModel extends BaseViewModel with AddUserViewModelInput, AddUserViewModelOutput {
+  StreamController _rolesStreamController = BehaviorSubject<List<UserRole>>();
+  StreamController _userNameStreamController = BehaviorSubject<String>();
+  StreamController _selectedRoleStreamController = BehaviorSubject<UserRole>();
+  StreamController _nameStreamController = BehaviorSubject<String>();
+  StreamController _passwordStreamController = BehaviorSubject<String>();
+  StreamController _profilePictureStreamController = BehaviorSubject<PickerFile?>();
+  StreamController _isAllInputsValidStreamController = BehaviorSubject<void>();
 
   AddUserUseCase _addUserUseCase;
-
-  var adduserViewObject = AddUserObject(null, "", "", "", "");
-
+  var adduserViewObject = AddUserObject(null, EMPTY,EMPTY,EMPTY,EMPTY);
   AddUserViewModel(this._addUserUseCase);
 
-  List<String>? rolechecked;
 
   //  -- inputs
   @override
   void start() {
     inputState.add(ContentState());
-    RoleChecked();
+    _getRoles();
+  }
+
+  _getRoles()async{
+    if (HiveHelper.getCurrentUser().role.toUserRoleEnum()==UserRole.OWNER) {
+      inputRoles.add(UserRole.values);
+    } else {
+      inputRoles.add([UserRole.WAITER,UserRole.BARMAN]);
+    }
   }
 
   @override
   register(BuildContext context) async {
-    inputState.add(
-        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    inputState.add(LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
     (await _addUserUseCase.execute(AddUserUseCaseInput(
       adduserViewObject.image,
       adduserViewObject.name,
       adduserViewObject.password,
       adduserViewObject.role,
       adduserViewObject.username,
-    )))
-        .fold(
-            (failure) => {
-                  inputState.add(ErrorState(
-                      StateRendererType.POPUP_ERROR_STATE, failure.message))
-                }, (data) {
+    ))).fold(
+    (failure) => inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE, failure.message)), 
+    (data) {
       inputState.add(ContentState());
-      isUserLoggedInSuccessfullyStreamController.add(true);
       Navigator.of(context).pop();
+      Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
     });
   }
 
   @override
   void dispose() {
+    _rolesStreamController.close();
     _isAllInputsValidStreamController.close();
     _userNameStreamController.close();
-    _roleStreamController.close();
+    _selectedRoleStreamController.close();
     _nameStreamController.close();
     _passwordStreamController.close();
     _profilePictureStreamController.close();
-    isUserLoggedInSuccessfullyStreamController.close();
     super.dispose();
   }
 
@@ -92,19 +85,15 @@ class AddUserViewModel extends BaseViewModel
   }
 
   @override
-  setRole(String role) {
-    inputRole.add(role);
-    if (_isRoleValid(role)) {
-      adduserViewObject = adduserViewObject.copyWith(role: role);
-    } else {
-      adduserViewObject = adduserViewObject.copyWith(role: "");
-    }
+  setRole(UserRole role) {
+    inputSelectedRole.add(role);
+    adduserViewObject = adduserViewObject.copyWith(role: role.toStr());
     _validate();
   }
 
   @override
   setPassword(String password) {
-    inputUPassword.add(password);
+    inputPassword.add(password);
     if (_isPasswordValid(password)) {
       adduserViewObject = adduserViewObject.copyWith(password: password);
     } else {
@@ -130,18 +119,21 @@ class AddUserViewModel extends BaseViewModel
     }
     _validate();
   }
+ 
+  @override
+  Sink get inputRoles => _rolesStreamController.sink; 
 
   @override
   Sink get inputName => _nameStreamController.sink;
 
   @override
-  Sink get inputRole => _roleStreamController.sink;
+  Sink get inputSelectedRole => _selectedRoleStreamController.sink;
 
   @override
   Sink get inputProfilePicture => _profilePictureStreamController.sink;
 
   @override
-  Sink get inputUPassword => _passwordStreamController.sink;
+  Sink get inputPassword => _passwordStreamController.sink;
 
   @override
   Sink get inputUserName => _userNameStreamController.sink;
@@ -150,6 +142,10 @@ class AddUserViewModel extends BaseViewModel
   Sink get inputAllInputsValid => _isAllInputsValidStreamController.sink;
 
   // -- outputs
+  
+  @override
+  Stream<List<UserRole>> get outputRoles => 
+    _rolesStreamController.stream.map((roles) => roles);
 
   @override
   Stream<bool> get outputIsAllInputsValid =>
@@ -172,20 +168,16 @@ class AddUserViewModel extends BaseViewModel
       .map((isNameValid) => isNameValid ? null : "Invalid Name");
 
   @override
-  Stream<bool> get outputIsRoleValid =>
-      _roleStreamController.stream.map((role) => _isRoleValid(role));
-
-  @override
-  Stream<String?> get outputRole => outputIsRoleValid
-      .map((isRoleValid) => isRoleValid ? null : "Invalid Role");
-
-  @override
   Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
       .map((password) => _isPasswordValid(password));
 
   @override
   Stream<String?> get outputErrorPassword => outputIsPasswordValid
       .map((isPasswordValid) => isPasswordValid ? null : "Invalid Password");
+  
+  @override
+  Stream<UserRole> get outputSelectedRole => 
+    _selectedRoleStreamController.stream.map((selectedRole) => selectedRole);
 
   @override
   Stream<PickerFile?> get outputProfilePicture =>
@@ -194,10 +186,6 @@ class AddUserViewModel extends BaseViewModel
   // -- private methods
   bool _isUserNameValid(String userName) {
     return userName.length >= 6;
-  }
-
-  bool _isRoleValid(String Role) {
-    return Role.length > 0;
   }
 
   bool _isNameValid(String name) {
@@ -218,25 +206,7 @@ class AddUserViewModel extends BaseViewModel
   _validate() {
     inputAllInputsValid.add(null);
   }
-
-  RoleChecked() {
-    UserRole role = HiveHelper.getCurrentUser().role.toUserRoleEnum();
-    if (role == Constant.OWNER) {
-      rolechecked = [
-        Constant.MANAGER,
-        Constant.OWNER,
-        Constant.WAITER,
-        Constant.BARMAN
-      ];
-    } else if (role == Constant.MANAGER) {
-      rolechecked = [
-        Constant.WAITER,
-        Constant.BARMAN,
-      ];
-    }
-
-    return rolechecked;
-  }
+  
 }
 
 abstract class AddUserViewModelInput {
@@ -244,21 +214,23 @@ abstract class AddUserViewModelInput {
 
   setUserName(String userName);
 
-  setRole(String role);
+  setRole(UserRole role);
 
   setName(String name);
 
   setPassword(String password);
 
   setProfilePicture(PickerFile file);
+  
+  Sink get inputRoles;
 
   Sink get inputUserName;
 
-  Sink get inputRole;
+  Sink get inputSelectedRole;
 
   Sink get inputName;
 
-  Sink get inputUPassword;
+  Sink get inputPassword;
 
   Sink get inputProfilePicture;
 
@@ -266,13 +238,11 @@ abstract class AddUserViewModelInput {
 }
 
 abstract class AddUserViewModelOutput {
+  Stream<List<UserRole>> get outputRoles;
+
   Stream<bool> get outputIsUserNameValid;
 
   Stream<String?> get outputErrorUserName;
-
-  Stream<bool> get outputIsRoleValid;
-
-  Stream<String?> get outputRole;
 
   Stream<bool> get outputIsNameValid;
 
@@ -281,6 +251,8 @@ abstract class AddUserViewModelOutput {
   Stream<bool> get outputIsPasswordValid;
 
   Stream<String?> get outputErrorPassword;
+
+  Stream<UserRole> get outputSelectedRole;
 
   Stream<PickerFile?> get outputProfilePicture;
 

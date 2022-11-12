@@ -18,36 +18,23 @@ class AddProductViewModel extends BaseViewModel
     with AddProductViewModelInput, AddProductViewModelOutput {
   final _categorieStreamController = BehaviorSubject<List<Category>>();
   StreamController _colorStreamController = StreamController<Color>.broadcast();
-  StreamController _priceStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _titleStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _categoryIdStreamController =
-      StreamController<String>.broadcast();
-
-  StreamController _profilePictureStreamController =
-      StreamController<PickerFile?>.broadcast();
-
-  StreamController _isAllInputsValidStreamController =
-      StreamController<void>.broadcast();
-
-  StreamController isUserLoggedInSuccessfullyStreamController =
-      StreamController<bool>();
+  StreamController _priceStreamController =StreamController<String>.broadcast();
+  StreamController _titleStreamController =StreamController<String>.broadcast();
+  StreamController _categoryIdStreamController = StreamController<String>.broadcast();
+  StreamController _imageStreamController = StreamController<PickerFile?>.broadcast();
+  StreamController _isAllInputsValidStreamController = StreamController<void>.broadcast();
 
   AddProductUseCase _addProductUseCase;
-  CategoryUseCase _categoryUseCase;
+  AddProductViewModel(this._addProductUseCase);
 
-  var addroductViewObject = AddProductObject(
-      "", ColorManager.grey.value.toRadixString(16), null, "", "");
+  var addroductViewObject = AddProductObject(EMPTY, ColorManager.grey.value.toRadixString(16), null,EMPTY,EMPTY);
 
-  AddProductViewModel(this._addProductUseCase, this._categoryUseCase);
 
   //  -- inputs
   @override
   void start() {
     inputState.add(ContentState());
+    loadCategory();
   }
 
   @override
@@ -66,19 +53,15 @@ class AddProductViewModel extends BaseViewModel
       }, 
       (data) {
         inputState.add(ContentState());
-        isUserLoggedInSuccessfullyStreamController.add(true);
+        Navigator.of(context).pop();
         Navigator.of(context).pop();
       });
   }
 
   loadCategory() async {
-    inputState.add(LoadingState(
-        stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
-    (await _categoryUseCase.execute(EMPTY)).fold(
-      (failure) {
-        inputState.add(ErrorState(
-            StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message));
-      },
+    inputState.add(LoadingState(stateRendererType: StateRendererType.FULL_SCREEN_LOADING_STATE));
+    (await _addProductUseCase.getCategories(EMPTY)).fold(
+      (failure)=>inputState.add(ErrorState(StateRendererType.FULL_SCREEN_ERROR_STATE, failure.message)),
       (categories) async {
         inputState.add(ContentState());
         inputCategories.add(categories);
@@ -89,7 +72,7 @@ class AddProductViewModel extends BaseViewModel
   @override
   void dispose() {
     _isAllInputsValidStreamController.close();
-    _profilePictureStreamController.close();
+    _imageStreamController.close();
     _colorStreamController.close();
     _titleStreamController.close();
     _priceStreamController.close();
@@ -102,8 +85,7 @@ class AddProductViewModel extends BaseViewModel
   @override
   setColor(Color color) {
     inputPickerColor.add(color);
-    addroductViewObject = addroductViewObject.copyWith(
-        color: colorToHex(color, includeHashSign: false));
+    addroductViewObject = addroductViewObject.copyWith(color: colorToHex(color, includeHashSign: false));
   }
 
   @override
@@ -140,8 +122,8 @@ class AddProductViewModel extends BaseViewModel
   }
 
   @override
-  setProfilePicture(PickerFile file) {
-    inputProfilePicture.add(file);
+  setImage(PickerFile file) {
+    inputImage.add(file);
     addroductViewObject = addroductViewObject.copyWith(image: file);
     _validate();
   }
@@ -153,7 +135,7 @@ class AddProductViewModel extends BaseViewModel
   Sink get inputCategoryId => _categoryIdStreamController.sink;
 
   @override
-  Sink get inputProfilePicture => _profilePictureStreamController.sink;
+  Sink get inputImage => _imageStreamController.sink;
 
   @override
   Sink get inputTitle => _titleStreamController.sink;
@@ -194,8 +176,8 @@ class AddProductViewModel extends BaseViewModel
       .map((isPriceValid) => isPriceValid ? null : "price must be integer");
 
   @override
-  Stream<PickerFile?> get outputProfilePicture =>
-      _profilePictureStreamController.stream.map((file) => file);
+  Stream<PickerFile?> get outputImage =>
+      _imageStreamController.stream.map((file) => file);
 
   @override
   Stream<bool> get outputIsAllInputsValid =>
@@ -234,7 +216,7 @@ abstract class AddProductViewModelInput {
 
   setColor(Color color);
 
-  setProfilePicture(PickerFile file);
+  setImage(PickerFile file);
 
   setCategoryId(String id);
 
@@ -244,7 +226,7 @@ abstract class AddProductViewModelInput {
 
   Sink get inputPickerColor;
 
-  Sink get inputProfilePicture;
+  Sink get inputImage;
 
   Sink get inputPrice;
 
@@ -260,7 +242,7 @@ abstract class AddProductViewModelInput {
 abstract class AddProductViewModelOutput {
   Stream<Color> get outputPickerColor;
 
-  Stream<PickerFile?> get outputProfilePicture;
+  Stream<PickerFile?> get outputImage;
 
   Stream<String?> get outputCategoryId;
 

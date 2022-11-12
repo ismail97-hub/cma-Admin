@@ -231,7 +231,7 @@ initAddProductModule() {
     instance.registerFactory<AddProductUseCase>(
         () => AddProductUseCase(instance()));
     instance.registerFactory<AddProductViewModel>(
-        () => AddProductViewModel(instance(), instance()));
+        () => AddProductViewModel(instance()));
   }
 }
 
@@ -274,7 +274,7 @@ initUpdateProductModule() {
     instance.registerFactory<UpdateProductUseCase>(
         () => UpdateProductUseCase(instance()));
     instance.registerFactory<UpdateProductViewModel>(
-        () => UpdateProductViewModel(instance(), instance()));
+        () => UpdateProductViewModel(instance()));
   }
 }
 
