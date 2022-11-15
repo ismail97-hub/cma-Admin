@@ -4,6 +4,7 @@ import 'package:cma_admin/presentation/components/order_status_item.dart';
 import 'package:cma_admin/presentation/components/popup_menu_column.dart';
 import 'package:cma_admin/presentation/components/order_details_widget.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class OrdersDataTableSource extends DataTableSource {
@@ -23,7 +24,7 @@ class OrdersDataTableSource extends DataTableSource {
             DataCell(Text(orders[index].waiter!.name.toString())),
             DataCell(Text(dateFormat(orders[index].createdAt))),
             DataCell(Text(orders[index].itemsNumber.toString())),
-            DataCell(Text("${orders[index].totalAmount.toString()} ${AppStrings.dh}")),
+            DataCell(Text("${orders[index].totalAmount.toString()} ${AppStrings.dh.tr()}")),
             DataCell(OrderStatusItem(status: orders[index].status)),
             DataCell(PopUpMenuColumn(view:(){
               showDetails(context, orders[index]);

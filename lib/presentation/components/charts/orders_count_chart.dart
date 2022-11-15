@@ -7,6 +7,7 @@ import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -56,7 +57,7 @@ class OrdersCountChart extends StatelessWidget {
   
   Widget _getHeader(BuildContext context) {
     return Text(AppStrings.compeletedOrdersCount,
-        style: getSemiBoldStyle(color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16));
+        style: getSemiBoldStyle(color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16)).tr();
   }
 
   dynamic _getSeries(){
@@ -69,7 +70,7 @@ class OrdersCountChart extends StatelessWidget {
           animationDuration: 2500,
           xValueMapper: (TimeInsights timeInsights, _) => timeInsights.time,
           yValueMapper: (TimeInsights timeInsights, _) => timeInsights.done,
-          name: AppStrings.compeletedOrdersCount
+          name: AppStrings.compeletedOrdersCount.tr()
           // markerSettings: MarkerSettings(height: 5,width: 5,isVisible:true),
         )
       ];
@@ -82,7 +83,7 @@ class OrdersCountChart extends StatelessWidget {
           animationDuration: 2500,
           xValueMapper: (TimeInsights timeInsights, _) => DateTime.parse(timeInsights.time),
           yValueMapper: (TimeInsights timeInsights, _) => timeInsights.done,
-          name: AppStrings.compeletedOrdersCount,
+          name: AppStrings.compeletedOrdersCount.tr(),
           // markerSettings: MarkerSettings(height: 5,width: 5,isVisible:true),
         )
       ];

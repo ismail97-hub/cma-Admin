@@ -3,6 +3,7 @@ import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class PopUpMenuColumn extends StatelessWidget {
@@ -32,9 +33,9 @@ class PopUpMenuColumn extends StatelessWidget {
         }
       }, itemBuilder: (context) {
         return [
-          if(update!=null)PopupMenuItem(value: 1, child: Text(AppStrings.update),textStyle: getItemStyle()),
-          if(view!=null)PopupMenuItem(value: 2, child: Text(AppStrings.view),textStyle: getItemStyle()),
-          if(delete!=null)PopupMenuItem(value: 3, child: Text(AppStrings.delete),textStyle: getItemStyle(color: ColorManager.error)),
+          if(update!=null)PopupMenuItem(value: 1, child: Text(AppStrings.update).tr(),textStyle: getItemStyle()),
+          if(view!=null)PopupMenuItem(value: 2, child: Text(AppStrings.view).tr(),textStyle: getItemStyle()),
+          if(delete!=null)PopupMenuItem(value: 3, child: Text(AppStrings.delete).tr(),textStyle: getItemStyle(color: ColorManager.error)),
         ];
       }),
     );

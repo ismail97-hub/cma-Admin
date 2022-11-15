@@ -18,6 +18,7 @@ import 'package:cma_admin/presentation/resources/icon_manager.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CategoryView extends StatefulWidget {
@@ -30,14 +31,14 @@ class CategoryView extends StatefulWidget {
 class _CategoryViewState extends State<CategoryView> {
   CategoryViewModel _viewModel = instance<CategoryViewModel>();
   List<String> columns = [
-    "N°",
-    "image",
-    "Label",
-    "CreatedAt",
-    "Color",
-    "Active",
-    "Up/Down",
-    "Actions",
+    AppStrings.num,
+    AppStrings.image,
+    AppStrings.name,
+    AppStrings.createdAt,
+    AppStrings.color,
+    AppStrings.active,
+    AppStrings.upDown,
+    AppStrings.actions
   ];
 
   _bind() {
@@ -98,7 +99,7 @@ class _CategoryViewState extends State<CategoryView> {
           ),
           SizedBox(height: AppSize.s20),
           CustomDataTable(
-              columns: columns.map((column) => DataColumn(label: Text(column))).toList(),
+              columns: columns.map((column) => DataColumn(label: Text(column).tr())).toList(),
               rows: fixedList.map((index) => DataRow(cells: [
                 DataCell(Text(categories[index].id.toString())),
                 DataCell(ImageColumn(categories[index].image)),
@@ -137,7 +138,7 @@ class _CategoryViewState extends State<CategoryView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          HeaderText(AppStrings.categories),
+          HeaderText(AppStrings.categories.tr()),
           Row(
             children: [
               ActionButton(

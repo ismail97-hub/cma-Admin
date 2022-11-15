@@ -12,6 +12,7 @@ import 'package:cma_admin/presentation/home/orders/orders_dt_source.dart';
 import 'package:cma_admin/presentation/home/orders/orders_viewmodel.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class OrdersView extends StatefulWidget {
@@ -24,13 +25,13 @@ class OrdersView extends StatefulWidget {
 class _OrdersViewState extends State<OrdersView> {
   OrdersViewModel _viewModel = instance<OrdersViewModel>();
   List<String> columns = [
-    "N°",
-    "Waiter",
-    "CreatedAt",
-    "Items Count",
-    "Amount",
-    "Status",
-    "Actions"
+    AppStrings.num,
+    AppStrings.waiter,
+    AppStrings.createdAt,
+    AppStrings.itemsCount,
+    AppStrings.amount,
+    AppStrings.status,
+    AppStrings.actions
   ];
 
   _bind() {
@@ -94,7 +95,7 @@ class _OrdersViewState extends State<OrdersView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:[
-          HeaderText(AppStrings.orders),
+          HeaderText(AppStrings.orders.tr()),
           DateRangeButton(
             dateRangeStream:_viewModel.outputDateRange,
             onSumbit: (dateRange){
@@ -140,7 +141,7 @@ class _OrdersViewState extends State<OrdersView> {
         horizontalMargin: AppMargin.m30,
         columnSpacing: 100,
         showCheckboxColumn: false,  
-        columns:columns.map((c) => DataColumn(label: Text(c))).toList(),
+        columns:columns.map((c) => DataColumn(label: Text(c).tr())).toList(),
         source: source)
     );
   }

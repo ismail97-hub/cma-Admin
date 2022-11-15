@@ -8,8 +8,8 @@ import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class WaitersChart extends StatefulWidget {
@@ -47,7 +47,7 @@ class _WaitersChartState extends State<WaitersChart> {
             ? AppStrings.totalAmountByWaiter
             : AppStrings.ordersCountByWaiter,
         style: getSemiBoldStyle(
-            color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16));
+            color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16)).tr();
   }
 
   Widget _getFooter() {
@@ -60,10 +60,10 @@ class _WaitersChartState extends State<WaitersChart> {
               isAmount = !isAmount;
             });
           },
-          child: Text(isAmount ? AppStrings.ordersCount : AppStrings.totalAmount)),
+          child: Text(isAmount ? AppStrings.ordersCount : AppStrings.totalAmount).tr()),
         TextButton(onPressed: () {
           Navigator.of(context).pushNamed(Routes.allWaitersInsightsRoute);
-        }, child: Text(AppStrings.viewInsights)),
+        }, child: Text(AppStrings.viewInsights).tr()),
      ]
     );
   }
@@ -94,7 +94,7 @@ class _WaitersChartState extends State<WaitersChart> {
         animationDuration: 2500,
         xValueMapper: (Waiter waiter, _) => waiter.name,
         yValueMapper: (Waiter waiter, _) => waiter.amount,
-        name: AppStrings.totalAmount,
+        name: AppStrings.totalAmount.tr(),
         markerSettings: const MarkerSettings(isVisible: true),
       )
     ];
@@ -108,7 +108,7 @@ class _WaitersChartState extends State<WaitersChart> {
         animationDuration: 2500,
         xValueMapper: (Waiter waiter, _) => waiter.name,
         yValueMapper: (Waiter waiter, _) => waiter.inprogress,
-        name: AppStrings.inProgressOrdersCount,
+        name: AppStrings.inProgressOrdersCount.tr(),
         markerSettings: const MarkerSettings(isVisible: true),
       ),
       BarSeries<Waiter, String>(
@@ -117,7 +117,7 @@ class _WaitersChartState extends State<WaitersChart> {
         animationDuration: 2500,
         xValueMapper: (Waiter waiter, _) => waiter.name,
         yValueMapper: (Waiter waiter, _) => waiter.canceled,
-        name: AppStrings.canceledOrdersCount,
+        name: AppStrings.canceledOrdersCount.tr(),
         markerSettings: const MarkerSettings(isVisible: true),
       ),
       BarSeries<Waiter, String>(
@@ -126,7 +126,7 @@ class _WaitersChartState extends State<WaitersChart> {
         animationDuration: 2500,
         xValueMapper: (Waiter waiter, _) => waiter.name,
         yValueMapper: (Waiter waiter, _) => waiter.done,
-        name: AppStrings.compeletedOrdersCount,
+        name: AppStrings.compeletedOrdersCount.tr(),
         markerSettings: const MarkerSettings(isVisible: true),
       ),
     ];

@@ -27,14 +27,14 @@ class HiveHelper {
     box.putAt(0, user);
   }
    
-  static logout()async{
-    var box = Hive.box<User>(Constant.userBox);
-    box.clear();
-  }
-  
   //info
-  static Info getInfo(){
-    return Hive.box<Info>(Constant.infoBox).getAt(0)??Info.empty();
+  static Info? getInfo(){
+    var box = Hive.box<Info>(Constant.infoBox);
+    if (box.length!=0) {
+      return box.getAt(0)??Info.empty();
+    } else {
+      return null;
+    }
   }
 
   static addInfo(Info info){
@@ -47,4 +47,10 @@ class HiveHelper {
     box.putAt(0, info);
   }
 
+  static logout()async{
+    var userBox = Hive.box<User>(Constant.userBox);
+    var infoBox = Hive.box<Info>(Constant.infoBox);
+    userBox.clear();
+    infoBox.clear();
+  }
 }

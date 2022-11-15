@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:cma_admin/app/constant.dart';
+
 import 'package:cma_admin/app/enum.dart';
 import 'package:cma_admin/app/hive_helper.dart';
 import 'package:cma_admin/domain/model/model.dart';
@@ -8,6 +8,7 @@ import 'package:cma_admin/presentation/base/baseviewmodel.dart';
 import 'package:cma_admin/presentation/common/freezed_data_classes.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -36,7 +37,7 @@ class AddUserViewModel extends BaseViewModel with AddUserViewModelInput, AddUser
   }
 
   _getRoles()async{
-    if (HiveHelper.getCurrentUser().role.toUserRoleEnum()==UserRole.OWNER) {
+    if (HiveHelper.getCurrentUser().getRole==UserRole.OWNER) {
       inputRoles.add(UserRole.values);
     } else {
       inputRoles.add([UserRole.WAITER,UserRole.BARMAN]);
@@ -157,7 +158,7 @@ class AddUserViewModel extends BaseViewModel with AddUserViewModelInput, AddUser
 
   @override
   Stream<String?> get outputErrorUserName => outputIsUserNameValid
-      .map((isUserNameValid) => isUserNameValid ? null : "Invalid username");
+      .map((isUserNameValid) => isUserNameValid ? null : AppStrings.usernameError);
 
   @override
   Stream<bool> get outputIsNameValid =>
@@ -165,7 +166,7 @@ class AddUserViewModel extends BaseViewModel with AddUserViewModelInput, AddUser
 
   @override
   Stream<String?> get outputErrorName => outputIsNameValid
-      .map((isNameValid) => isNameValid ? null : "Invalid Name");
+      .map((isNameValid) => isNameValid ? null : AppStrings.nameError);
 
   @override
   Stream<bool> get outputIsPasswordValid => _passwordStreamController.stream
@@ -173,7 +174,7 @@ class AddUserViewModel extends BaseViewModel with AddUserViewModelInput, AddUser
 
   @override
   Stream<String?> get outputErrorPassword => outputIsPasswordValid
-      .map((isPasswordValid) => isPasswordValid ? null : "Invalid Password");
+      .map((isPasswordValid) => isPasswordValid ? null : AppStrings.passwordError);
   
   @override
   Stream<UserRole> get outputSelectedRole => 

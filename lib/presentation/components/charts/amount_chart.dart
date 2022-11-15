@@ -6,8 +6,8 @@ import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -44,7 +44,7 @@ class AmountChart extends StatelessWidget {
                     axisLine: AxisLine(width: 0),
                   ),
                   primaryYAxis: NumericAxis(
-                      numberFormat: NumberFormat.currency(symbol: AppStrings.dh),
+                      numberFormat: NumberFormat.currency(symbol: AppStrings.dh.tr()),
                       axisLine: AxisLine(width: 0),
                   ),
                   tooltipBehavior: TooltipBehavior(enable: true),
@@ -58,7 +58,7 @@ class AmountChart extends StatelessWidget {
   
   Widget _getHeader(BuildContext context) {
     return Text(AppStrings.totalAmount,
-        style: getSemiBoldStyle(color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16));
+        style: getSemiBoldStyle(color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16)).tr();
   }
 
   dynamic _getSeries(){
@@ -71,7 +71,7 @@ class AmountChart extends StatelessWidget {
           animationDuration: 2500,
           xValueMapper: (TimeInsights timeInsights, _) => timeInsights.time,
           yValueMapper: (TimeInsights timeInsights, _) => timeInsights.amount,
-          name: AppStrings.totalAmount,
+          name: AppStrings.totalAmount.tr(),
           // markerSettings: MarkerSettings(height: 5,width: 5,isVisible:true),
         )
       ];
@@ -84,7 +84,7 @@ class AmountChart extends StatelessWidget {
           animationDuration: 2500,
           xValueMapper: (TimeInsights timeInsights, _) => DateTime.parse(timeInsights.time),
           yValueMapper: (TimeInsights timeInsights, _) => timeInsights.amount,
-          name: AppStrings.totalAmount,
+          name: AppStrings.totalAmount.tr(),
           // markerSettings: MarkerSettings(height: 5,width: 5,isVisible:true),
         )
       ];

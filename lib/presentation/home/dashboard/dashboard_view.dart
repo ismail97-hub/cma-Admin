@@ -20,6 +20,7 @@ import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class DashboardView extends StatefulWidget {
@@ -34,12 +35,12 @@ class _DashboardViewState extends State<DashboardView> {
   HomeViewModel _homeViewModel = instance<HomeViewModel>();
 
   List<String> columns = [
-    "N°",
-    "CreatedAt",
-    "Items Count",
-    "Amount",
-    "Status",
-    "Actions"
+    AppStrings.num,
+    AppStrings.createdAt,
+    AppStrings.itemsCount,
+    AppStrings.amount,
+    AppStrings.status,
+    AppStrings.actions
   ];
 
   _bind() {
@@ -105,7 +106,7 @@ class _DashboardViewState extends State<DashboardView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          HeaderText(AppStrings.dashboard),
+          HeaderText(AppStrings.dashboard.tr()),
           Text(dateToStringFormat2(DateTime.now()),style: getSemiBoldStyle(color: ColorManager.black,fontSize: FontSize.s15)),
         ],
       ),
@@ -162,11 +163,11 @@ class _DashboardViewState extends State<DashboardView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(AppStrings.latestOrders,style: getSemiBoldStyle( color: ColorManager.black, fontSize: FontSize.s16)),
+        Text(AppStrings.latestOrders,style: getSemiBoldStyle( color: ColorManager.black, fontSize: FontSize.s16)).tr(),
         TextButton(onPressed: (){
           _homeViewModel.inputCurrentIndex.add(1);
         }, 
-        child: Text(AppStrings.viewAll))
+        child: Text(AppStrings.viewAll).tr())
       ],
     );
   }
@@ -182,12 +183,12 @@ class _DashboardViewState extends State<DashboardView> {
           lastOrders.isEmpty?NotfoundWidget(AppStrings.noDataAvailable):CustomDataTable(
               card: false,
               padding: EdgeInsets.zero,
-              columns: columns.map((column) => DataColumn(label: Text(column))).toList(),
+              columns: columns.map((column) => DataColumn(label: Text(column).tr())).toList(),
               rows: lastOrders.map((order) => DataRow(cells: [
                         DataCell(Text(order.id.toString())),
                         DataCell(Text(dateFormat(order.createdAt))),
                         DataCell(Text(order.itemsNumber.toString())),
-                        DataCell(Text("${order.totalAmount.toString()} ${AppStrings.dh}")),
+                        DataCell(Text("${order.totalAmount.toString()} ${AppStrings.dh.tr()}")),
                         DataCell(OrderStatusItem(status: order.status)),
                         DataCell(PopUpMenuColumn(view:(){showDetails(order);}))
                       ])).toList()),

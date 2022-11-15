@@ -1,4 +1,5 @@
 import 'package:cma_admin/app/di.dart';
+import 'package:cma_admin/app/enum.dart';
 import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
@@ -14,6 +15,7 @@ import 'package:cma_admin/presentation/resources/icon_manager.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/popup_menu_column.dart';
@@ -28,14 +30,14 @@ class UserView extends StatefulWidget {
 class _UserViewState extends State<UserView> {
   UserViewModel _viewModel = instance<UserViewModel>();
   List<String> columns = [
-    "N°",
-    "image",
-    "Name",
-    "UserName",
-    "CreatedAt",
-    "Role",
-    "Active",
-    "Actions"
+    AppStrings.num,
+    AppStrings.image,
+    AppStrings.name,
+    AppStrings.username,
+    AppStrings.createdAt,
+    AppStrings.role,
+    AppStrings.active,
+    AppStrings.actions
   ];
 
   _bind() {
@@ -95,7 +97,7 @@ class _UserViewState extends State<UserView> {
           ),
           SizedBox(height: AppSize.s20),
           CustomDataTable(
-              columns: columns.map((column) => DataColumn(label: Text(column))).toList(),
+              columns: columns.map((column) => DataColumn(label: Text(column).tr())).toList(),
               rows: users.map((user) => DataRow(
                   cells: [
                         DataCell(Text(user.id.toString())),
@@ -103,7 +105,7 @@ class _UserViewState extends State<UserView> {
                         DataCell(Text(user.name)),
                         DataCell(Text(user.userName)),
                         DataCell(Text(user.createdAt)),
-                        DataCell(Text(user.role)),
+                        DataCell(Text(user.getRole.totr())),
                         DataCell(Switch(
                             value: user.active,
                             onChanged: (value) {_viewModel.activeToggle(context,user, users);})),
@@ -123,7 +125,7 @@ class _UserViewState extends State<UserView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          HeaderText(AppStrings.users),
+          HeaderText(AppStrings.users.tr()),
           Row(
             children: [
               ActionButton(

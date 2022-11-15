@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../resources/values_manager.dart';
 import 'field_label.dart';
@@ -40,7 +41,7 @@ class CustomDropDown<T> extends StatelessWidget {
                 selectedItem: selectedItem,
                 items: snapshot.data,
                 itemAsString: itemAsString,
-                dropdownSearchDecoration: InputDecoration(hintText: label),
+                dropdownSearchDecoration: InputDecoration(hintText: label.tr()),
                 onChanged: <T>(value) { 
                   onTap.call(value);
                 },

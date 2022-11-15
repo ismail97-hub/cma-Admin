@@ -16,7 +16,6 @@ class AddProductUseCase implements BaseUseCase<AddProductUseCaseInput, Product> 
         input.categoryId, input.color, input.image, input.price, input.title));
   }
 
-  @override
   Future<Either<Failure, List<Category>>> getCategories(String input) {
     return _repository.getAllCategory();
   }

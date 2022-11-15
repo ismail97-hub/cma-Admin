@@ -1,4 +1,5 @@
 import 'package:cma_admin/presentation/waiter_insights/waiter_insights_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -106,6 +107,7 @@ class RouteGenerator {
         initSettingsModule();
         initAccountSettingsModule();
         initInfoSettingsModule();
+        initLanguageSettingsModule();
         return CupertinoPageRoute(
             builder: (_) => HomeView());
       case Routes.categoryDetailsRoute:
@@ -157,9 +159,9 @@ class RouteGenerator {
     return MaterialPageRoute(
         builder: (_) => Scaffold(
               appBar: AppBar(
-                title: Text(AppStrings.noRouteFound),
+                title: Text(AppStrings.noRouteFound).tr(),
               ),
-              body: Center(child: Text(AppStrings.noRouteFound)),
+              body: Center(child: Text(AppStrings.noRouteFound).tr()),
             ));
   }
 }

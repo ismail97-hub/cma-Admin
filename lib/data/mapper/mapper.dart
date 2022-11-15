@@ -23,7 +23,7 @@ extension UserResponseExtension on UserResponse? {
         this?.active?.orFalse() ?? FALSE,
         Constant.ImageUrl + (this?.image?.orEmpty() ?? EMPTY),
         this?.name?.orEmpty() ?? EMPTY,
-        this?.role?.orEmpty() ?? EMPTY,
+        this?.role?.orEmpty()??EMPTY,
         this?.userName?.orEmpty() ?? EMPTY);
   }
 }

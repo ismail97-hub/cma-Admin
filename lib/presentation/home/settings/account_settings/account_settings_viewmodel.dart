@@ -10,6 +10,7 @@ import 'package:cma_admin/presentation/base/baseviewmodel.dart';
 import 'package:cma_admin/presentation/common/freezed_data_classes.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import '../../../../domain/usecase/account_settings_usecase.dart';
@@ -35,13 +36,13 @@ class AccountSettingsViewModel extends BaseViewModel with AccountSettingsViewMod
     User user = HiveHelper.getCurrentUser();
     setName(user.name);
     setUsername(user.userName);
-    setRole(user.role.toUserRoleEnum());
+    setRole(user.getRole);
     _getRoles();
   }
 
    
   _getRoles()async{
-    if (HiveHelper.getCurrentUser().role.toUserRoleEnum()==UserRole.OWNER) {
+    if (HiveHelper.getCurrentUser().getRole==UserRole.OWNER) {
       inputRoles.add(UserRole.values);
     } else {
       inputRoles.add([UserRole.WAITER,UserRole.BARMAN]);
@@ -200,22 +201,22 @@ class AccountSettingsViewModel extends BaseViewModel with AccountSettingsViewMod
     _confirmationNewPasswordStreamController.stream.map((confirmationPassword) => _isConfirmationPasswordValid(confirmationPassword));
 
   @override
-  Stream<String?> get outputErrorName => outputIsNameValid.map((isNameValid) => isNameValid?null:"Invalid Name");
+  Stream<String?> get outputErrorName => outputIsNameValid.map((isNameValid) => isNameValid?null:AppStrings.nameError);
   
   @override
-  Stream<String?> get outputErrorUsername => outputIsUsernameValid.map((isUsernameValid) => isUsernameValid?null:"Invalid Username");
+  Stream<String?> get outputErrorUsername => outputIsUsernameValid.map((isUsernameValid) => isUsernameValid?null:AppStrings.usernameError);
   
   @override
   Stream<String?> get outputErrorOldPasswrd => 
-    outputIsOldPasswrdValid.map((isOldPasswordValid) => isOldPasswordValid?null:"Invalid old password");
+    outputIsOldPasswrdValid.map((isOldPasswordValid) => isOldPasswordValid?null:AppStrings.oldPasswordError);
   
   @override
   Stream<String?> get outputErrorNewPassword => 
-    outputIsNewPasswordValid.map((isNewPasswordValid) => isNewPasswordValid?null:"Invalid new password");
+    outputIsNewPasswordValid.map((isNewPasswordValid) => isNewPasswordValid?null:AppStrings.newPasswordError);
   
   @override
   Stream<String?> get outputErrorConfirmatioNewPassword => 
-    outputIsConfirmatioNewPasswordValid.map((isConfirmatioNewPassword) => isConfirmatioNewPassword?null:"Passwords are not same");
+    outputIsConfirmatioNewPasswordValid.map((isConfirmatioNewPassword) => isConfirmatioNewPassword?null:AppStrings.confirmationPasswordError);
 
   @override
   Stream<PickerFile?> get outputImage => _imageStreamController.stream.map((image) => image);

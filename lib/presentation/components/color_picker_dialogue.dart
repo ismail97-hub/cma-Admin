@@ -1,5 +1,6 @@
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -34,7 +35,7 @@ void showAlert(
                             child: SizedBox(
                                 width: double.infinity,
                                 height: AppSize.s40,
-                                child: Center(child: Text(AppStrings.pickColor)))),
+                                child: Center(child: Text(AppStrings.pickColor).tr()))),
                       ),
                     ],
                   ),

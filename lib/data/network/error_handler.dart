@@ -1,6 +1,7 @@
 import 'package:cma_admin/data/network/failure.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 enum DataSource {
   SUCCESS,
@@ -69,13 +70,13 @@ class ErrorHandler implements Exception {
 String getInternalServerErrorMessage(String message){
   switch (message) {
     case AppStrings.userNotFound:
-      return AppStrings.usernameIEM;
+      return AppStrings.usernameIEM.tr();
     case AppStrings.badCredentials:
-      return AppStrings.passwordIEM;
+      return AppStrings.passwordIEM.tr();
     case AppStrings.indentificationsErronees:
-      return AppStrings.passwordIEM;
+      return AppStrings.passwordIEM.tr();
     case AppStrings.userIsDisabled:
-      return AppStrings.accountDisbledIEM;  
+      return AppStrings.accountDisbledIEM.tr();  
     default:
       return ResponseMessage.INTERNAL_SERVER_ERROR;
   }
@@ -142,35 +143,22 @@ class ResponseCode {
 class ResponseMessage {
   // API status codes
   // API response codes
-  static const String SUCCESS = AppStrings.success; // success with data
-  static const String NO_CONTENT =
-      AppStrings.noContent; // success with no content
-  static const String BAD_REQUEST =
-      AppStrings.badRequestError; // failure, api rejected our request
-  static const String FORBIDDEN =
-      AppStrings.forbiddenError; // failure,  api rejected our request
-  static const String UNAUTHORISED =
-      AppStrings.unauthorizedError; // failure, user is not authorised
-  static const String NOT_FOUND = AppStrings
-      .notFoundError; // failure, API url is not correct and not found in api side.
-  static const String INTERNAL_SERVER_ERROR =
-      AppStrings.internalServerError; // failure, a crash happened in API side.
+  static String SUCCESS = AppStrings.success.tr(); // success with data
+  static String NO_CONTENT = AppStrings.noContent.tr(); // success with no content
+  static String BAD_REQUEST = AppStrings.badRequestError.tr(); // failure, api rejected our request
+  static String FORBIDDEN = AppStrings.forbiddenError.tr(); // failure,  api rejected our request
+  static String UNAUTHORISED = AppStrings.unauthorizedError.tr(); // failure, user is not authorised
+  static String NOT_FOUND = AppStrings.notFoundError.tr(); // failure, API url is not correct and not found in api side.
+  static String INTERNAL_SERVER_ERROR = AppStrings.internalServerError.tr(); // failure, a crash happened in API side.
 
   // local responses codes
-  static const String DEFAULT =
-      AppStrings.defaultError; // unknown error happened
-  static const String CONNECT_TIMEOUT =
-      AppStrings.timeoutError; // issue in connectivity
-  static const String CANCEL =
-      AppStrings.defaultError; // API request was cancelled
-  static const String RECEIVE_TIMEOUT =
-      AppStrings.timeoutError; //  issue in connectivity
-  static const String SEND_TIMEOUT =
-      AppStrings.timeoutError; //  issue in connectivity
-  static const String CACHE_ERROR = AppStrings
-      .defaultError; //  issue in getting data from local data source (cache)
-  static const String NO_INTERNET_CONNECTION =
-      AppStrings.noInternetError; // issue in connectivity
+  static String DEFAULT = AppStrings.defaultError.tr(); // unknown error happened
+  static String CONNECT_TIMEOUT = AppStrings.timeoutError.tr(); // issue in connectivity
+  static String CANCEL = AppStrings.defaultError.tr(); // API request was cancelled
+  static String RECEIVE_TIMEOUT = AppStrings.timeoutError.tr(); //  issue in connectivity
+  static String SEND_TIMEOUT = AppStrings.timeoutError.tr(); //  issue in connectivity
+  static String CACHE_ERROR = AppStrings.defaultError.tr(); //  issue in getting data from local data source (cache)
+  static String NO_INTERNET_CONNECTION = AppStrings.noInternetError.tr(); // issue in connectivity
 }
 
 class ApiInternalStatus {

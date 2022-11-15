@@ -8,6 +8,7 @@ import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -45,7 +46,7 @@ class _QuantityChartState extends State<QuantityChart> {
           ?AppStrings.categoryPieChartTitle
           :"${AppStrings.productPieChartTitle} ${_categoryCount!.label}",
         style: getSemiBoldStyle(
-            color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16));
+            color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16)).tr();
   }
 
   Widget _getFooter() {
@@ -58,10 +59,10 @@ class _QuantityChartState extends State<QuantityChart> {
                   _categoryCount = null;
                 });
               },
-              child: Text(AppStrings.goBack)),
+              child: Text(AppStrings.goBack).tr()),
       TextButton(onPressed: () {
         Navigator.of(context).pushNamed(Routes.categoriesInsightsRoute);
-      }, child: Text(AppStrings.viewInsights)),
+      }, child: Text(AppStrings.viewInsights).tr()),
     ]);
   }
 

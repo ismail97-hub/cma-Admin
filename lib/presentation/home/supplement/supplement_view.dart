@@ -17,6 +17,7 @@ import 'package:cma_admin/presentation/resources/icon_manager.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SupplementView extends StatefulWidget {
@@ -29,14 +30,14 @@ class SupplementView extends StatefulWidget {
 class _SupplementViewState extends State<SupplementView> {
   SupplementViewModel _viewModel = instance<SupplementViewModel>();
   List<String> columns = [
-    "Id",
-    "image",
-    "Title",
-    "Price (DH)",
-    "CreatedAt",
-    "Color",
-    "Active",
-    "Actions"
+    AppStrings.num,
+    AppStrings.image,
+    AppStrings.name,
+    AppStrings.price,
+    AppStrings.createdAt,
+    AppStrings.color,
+    AppStrings.active,
+    AppStrings.actions
   ];
 
   _bind() {
@@ -96,14 +97,14 @@ class _SupplementViewState extends State<SupplementView> {
           SizedBox(height: AppSize.s20),
           CustomDataTable(
               columns: columns
-                  .map((column) => DataColumn(label: Text(column)))
+                  .map((column) => DataColumn(label: Text(column).tr()))
                   .toList(),
               rows: supplements
                   .map((supplement) => DataRow(cells: [
                         DataCell(Text(supplement.id.toString())),
                         DataCell(ImageColumn(supplement.image)),
                         DataCell(Text(supplement.title)),
-                        DataCell(Text(supplement.price.toString())),
+                        DataCell(Text("${supplement.price} ${AppStrings.dh.tr()}")),
                         DataCell(Text(supplement.createdAt)),
                         DataCell(ColorColumn(supplement.color)),
                         DataCell(Switch(
@@ -133,7 +134,7 @@ class _SupplementViewState extends State<SupplementView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          HeaderText(AppStrings.supplements),
+          HeaderText(AppStrings.supplements.tr()),
           Row(
             children: [
               ActionButton(

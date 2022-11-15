@@ -14,6 +14,7 @@ import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:cma_admin/presentation/all_waiters_insights/all_waiters_insights_viewmodel.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -27,13 +28,14 @@ class AllWaitersInsightsView extends StatefulWidget {
 class _AllWaitersInsightsViewState extends State<AllWaitersInsightsView> {
   AllWaitersInsightsViewModel _viewModel = instance<AllWaitersInsightsViewModel>();
   List<String> columns = [
-    "Image",
-    "Waiter",
-    "Amount",
-    "In Progress",
-    "Canceled",
-    "Done",
-    "Actions"
+    AppStrings.num,
+    AppStrings.image,
+    AppStrings.waiter,
+    AppStrings.amount,
+    AppStrings.inProgressOrders,
+    AppStrings.canceledOrders,
+    AppStrings.completedOrders,
+    AppStrings.actions,
   ];
   _bind(){
     _viewModel.getWaiters(PickerDateRange(DateTime.now(),DateTime.now()));
@@ -101,7 +103,7 @@ class _AllWaitersInsightsViewState extends State<AllWaitersInsightsView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          HeaderText("Waiters Insights"),
+          HeaderText(AppStrings.waitersInsights.tr()),
           DateRangeButton(
             dateRangeStream: _viewModel.outputDateRange, 
             onSumbit:(dateRange)=> _viewModel.getWaiters(dateRange)) 
@@ -115,17 +117,18 @@ class _AllWaitersInsightsViewState extends State<AllWaitersInsightsView> {
       ?NotfoundWidget(AppStrings.noDataAvailable)
       :CustomDataTable(
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
-        columns: columns.map((c) => DataColumn(label: Text(c))).toList(),
+        columns: columns.map((c) => DataColumn(label: Text(c).tr())).toList(),
         rows: waiters.map((waiter) => DataRow(cells: [
+          DataCell(CircleImage(waiter.id.toString())),
           DataCell(CircleImage(waiter.image)),
           DataCell(Text(waiter.name)),
-          DataCell(Text("${waiter.amount} ${AppStrings.dh}")),
+          DataCell(Text("${waiter.amount} ${AppStrings.dh.tr()}")),
           DataCell(Text(waiter.inprogress.toString())),
           DataCell(Text(waiter.canceled.toString())),
           DataCell(Text(waiter.done.toString())),
           DataCell(ActionButton(color: ColorManager.orange, onTap: (){
             Navigator.of(context).pushNamed(Routes.waiterInsightsRoute,arguments: WaiterInsightsArgs(waiter, _viewModel.viewObject.dateRange));
-          }, title: "Insights")),
+          }, title: AppStrings.insights)),
         ])).toList(),
       );
   }

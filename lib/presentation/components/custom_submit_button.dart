@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../resources/values_manager.dart';
 
@@ -21,7 +22,7 @@ class CustomSubmitButton extends StatelessWidget {
           height: AppSize.s40,
           child: ElevatedButton(
               onPressed: (snapshot.data ?? false)? () =>onTap.call(): null,
-              child: Text(buttonText)),
+              child: Text(buttonText).tr()),
         );
       },
     );

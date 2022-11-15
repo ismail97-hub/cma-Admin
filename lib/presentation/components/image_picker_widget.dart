@@ -8,6 +8,7 @@ import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../app/functions.dart';
@@ -62,7 +63,7 @@ class ImagePickerWidget extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    Text(AppStrings.browsImage),
+                    Text(AppStrings.uploadImage).tr(),
                   ],
                 ),
             );

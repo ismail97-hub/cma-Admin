@@ -6,8 +6,8 @@ import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class HoursChart extends StatefulWidget {
@@ -46,7 +46,7 @@ class _HoursChartState extends State<HoursChart> {
             ? AppStrings.totalAmountByHour
             : AppStrings.ordersCountByHour,
         style: getSemiBoldStyle(
-            color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16));
+            color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16)).tr();
   }
 
   Widget _getFooter() {
@@ -59,10 +59,10 @@ class _HoursChartState extends State<HoursChart> {
               isAmount = !isAmount;
             });
           },
-          child: Text(isAmount ? AppStrings.ordersCount : AppStrings.totalAmount)),
+          child: Text(isAmount ? AppStrings.ordersCount : AppStrings.totalAmount).tr()),
         TextButton(onPressed: () {
           widget.viewInsights.call();
-        }, child: Text(AppStrings.viewInsights)),
+        }, child: Text(AppStrings.viewInsights).tr()),
      ]
     );
   }
@@ -90,7 +90,7 @@ class _HoursChartState extends State<HoursChart> {
               xValueMapper: (TimeInsights hourStatistics, _) => hourStatistics.time,
               yValueMapper: (TimeInsights hourStatistics, _) => 
                             isAmount?hourStatistics.amount:hourStatistics.done,
-              name: isAmount?AppStrings.amount:AppStrings.numberOfOrders,
+              name: isAmount?AppStrings.amount.tr():AppStrings.numberOfOrders.tr(),
               // markerSettings: MarkerSettings(height: 5,width: 5,isVisible:true),
             ),
           ]),

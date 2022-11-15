@@ -6,6 +6,7 @@ import 'package:cma_admin/presentation/base/baseviewmodel.dart';
 import 'package:cma_admin/presentation/common/freezed_data_classes.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -112,7 +113,7 @@ class UpdateCategoryViewModel extends BaseViewModel with UpdateCategoryViewModel
 
   @override
   Stream<String?> get outputErrorLabel => outputIsLabelValid
-      .map((isLabelValid) => isLabelValid ? null : "invalid Label");
+      .map((isLabelValid) => isLabelValid ? null : AppStrings.nameError);
 
   @override
   Stream<PickerFile?> get outputImage =>

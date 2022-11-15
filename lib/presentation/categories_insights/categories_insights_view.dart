@@ -12,6 +12,7 @@ import 'package:cma_admin/presentation/components/popup_menu_column.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesInsightsView extends StatefulWidget {
@@ -24,11 +25,11 @@ class CategoriesInsightsView extends StatefulWidget {
 class _CategoriesInsightsViewState extends State<CategoriesInsightsView> {
   CategoriesInsightsViewModel _viewModel = instance<CategoriesInsightsViewModel>();
   List<String> columns = [
-    "Id",
-    "Label",
-    "Color",
-    "Quantity",
-    "Actions"
+    AppStrings.num,
+    AppStrings.name,
+    AppStrings.color,
+    AppStrings.quantity,
+    AppStrings.actions
   ];
   _bind(){
     _viewModel.getCategoriesQuntityConsumed(_viewModel.viewObject.dateRange);
@@ -94,7 +95,7 @@ class _CategoriesInsightsViewState extends State<CategoriesInsightsView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          HeaderText("Categories Insights"),
+          HeaderText(AppStrings.categoriesInsights.tr()),
           DateRangeButton(
             dateRangeStream: _viewModel.outputDateRange, 
             onSumbit:(dateRange)=> _viewModel.getCategoriesQuntityConsumed(dateRange)) 
@@ -108,7 +109,7 @@ class _CategoriesInsightsViewState extends State<CategoriesInsightsView> {
       ?NotfoundWidget(AppStrings.noDataAvailable)
       :CustomDataTable(
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
-        columns: columns.map((c) => DataColumn(label: Text(c))).toList(),
+        columns: columns.map((c) => DataColumn(label: Text(c).tr())).toList(),
         rows: categoriesCount.map((categoryCount) => DataRow(cells: [
           DataCell(Text(categoryCount.id.toString())),
           DataCell(Text(categoryCount.label)),

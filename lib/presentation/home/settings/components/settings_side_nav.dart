@@ -6,7 +6,8 @@ import 'package:cma_admin/presentation/resources/icon_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
 class SettingsSideNav extends StatelessWidget {
   final int currentIndex;
@@ -29,7 +30,7 @@ class SettingsSideNav extends StatelessWidget {
   Widget _getHeader(){
     return Padding(
       padding: EdgeInsets.symmetric(vertical:AppPadding.p14),
-      child: Text(AppStrings.settings,style: getSemiBoldStyle(color: ColorManager.black,fontSize: FontSize.s18)),
+      child: Text(AppStrings.settings,style: getSemiBoldStyle(color: ColorManager.black,fontSize: FontSize.s18)).tr(),
     );
   }
   

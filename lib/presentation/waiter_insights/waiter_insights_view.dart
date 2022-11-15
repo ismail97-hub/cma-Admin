@@ -9,8 +9,10 @@ import 'package:cma_admin/presentation/components/data_range_button.dart';
 import 'package:cma_admin/presentation/components/headar_text.dart';
 import 'package:cma_admin/presentation/components/orders_statistics_grid.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:cma_admin/presentation/waiter_insights/waiter_insights_viewmodel.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class WaiterInsightsView extends StatefulWidget {
@@ -94,7 +96,7 @@ class _WaiterInsightsViewState extends State<WaiterInsightsView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:[
-          HeaderText("${widget.args.waiter.name} Insights"),
+          HeaderText("${widget.args.waiter.name} ${AppStrings.insights.tr()}"),
           DateRangeButton(
             dateRangeStream:_viewModel.outputDateRange,
             onSumbit: (dateRange){

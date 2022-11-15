@@ -1,8 +1,10 @@
 import 'package:cma_admin/app/enum.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 
@@ -23,7 +25,7 @@ class OrderStatusItem extends StatelessWidget {
       ),
       child: Center(
         child: Text(statusObjectView.status,
-            style:getBoldStyle(color: statusObjectView.color,fontSize: FontSize.s11)),
+            style:getBoldStyle(color: statusObjectView.color,fontSize: FontSize.s11)).tr(),
       ),
     );
   }
@@ -34,15 +36,15 @@ extension OrderStatusExtension on OrderStatus{
   StatusObjectView getObject(){
     switch (this) {
       case OrderStatus.INPROGRESS :
-        return StatusObjectView(ColorManager.orange,"Pending");
+        return StatusObjectView(ColorManager.orange,AppStrings.pending);
       case OrderStatus.PRE_CANCELED:
-        return StatusObjectView(ColorManager.blue,"Pre Canceled");
+        return StatusObjectView(ColorManager.blue,AppStrings.pre_canceled);
       case OrderStatus.CANCELED:
-        return StatusObjectView(ColorManager.red,"Canceled");
+        return StatusObjectView(ColorManager.red,AppStrings.canceled);
       case OrderStatus.DONE:
-        return StatusObjectView(ColorManager.green,"Completed");
+        return StatusObjectView(ColorManager.green,AppStrings.completed);
       default:
-        return StatusObjectView(ColorManager.orange,"Pending");
+        return StatusObjectView(ColorManager.orange,AppStrings.pending);
     }
   }
 }

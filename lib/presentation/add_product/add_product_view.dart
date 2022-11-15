@@ -1,22 +1,20 @@
+import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/presentation/add_product/add_product_viewmodel.dart';
-import 'package:cma_admin/presentation/components/color_picker_label.dart';
+import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/components/custom_appbar.dart';
 import 'package:cma_admin/presentation/components/custom_color_picker.dart';
 import 'package:cma_admin/presentation/components/custom_dropdown.dart';
 import 'package:cma_admin/presentation/components/custom_submit_button.dart';
 import 'package:cma_admin/presentation/components/custom_textfield.dart';
-import 'package:cma_admin/presentation/components/field_label.dart';
 import 'package:cma_admin/presentation/components/image_picker_widget.dart';
-import 'package:cma_admin/presentation/resources/font_manager.dart';
-import 'package:cma_admin/presentation/resources/styles_manager.dart';
-import 'package:cma_admin/app/di.dart';
-import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
+import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
+import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
-import 'package:dropdown_search/dropdown_search.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AddProductView extends StatefulWidget {
@@ -92,7 +90,7 @@ class _AddProductViewViewState extends State<AddProductView> {
                   style: getSemiBoldStyle(
                   color: ColorManager.black,
                   fontSize: FontSize.s24),
-                ),
+                ).tr(),
                 SizedBox(height: AppSize.s30),
                 // form
                 _getForm()
@@ -124,7 +122,7 @@ class _AddProductViewViewState extends State<AddProductView> {
             // title 
             CustomTextField(
               width: double.infinity,
-              label: AppStrings.title, 
+              label: AppStrings.name, 
               errorStream: _viewModel.outputErrorTitle, 
               textEditingController: _titleTextEditingController),
             SizedBox(height: AppSize.s30),
@@ -137,10 +135,11 @@ class _AddProductViewViewState extends State<AddProductView> {
             SizedBox(height: AppSize.s30),
             // category field
             CustomDropDown<Category>(
+              selectedItem: widget.category,
               width: double.infinity,
               label: AppStrings.category, 
               stream: _viewModel.outputCategories, 
-              itemAsString: (Category? category)=>category!.label, 
+              itemAsString: (Category? category)=>category!.label.tr(), 
               onTap: (category)=>_viewModel.setCategoryId(category.id.toString())),
             SizedBox(height: AppSize.s30),
             // color field

@@ -20,6 +20,7 @@ import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsView extends StatefulWidget {
@@ -34,14 +35,14 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   ProductDetailsViewModel _viewModel = instance<ProductDetailsViewModel>();
 
   List<String> columns = [
-    "N°",
-    "image",
-    "Title",
-    "Price",
-    "CreatedAt",
-    "Color",
-    "Status",
-    "Actions"
+    AppStrings.num,
+    AppStrings.image,
+    AppStrings.name,
+    AppStrings.price,
+    AppStrings.createdAt,
+    AppStrings.color,
+    AppStrings.status,
+    AppStrings.actions
   ];
 
   _bind() {
@@ -119,13 +120,13 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   SizedBox(height: AppSize.s16),
                   InfoText(
                       text: AppStrings.price,
-                      value: "${product.price} ${AppStrings.dh}"),
+                      value: "${product.price} ${AppStrings.dh.tr()}"),
                   SizedBox(height: AppSize.s16),
                   InfoText(
                       text: AppStrings.status,
                       value: product.active
-                          ? AppStrings.active
-                          : AppStrings.notActive,
+                          ? AppStrings.active.tr()
+                          : AppStrings.notActive.tr(),
                       color: product.active
                           ? ColorManager.green
                           : ColorManager.red),
@@ -145,7 +146,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                 child: Text(AppStrings.productInfo,
                     style: getBoldStyle(
-                        color: ColorManager.black, fontSize: FontSize.s20)))),
+                        color: ColorManager.black, fontSize: FontSize.s20)).tr())),
       ],
     );
   }
@@ -190,12 +191,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       ? NotfoundWidget(AppStrings.noSupplementFound)
                       : CustomDataTable(
                           padding: EdgeInsets.zero,
-                          columns: columns.map((column) => DataColumn(label: Text(column))).toList(),
+                          columns: columns.map((column) => DataColumn(label: Text(column).tr())).toList(),
                           rows: supplements.map((supplement) => DataRow(cells: [
                                     DataCell(Text(supplement.id.toString())),
                                     DataCell(ImageColumn(supplement.image)),
                                     DataCell(Text(supplement.title)),
-                                    DataCell(Text("${supplement.price} ${AppStrings.dh}")),
+                                    DataCell(Text("${supplement.price} ${AppStrings.dh.tr()}")),
                                     DataCell(Text(supplement.createdAt)),
                                     DataCell(ColorColumn(supplement.color)),
                                     DataCell(Text(
@@ -206,7 +207,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                             color: supplement.active
                                                 ? ColorManager.green
                                                 : ColorManager.red,
-                                            fontSize: FontSize.s12))),
+                                            fontSize: FontSize.s12)).tr()),
                                     DataCell(PopUpMenuColumn(
                                       update: () {
                                         Navigator.of(context).pushNamed(Routes.updateSupplementRoute,arguments: supplement);
@@ -233,7 +234,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       children: [
         Text(AppStrings.supplements,
             style: getBoldStyle(
-                color: ColorManager.black, fontSize: FontSize.s20)),
+                color: ColorManager.black, fontSize: FontSize.s20)).tr(),
         ActionButton(
             onTap: () {
               Navigator.pushNamed(context, Routes.addSupplemntsToProductRoute,

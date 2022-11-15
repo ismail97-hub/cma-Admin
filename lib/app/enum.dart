@@ -1,3 +1,6 @@
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 enum OrderStatus {
   INPROGRESS,
   DONE,
@@ -37,6 +40,7 @@ extension OrderStatusString on OrderStatus {
         return 'INPROGRESS';
     }
   }
+  
 }
 
 enum UserRole {
@@ -76,6 +80,21 @@ extension UserRoleToString on UserRole{
         return 'BARMAN';
       default:
         return 'WAITER';
+    }
+  }
+
+  String totr(){
+    switch (this) {
+      case UserRole.OWNER:
+       return AppStrings.owner.tr();
+      case UserRole.MANAGER:
+        return AppStrings.manager.tr();
+      case UserRole.WAITER:
+        return AppStrings.waiter.tr();
+      case UserRole.BARMAN:
+        return AppStrings.barman.tr();
+      default:
+        return AppStrings.waiter.tr();
     }
   }
 }

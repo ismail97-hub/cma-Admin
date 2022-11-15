@@ -11,6 +11,7 @@ import 'package:cma_admin/presentation/home/settings/account_settings/account_se
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../app/enum.dart';
@@ -89,9 +90,9 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HeaderText(AppStrings.account),
+              HeaderText(AppStrings.account.tr()),
               SizedBox(height: AppSize.s20),
-              _getSectionTitle("Profile"),
+              _getSectionTitle(AppStrings.profile),
               SizedBox(height: AppSize.s14),
               // Name and Username
               ResponsiveWidget(
@@ -120,13 +121,13 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
               CustomDropDown<UserRole>(
                 label: AppStrings.role, 
                 stream: _viewModel.outputRoles, 
-                selectedItem: HiveHelper.getCurrentUser().role.toUserRoleEnum(),
-                itemAsString: (UserRole? role)=>role!.toStr(), 
+                selectedItem: HiveHelper.getCurrentUser().getRole,
+                itemAsString: (UserRole? role)=>role!.totr(), 
                 onTap: (role){
                   _viewModel.setRole(role);
                 }),
               SizedBox(height: AppSize.s20),
-              _getSectionTitle("Password"),
+              _getSectionTitle(AppStrings.password),
               SizedBox(height: AppSize.s14),
               // Old pasword
               CustomTextField(
@@ -169,7 +170,7 @@ class _AccountSettingsViewState extends State<AccountSettingsView> {
   Widget _getSectionTitle(String title){
     return Text(title,style: getSemiBoldStyle(
       color: ColorManager.black, 
-      fontSize:isMobile(context)?FontSize.s12:FontSize.s20));
+      fontSize:isMobile(context)?FontSize.s12:FontSize.s20)).tr();
   }    
 
 }

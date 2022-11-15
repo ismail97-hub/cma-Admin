@@ -1,18 +1,19 @@
+import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/app/hive_helper.dart';
+import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
+import 'package:cma_admin/presentation/components/custom_submit_button.dart';
 import 'package:cma_admin/presentation/components/custom_textfield.dart';
 import 'package:cma_admin/presentation/components/field_label.dart';
+import 'package:cma_admin/presentation/components/headar_text.dart';
 import 'package:cma_admin/presentation/home/settings/info_settings/info_settings_viewmodel.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
+import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../../../../app/di.dart';
-import '../../../../domain/model/model.dart';
-import '../../../components/custom_submit_button.dart';
-import '../../../components/headar_text.dart';
-import '../../../resources/strings_manager.dart';
-import '../../../resources/values_manager.dart';
 
 class InfoSettingsView extends StatefulWidget {
   const InfoSettingsView({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _InfoSettingsViewState extends State<InfoSettingsView> {
 
   _bind() {
     _viewModel.start();
-    Info info = HiveHelper.getInfo(); 
+    Info info = HiveHelper.getInfo()!; 
     _addressEditingController.text = info.address;
     _telephoneEditingController.text = info.telephone;
     _wifiPasswordEditingController.text = info.wifiPassword;
@@ -65,7 +66,7 @@ class _InfoSettingsViewState extends State<InfoSettingsView> {
     return StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
-          return snapshot.data?.getScreenWidget(context, _getContentScreenWidget(), () => _bind()) ??_getContentScreenWidget();
+          return snapshot.data?.getScreenWidget(context, _getContentScreenWidget(), (){}) ??_getContentScreenWidget();
         });
   }
 
@@ -81,11 +82,11 @@ class _InfoSettingsViewState extends State<InfoSettingsView> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HeaderText(AppStrings.info),
+              HeaderText(AppStrings.info.tr()),
               SizedBox(height: AppSize.s20),
               // Name
               FieldLabel(AppStrings.name),
-              Text(HiveHelper.getInfo().name,style: getMediumStyle(color: ColorManager.black,fontSize: FontSize.s18)),
+              Text(HiveHelper.getInfo()!.name,style: getMediumStyle(color: ColorManager.black,fontSize: FontSize.s18)),
               SizedBox(height: AppSize.s14),
               // Addrese
               CustomTextField(

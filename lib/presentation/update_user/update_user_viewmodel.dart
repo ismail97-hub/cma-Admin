@@ -9,6 +9,7 @@ import 'package:cma_admin/presentation/base/baseviewmodel.dart';
 import 'package:cma_admin/presentation/common/freezed_data_classes.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -31,12 +32,12 @@ class UpdateUserViewModel extends BaseViewModel with UpdateUserViewModelInput,Up
 
   init(User user){
     setName(user.name);
-    setRole(user.role.toUserRoleEnum());
+    setRole(user.getRole);
     setUsername(user.userName);
   }
    
   _getRoles()async{
-    if (HiveHelper.getCurrentUser().role.toUserRoleEnum()==UserRole.OWNER) {
+    if (HiveHelper.getCurrentUser().getRole==UserRole.OWNER) {
       inputRoles.add(UserRole.values);
     } else {
       inputRoles.add([UserRole.WAITER,UserRole.BARMAN]);
@@ -133,10 +134,10 @@ class UpdateUserViewModel extends BaseViewModel with UpdateUserViewModelInput,Up
   Stream<bool> get outputIsUsernameValid => _usernameStreamController.stream.map((username) => _isUsernameValid(username));
   
   @override
-  Stream<String?> get outputErrorName => outputIsNameValid.map((isNameValid) => isNameValid?null:"Invalid Name");
+  Stream<String?> get outputErrorName => outputIsNameValid.map((isNameValid) => isNameValid?null:AppStrings.nameError);
   
   @override
-  Stream<String?> get outputErrorUsername => outputIsUsernameValid.map((isUsernameValid) => isUsernameValid?null:"Invalid Username");
+  Stream<String?> get outputErrorUsername => outputIsUsernameValid.map((isUsernameValid) => isUsernameValid?null:AppStrings.usernameError);
   
   @override
   Stream<PickerFile?> get outputImage => _imageStreamController.stream.map((image) => image);

@@ -12,6 +12,7 @@ import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AddSupplementsToProductView extends StatefulWidget {
@@ -28,14 +29,14 @@ class _AddSupplementsToProductViewState
     extends State<AddSupplementsToProductView> {
   final _viewModel = instance<AddSupplementsToProductViewModel>();
   List<String> columns = [
-    "Id",
-    "image",
-    "Title",
-    "Price",
-    "Created At",
-    "Color",
-    "Active",
-    "Select"
+    AppStrings.num,
+    AppStrings.image,
+    AppStrings.name,
+    AppStrings.price,
+    AppStrings.createdAt,
+    AppStrings.color,
+    AppStrings.status,
+    AppStrings.select
   ];
 
   _bind() {
@@ -68,7 +69,7 @@ class _AddSupplementsToProductViewState
                 _viewModel.save(context, widget.productId);
               },
               child: Text(AppStrings.save,
-                  style: getSemiBoldStyle(color: ColorManager.primary)),
+                  style: getSemiBoldStyle(color: ColorManager.primary)).tr(),
               style: ElevatedButton.styleFrom(
                 backgroundColor: ColorManager.white,
               ),
@@ -101,7 +102,7 @@ class _AddSupplementsToProductViewState
                 child: Center(
                   child: Text(AppStrings.addSupplementsToProduct,
                       style: getBoldStyle(
-                          color: ColorManager.black, fontSize: FontSize.s20)),
+                          color: ColorManager.black, fontSize: FontSize.s20)).tr(),
                 ),
               ),
               _getSupplemntsWidget(selectedSupplements),
@@ -123,7 +124,7 @@ class _AddSupplementsToProductViewState
                   child: CustomDataTable(
                       padding: EdgeInsets.zero,
                       columns: columns
-                          .map((column) => DataColumn(label: Text(column)))
+                          .map((column) => DataColumn(label: Text(column).tr()))
                           .toList(),
                       rows: supplements
                           .map((supplement) => DataRow(cells: [
@@ -131,7 +132,7 @@ class _AddSupplementsToProductViewState
                                 DataCell(ImageColumn(supplement.image)),
                                 DataCell(Text(supplement.title)),
                                 DataCell(
-                                    Text("${supplement.price} ${AppStrings.dh}")),
+                                    Text("${supplement.price} ${AppStrings.dh.tr()}")),
                                 DataCell(Text(supplement.createdAt)),
                                 DataCell(ColorColumn(supplement.color)),
                                 DataCell(Text(
@@ -142,7 +143,7 @@ class _AddSupplementsToProductViewState
                                         color: supplement.active
                                             ? ColorManager.green
                                             : ColorManager.red,
-                                        fontSize: FontSize.s12))),
+                                        fontSize: FontSize.s12)).tr()),
                                 DataCell(Checkbox(
                                   onChanged: (bool? isSelected) {
                                     _viewModel.select(

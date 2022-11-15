@@ -27,7 +27,7 @@ class InfoSettingsViewModel extends BaseViewModel with UpdateInfoViewModelInput,
 
   @override
   void start() {
-    Info info = HiveHelper.getInfo(); 
+    Info info = HiveHelper.getInfo()!; 
     setAddress(info.address);
     setTelephone(info.telephone);
     setWifiPassword(info.wifiPassword);
@@ -103,15 +103,15 @@ class InfoSettingsViewModel extends BaseViewModel with UpdateInfoViewModelInput,
   
   @override
   Stream<String?> get outputErrorAddress => 
-        outputIsAddressValid.map((isAdressValid) => isAdressValid?null:"Invalid Address");
+        outputIsAddressValid.map((isAdressValid) => isAdressValid?null:AppStrings.addressError);
   
   @override
   Stream<String?> get outputErrorTelephone => 
-        outputIsTelephoneValid.map((isTelephoneValid) => isTelephoneValid?null:"Invalid Telephone");
+        outputIsTelephoneValid.map((isTelephoneValid) => isTelephoneValid?null:AppStrings.telephoneError);
   
   @override
   Stream<String?> get outputErrorWifiPassword => 
-        outputIsWifiPasswordValid.map((isWifiPassword) => isWifiPassword?null:"Invalid Wifi password");
+        outputIsWifiPasswordValid.map((isWifiPassword) => isWifiPassword?null:AppStrings.wifiPasswordError);
   
   @override
   Stream<bool> get outputIsAddressValid => _adressStreamController.stream.map((adress) => _isAdressValid(adress));

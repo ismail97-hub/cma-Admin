@@ -36,6 +36,8 @@ class User  extends HiveObject{
   @HiveField(8)
   String userName;
 
+  UserRole get getRole => this.role.toUserRoleEnum();
+
   User(
     this.id,
     this.createdAt,
@@ -49,7 +51,7 @@ class User  extends HiveObject{
   );
 
   factory User.empty() =>
-      User(ZERO, EMPTY, EMPTY, EMPTY, true, EMPTY, EMPTY, EMPTY, EMPTY);
+      User(ZERO, EMPTY, EMPTY, EMPTY, true, EMPTY, EMPTY, UserRole.OWNER.toStr(), EMPTY);
 }
 
 class Category {

@@ -4,17 +4,19 @@ import 'package:cma_admin/data/mapper/mapper.dart';
 import 'package:cma_admin/presentation/home/settings/account_settings/account_settings_view.dart';
 import 'package:cma_admin/presentation/home/settings/components/settings_side_nav.dart';
 import 'package:cma_admin/presentation/home/settings/info_settings/info_settings_view.dart';
+import 'package:cma_admin/presentation/home/settings/language_settings/language_settings_view.dart';
 import 'package:cma_admin/presentation/home/settings/settings_viewmodel.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/icon_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 
 class SettingsView extends StatefulWidget {
-  const SettingsView({Key? key}) : super(key: key);
+  SettingsView({Key? key}) : super(key: key);
 
   @override
   State<SettingsView> createState() => _SettingsViewState();
@@ -26,7 +28,7 @@ class _SettingsViewState extends State<SettingsView> with TickerProviderStateMix
   List<Widget> _views = [
     AccountSettingsView(),
     InfoSettingsView(),
-    Center(child: Text(AppStrings.language)),
+    LanguageSettingsView()
   ];
 
   _bind(){
@@ -87,7 +89,7 @@ class _SettingsViewState extends State<SettingsView> with TickerProviderStateMix
           ),
           titleTextStyle: getSemiBoldStyle(color: ColorManager.black,fontSize: FontSize.s24),
           centerTitle: false,
-          title: Text(AppStrings.settings),
+          title: Text(AppStrings.settings).tr(),
         ),
         body: TabBarView(
           controller: _tabController,

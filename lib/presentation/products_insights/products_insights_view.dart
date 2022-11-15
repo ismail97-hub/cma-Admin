@@ -11,6 +11,7 @@ import 'package:cma_admin/presentation/products_insights/products_insights_viewm
 import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ProductsInsightsView extends StatefulWidget {
@@ -24,10 +25,10 @@ class ProductsInsightsView extends StatefulWidget {
 class _ProductsInsightsViewState extends State<ProductsInsightsView> {
   ProductsInsightsViewModel _viewModel = instance<ProductsInsightsViewModel>();
   List<String> columns = [
-    "Id",
-    "Label",
-    "Color",
-    "Quantity"
+    AppStrings.num,
+    AppStrings.name,
+    AppStrings.color,
+    AppStrings.quantity
   ];
   _bind(){
     _viewModel.getProductsQuntityConsumed(
@@ -95,7 +96,7 @@ class _ProductsInsightsViewState extends State<ProductsInsightsView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          HeaderText("Products Insights"),
+          HeaderText("${AppStrings.productsInsights.tr()} ${widget.args.categoryCount.label}"),
           DateRangeButton(
             dateRangeStream: _viewModel.outputDateRange, 
             onSumbit:(dateRange)=> _viewModel.getProductsQuntityConsumed(dateRange,widget.args.categoryCount.id)) 
@@ -109,7 +110,7 @@ class _ProductsInsightsViewState extends State<ProductsInsightsView> {
       ?NotfoundWidget(AppStrings.noDataAvailable)
       :CustomDataTable(
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
-        columns: columns.map((c) => DataColumn(label: Text(c))).toList(),
+        columns: columns.map((c) => DataColumn(label: Text(c).tr())).toList(),
         rows: productsCount.map((productCount) => DataRow(cells: [
           DataCell(Text(productCount.id.toString())),
           DataCell(Text(productCount.title)),

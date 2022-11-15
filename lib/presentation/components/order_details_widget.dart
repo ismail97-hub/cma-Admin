@@ -5,6 +5,7 @@ import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class DetailsOrderWidget extends StatelessWidget {
@@ -32,15 +33,15 @@ class DetailsOrderWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("${AppStrings.orderN}${order.id}",style: getBoldStyle(color: ColorManager.black)),
+                            Text("${AppStrings.orderN.tr()}${order.id}",style: getBoldStyle(color: ColorManager.black)),
                             Text("${order.waiter!.name}",style: getBoldStyle(color: ColorManager.black)),
-                            Text("${order.totalAmount} ${AppStrings.dh}",style: getBoldStyle(color: ColorManager.black))
+                            Text("${order.totalAmount} ${AppStrings.dh.tr()}",style: getBoldStyle(color: ColorManager.black))
                           ],
                         ),
                         order.assignedBy==null?Container():SizedBox(height: AppSize.s12),
                         order.assignedBy==null?Container():Row(
                           children: [
-                            Text(AppStrings.assignedBy,style: getBoldStyle(color: ColorManager.lightGrey)),
+                            Text(AppStrings.assignedBy,style: getBoldStyle(color: ColorManager.lightGrey)).tr(),
                             Text(order.assignedBy!.name,style: getBoldStyle(color: ColorManager.black)),
                           ],
                         )
@@ -65,7 +66,7 @@ class DetailsOrderWidget extends StatelessWidget {
                                       children: [
                                         Text("${item.quantity} x",style: getSemiBoldStyle(color: ColorManager.black)),
                                         SizedBox(height: AppSize.s14),
-                                        Text("${item.amount} ${AppStrings.dh}",style: getSemiBoldStyle(color: ColorManager.black)),
+                                        Text("${item.amount} ${AppStrings.dh.tr()}",style: getSemiBoldStyle(color: ColorManager.black)),
                                       ],
                                     ),
                                   ),

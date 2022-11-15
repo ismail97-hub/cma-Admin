@@ -21,6 +21,7 @@ import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CategoryDetailsView extends StatefulWidget {
@@ -35,16 +36,16 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
   CategoryDetailsViewModel _viewModel = instance<CategoryDetailsViewModel>();
 
   List<String> columns = [
-    "N°",
-    "image",
-    "Title",
-    "Price",
-    "CreatedAt",
-    "Color",
-    "Category Id",
-    "Status",
-    "Up/Down",
-    "Actions"
+    AppStrings.num,
+    AppStrings.image,
+    AppStrings.name,
+    AppStrings.price,
+    AppStrings.createdAt,
+    AppStrings.color,
+    AppStrings.category,
+    AppStrings.status,
+    AppStrings.upDown,
+    AppStrings.actions
   ];
 
   _bind() {
@@ -121,8 +122,8 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
                   InfoText(
                       text: AppStrings.status,
                       value: category.active
-                          ? AppStrings.active
-                          : AppStrings.notActive,
+                          ? AppStrings.active.tr()
+                          : AppStrings.notActive.tr(),
                       color: category.active
                           ? ColorManager.green
                           : ColorManager.red),
@@ -142,7 +143,7 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
                 padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                 child: Text(AppStrings.categoryInfo,
                     style: getBoldStyle(
-                        color: ColorManager.black, fontSize: FontSize.s20)))),
+                        color: ColorManager.black, fontSize: FontSize.s20)).tr())),
       ],
     );
   }
@@ -186,13 +187,13 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
                       : CustomDataTable(
                           padding: EdgeInsets.zero,
                           columns: columns
-                              .map((column) => DataColumn(label: Text(column)))
+                              .map((column) => DataColumn(label: Text(column).tr()))
                               .toList(),
                           rows: fixedList.map((index) => DataRow(cells: [
                                     DataCell(Text(products[index].id.toString())),
                                     DataCell(ImageColumn(products[index].image)),
                                     DataCell(Text(products[index].title)),
-                                    DataCell(Text("${products[index].price} ${AppStrings.dh}")),
+                                    DataCell(Text("${products[index].price} ${AppStrings.dh.tr()}")),
                                     DataCell(Text(products[index].createdAt)),
                                     DataCell(ColorColumn(products[index].color)),
                                     DataCell(Text("${products[index].category?.id}")),
@@ -204,7 +205,7 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
                                             color: products[index].active
                                                 ? ColorManager.green
                                                 : ColorManager.red,
-                                            fontSize: FontSize.s12))),
+                                            fontSize: FontSize.s12)).tr()),
                                     DataCell(ReorderColumn(
                                       up: (){_viewModel.reorder(context, products, index, index-1);}, 
                                       down: (){_viewModel.reorder(context, products, index, index+1);}, 
@@ -234,7 +235,7 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
       children: [
         Text(AppStrings.products,
             style: getBoldStyle(
-                color: ColorManager.black, fontSize: FontSize.s20)),
+                color: ColorManager.black, fontSize: FontSize.s20)).tr(),
         ActionButton(
             onTap: () {
               Navigator.of(context).pushNamed(Routes.addProductRoute,

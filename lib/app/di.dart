@@ -34,6 +34,7 @@ import 'package:cma_admin/presentation/home/orders/orders_viewmodel.dart';
 import 'package:cma_admin/presentation/home/product/product_viewmodel.dart';
 import 'package:cma_admin/presentation/home/settings/account_settings/account_settings_viewmodel.dart';
 import 'package:cma_admin/presentation/home/settings/info_settings/info_settings_viewmodel.dart';
+import 'package:cma_admin/presentation/home/settings/language_settings/language_settings_viewmodel.dart';
 import 'package:cma_admin/presentation/home/settings/settings_viewmodel.dart';
 import 'package:cma_admin/presentation/home/supplement/supplement_viewmodel.dart';
 import 'package:cma_admin/presentation/home/users/users_viewmodel.dart';
@@ -244,6 +245,12 @@ initInfoSettingsModule(){
   }
 }
 
+initLanguageSettingsModule(){
+  if (!GetIt.I.isRegistered<LanguageSettingsViewModel>()) {
+    instance.registerFactory<LanguageSettingsViewModel>(() => LanguageSettingsViewModel(instance()));
+  }
+}
+
 initUpdateUserModule(){
   if (!GetIt.I.isRegistered<UpdateUserUseCase>()) {
     instance.registerFactory<UpdateUserUseCase>(() => UpdateUserUseCase(instance()));
@@ -345,5 +352,5 @@ resetModules() {
   //settings
   initAccountSettingsModule();
   initInfoSettingsModule();
-
+  initLanguageSettingsModule();
 }

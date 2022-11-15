@@ -2,6 +2,7 @@ import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ActionButton extends StatelessWidget {
@@ -26,7 +27,7 @@ class ActionButton extends StatelessWidget {
           decoration: BoxDecoration(
               color: color.withOpacity(opacity),
               borderRadius: BorderRadius.circular(AppSize.s4)),
-          child: Text(title, style: getMediumStyle(color: color,fontSize: isMobile(context)?FontSize.s10:FontSize.s13))),
+          child: Text(title, style: getMediumStyle(color: color,fontSize: isMobile(context)?FontSize.s10:FontSize.s13)).tr()),
     );
   }
 }

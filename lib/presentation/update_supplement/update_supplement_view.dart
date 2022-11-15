@@ -2,9 +2,7 @@ import 'package:cma_admin/app/di.dart';
 import 'package:cma_admin/app/functions.dart';
 import 'package:cma_admin/domain/model/model.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
-import 'package:cma_admin/presentation/components/color_picker_label.dart';
 import 'package:cma_admin/presentation/components/custom_appbar.dart';
-import 'package:cma_admin/presentation/components/field_label.dart';
 import 'package:cma_admin/presentation/components/image_picker_widget.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
@@ -12,6 +10,7 @@ import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:cma_admin/presentation/update_supplement/update_supplement_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../components/custom_color_picker.dart';
@@ -85,7 +84,7 @@ class _UpdateSupplementViewState extends State<UpdateSupplementView> {
                   style: getSemiBoldStyle(
                   color: ColorManager.black,
                   fontSize: FontSize.s24),
-                ),
+                ).tr(),
                 SizedBox(height: AppSize.s30),
                 // form
                 _getForm()
@@ -118,7 +117,7 @@ class _UpdateSupplementViewState extends State<UpdateSupplementView> {
               // title field
               CustomTextField(
                 width: double.infinity,
-                label: AppStrings.title, 
+                label: AppStrings.name, 
                 errorStream: _viewModel.outputErrorTitle, 
                 textEditingController: _titleTextEditingController),
               SizedBox(height: AppSize.s30),

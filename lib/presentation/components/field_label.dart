@@ -3,6 +3,7 @@ import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class FieldLabel extends StatelessWidget {
@@ -17,7 +18,7 @@ class FieldLabel extends StatelessWidget {
       child: RichText(
           text: TextSpan(
               style: getRegularStyle(color: ColorManager.black,fontSize: FontSize.s15),
-              text: text,
+              text: text.tr(),
               children: [
             TextSpan(text: isRequired?"  *":EMPTY,
               style: getBoldStyle(color: ColorManager.red,fontSize: FontSize.s16),),

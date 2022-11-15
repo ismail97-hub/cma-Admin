@@ -13,6 +13,7 @@ import 'package:cma_admin/presentation/home/supplement/supplement_view.dart';
 import 'package:cma_admin/presentation/home/users/users_view.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -34,7 +35,7 @@ class HomeViewState extends State<HomeView> {
     SupplementView(),
     UserView(),
     SettingsView(),
-    Center(child: Text(AppStrings.logout)),
+    Center(child: Text(AppStrings.logout).tr()),
   ];
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();

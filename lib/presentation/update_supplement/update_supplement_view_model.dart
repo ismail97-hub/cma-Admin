@@ -7,6 +7,7 @@ import 'package:cma_admin/presentation/base/baseviewmodel.dart';
 import 'package:cma_admin/presentation/common/freezed_data_classes.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -131,7 +132,7 @@ class UpdateSupplementViewModel extends BaseViewModel
 
   @override
   Stream<String?> get outputErrorTitle => outputIsTitleValid
-      .map((isTitleValid) => isTitleValid ? null : "invalid Title");
+      .map((isTitleValid) => isTitleValid ? null : AppStrings.nameError);
 
   @override
   Stream<bool> get outputIsPriceValid =>
@@ -139,7 +140,7 @@ class UpdateSupplementViewModel extends BaseViewModel
 
   @override
   Stream<String?> get outputErrorPrice => outputIsPriceValid
-      .map((isPriceValid) => isPriceValid ? null : "price must be integer");
+      .map((isPriceValid) => isPriceValid ? null : AppStrings.priceError);
 
   @override
   Stream<PickerFile?> get outputImage =>

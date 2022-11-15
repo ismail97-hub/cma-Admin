@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/values_manager.dart';
@@ -39,8 +40,8 @@ class CustomTextField extends StatelessWidget {
                   obscureText: obscureText,
                   controller: textEditingController,
                   decoration: InputDecoration(
-                      hintText: label,
-                      errorText: snapshot.data));
+                      hintText: label.tr(),
+                      errorText: snapshot.data?.tr()));
             },
           ),
         ],

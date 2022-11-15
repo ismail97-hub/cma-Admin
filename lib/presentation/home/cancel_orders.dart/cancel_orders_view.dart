@@ -10,6 +10,7 @@ import 'package:cma_admin/presentation/home/cancel_orders.dart/cancel_orders.vie
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../app/functions.dart';
@@ -26,13 +27,13 @@ class CancelOrdersView extends StatefulWidget {
 class _CancelOrdersViewState extends State<CancelOrdersView> {
   CancelOrdersViewModel _viewModel = instance<CancelOrdersViewModel>();
   List<String> columns = [
-    "N°",
-    "Waiter",
-    "CreatedAt",
-    "Items Count",
-    "Amount",
-    "Actions",
-    "Actions"
+    AppStrings.num,
+    AppStrings.waiter,
+    AppStrings.createdAt,
+    AppStrings.itemsCount,
+    AppStrings.amount,
+    AppStrings.decision,
+    AppStrings.actions
   ];
 
   _bind() {
@@ -76,7 +77,7 @@ class _CancelOrdersViewState extends State<CancelOrdersView> {
                 SizedBox(height: AppSize.s20),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
-                  child: HeaderText(AppStrings.cancelOrders),
+                  child: HeaderText(AppStrings.cancelOrders.tr()),
                 ),
                 SizedBox(height: AppSize.s20),
                 _getDataTable(preCanceledOrders),
@@ -92,7 +93,7 @@ class _CancelOrdersViewState extends State<CancelOrdersView> {
         : CustomDataTable(
             padding: EdgeInsets.symmetric(horizontal: AppPadding.p20),
             columns: columns
-                .map((column) => DataColumn(label: Text(column)))
+                .map((column) => DataColumn(label: Text(column).tr()))
                 .toList(),
             rows: preCanceledOrders.reversed
                 .map((order) => DataRow(cells: [

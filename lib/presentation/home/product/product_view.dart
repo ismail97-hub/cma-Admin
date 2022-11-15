@@ -18,6 +18,7 @@ import 'package:cma_admin/presentation/resources/icon_manager.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ProductView extends StatefulWidget {
@@ -30,16 +31,16 @@ class ProductView extends StatefulWidget {
 class _ProductViewState extends State<ProductView> {
   ProductViewModel _viewModel = instance<ProductViewModel>();
   List<String> columns = [
-    "Id",
-    "image",
-    "Title",
-    "Price",
-    "Created At",
-    "Color",
-    "Category",
-    "Active",
-    "Up/Down",
-    "Actions"
+    AppStrings.num,
+    AppStrings.image,
+    AppStrings.name,
+    AppStrings.price,
+    AppStrings.createdAt,
+    AppStrings.color,
+    AppStrings.category,
+    AppStrings.active,
+    AppStrings.upDown,
+    AppStrings.actions
   ];
 
   _bind() {
@@ -100,13 +101,13 @@ class _ProductViewState extends State<ProductView> {
           SizedBox(height: AppSize.s20),
           CustomDataTable(
               columns: columns
-                  .map((column) => DataColumn(label: Text(column)))
+                  .map((column) => DataColumn(label: Text(column).tr()))
                   .toList(),
               rows: fixedList.map((index) => DataRow(cells: [
                         DataCell(Text(products[index].id.toString())),
                         DataCell(ImageColumn(products[index].image)),
                         DataCell(Text(products[index].title)),
-                        DataCell(Text("${products[index].price} ${AppStrings.dh}")),
+                        DataCell(Text("${products[index].price} ${AppStrings.dh.tr()}")),
                         DataCell(Text(products[index].createdAt)),
                         DataCell(ColorColumn(products[index].color)),
                         DataCell(Text("${products[index].category?.label}")),
@@ -140,7 +141,7 @@ class _ProductViewState extends State<ProductView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          HeaderText(AppStrings.products),
+          HeaderText(AppStrings.products.tr()),
           Row(
             children: [
               ActionButton(

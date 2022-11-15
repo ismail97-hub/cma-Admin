@@ -13,6 +13,7 @@ import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:cma_admin/presentation/signIn/signIn_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -86,7 +87,7 @@ class _SignInViewState extends State<SignInView> {
   Widget _getContentWidget() {
     return Center(
       child: Container(
-        height: AppSize.s400,
+        height: AppSize.s410,
         width: AppSize.s400,
         child: Card(
           shadowColor: ColorManager.grey2,
@@ -98,14 +99,14 @@ class _SignInViewState extends State<SignInView> {
               children: [
                 Text(
                   AppStrings.welcomeAdmin,
-                  style: getSemiBoldStyle(color: ColorManager.black,fontSize: FontSize.s20)),
+                  style: getSemiBoldStyle(color: ColorManager.black,fontSize: FontSize.s20)).tr(),
                 SizedBox(height: AppSize.s8),
                 Text(
                   AppStrings.loginInYour,
                   style: getRegularStyle(
                       color: ColorManager.lightGrey,
                       fontSize: FontSize.s14),
-                ),
+                ).tr(),
                 SizedBox(height: AppSize.s20),
                 StreamBuilder<bool>(
                   stream: _viewModel.outputIsUserNameValid,
@@ -114,10 +115,10 @@ class _SignInViewState extends State<SignInView> {
                       keyboardType: TextInputType.emailAddress,
                       controller: _userNameController,
                       decoration: InputDecoration(
-                          hintText: AppStrings.username,
+                          hintText: AppStrings.username.tr(),
                           errorText: (snapshot.data ?? true)
                               ? null
-                              : AppStrings.usernameError),
+                              : AppStrings.usernameError.tr()),
                     );
                   },
                 ),
@@ -130,10 +131,10 @@ class _SignInViewState extends State<SignInView> {
                       keyboardType: TextInputType.visiblePassword,
                       controller: _passwordController,
                       decoration: InputDecoration(
-                          hintText: AppStrings.password,
+                          hintText: AppStrings.password.tr(),
                           errorText: (snapshot.data ?? true)
                               ? null
-                              : AppStrings.passwordError),
+                              : AppStrings.passwordError.tr()),
                     );
                   },
                 ),
@@ -150,7 +151,7 @@ class _SignInViewState extends State<SignInView> {
                                   _viewModel.login();
                                 }
                               : null,
-                          child: Text(AppStrings.login)),
+                          child: Text(AppStrings.login).tr()),
                     );
                   },
                 )

@@ -6,6 +6,7 @@ import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/icon_manager.dart';
 import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class OrdersStatisticsGrid extends StatelessWidget {
@@ -44,7 +45,7 @@ class OrdersStatisticsGrid extends StatelessWidget {
             ),
             DataStatististicsItem(
               label: AppStrings.amount,
-              count: "$totalAmount ${AppStrings.dh}",
+              count: "$totalAmount ${AppStrings.dh.tr()}",
               color: ColorManager.blue,
               icon: IconManger.euro,
             ),

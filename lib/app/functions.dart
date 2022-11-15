@@ -28,14 +28,6 @@ dateFormat(String date) {
   return outputDate.toString();
 }
 
-dateFormat2(String date) {
-  DateTime tempDate = DateFormat("yyyy-MM-dd").parse(date);
-  var inputDate = DateTime.parse(tempDate.toString());
-  var outputFormat = DateFormat('dd MMMM yyyy');
-  var outputDate = outputFormat.format(inputDate);
-  return outputDate.toString();
-}
-
 dateToStringFormat(DateTime? dateTime) {
   return DateFormat('yyyy-MM-dd').format(dateTime!);
 }
