@@ -119,7 +119,7 @@ class _AllWaitersInsightsViewState extends State<AllWaitersInsightsView> {
         padding: EdgeInsets.symmetric(horizontal: AppPadding.p30),
         columns: columns.map((c) => DataColumn(label: Text(c).tr())).toList(),
         rows: waiters.map((waiter) => DataRow(cells: [
-          DataCell(CircleImage(waiter.id.toString())),
+          DataCell(Text(waiter.id.toString())),
           DataCell(CircleImage(waiter.image)),
           DataCell(Text(waiter.name)),
           DataCell(Text("${waiter.amount} ${AppStrings.dh.tr()}")),

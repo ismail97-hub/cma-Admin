@@ -142,7 +142,7 @@ class _CategoryViewState extends State<CategoryView> {
           Row(
             children: [
               ActionButton(
-                  title: AppStrings.addCategory,
+                  title: AppStrings.createCategory,
                   onTap: () {
                     Navigator.of(context).pushNamed(Routes.addCategoryRoute).then((_) => _bind());
                   },

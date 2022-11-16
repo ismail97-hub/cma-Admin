@@ -134,7 +134,7 @@ class _UpdateCategoryViewState extends State<UpdateCategoryView> {
                   width: double.infinity,
                   isAllInputValidStream: _viewModel.outputIsAllInputsValid, 
                   onTap: ()=>_viewModel.updateCategory(context), 
-                  buttonText: AppStrings.create),
+                  buttonText: AppStrings.update),
               ],
             ),
           )),

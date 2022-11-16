@@ -1,10 +1,10 @@
+import 'package:cma_admin/app/hive_helper.dart';
+import 'package:cma_admin/presentation/resources/language_manager.dart';
 import 'package:cma_admin/presentation/resources/routes_manager.dart';
 import 'package:cma_admin/presentation/resources/theme_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:cma_admin/app/di.dart';
-import 'package:cma_admin/app/app_prefs.dart';
 
 // ignore: must_be_immutable
 class MyApp extends StatefulWidget {
@@ -20,11 +20,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AppPreferences _appPreferences = instance<AppPreferences>();
 
   @override
-  void didChangeDependencies()async {
-    context.setLocale(await _appPreferences.getLocal());
+  void didChangeDependencies(){
+    context.setLocale(HiveHelper.getLanguage().getLocale());
     super.didChangeDependencies();
   }
   

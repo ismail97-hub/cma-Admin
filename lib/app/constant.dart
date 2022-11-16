@@ -11,4 +11,6 @@ class Constant {
   static const String BARMAN = "BARMAN";
   static const String userBox = "user";
   static const String infoBox = "info";
+  static const String languageBox = "language";
+  static const String localeKey = "locale";
 }

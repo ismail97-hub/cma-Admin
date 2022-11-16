@@ -3,6 +3,14 @@ import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+// internal server error types
+const String USER_NOT_FOUND = "User not found";
+const String BAD_CREDENTIALS = "Bad credentials";
+const String USER_IS_DISABLED = "User is disabled";
+const String INDENTIFICATIONS_ERRONEES = "Les identifications sont erronées";
+const String OLD_PASSWORDINCORRECT = "Old password is incorrect !!!";
+
+
 enum DataSource {
   SUCCESS,
   NO_CONTENT,
@@ -69,14 +77,16 @@ class ErrorHandler implements Exception {
 
 String getInternalServerErrorMessage(String message){
   switch (message) {
-    case AppStrings.userNotFound:
-      return AppStrings.usernameIEM.tr();
-    case AppStrings.badCredentials:
-      return AppStrings.passwordIEM.tr();
-    case AppStrings.indentificationsErronees:
-      return AppStrings.passwordIEM.tr();
-    case AppStrings.userIsDisabled:
-      return AppStrings.accountDisbledIEM.tr();  
+    case USER_NOT_FOUND:
+      return AppStrings.usernameIEM;
+    case BAD_CREDENTIALS:
+      return AppStrings.passwordIEM;
+    case INDENTIFICATIONS_ERRONEES:
+      return AppStrings.passwordIEM;
+    case USER_IS_DISABLED:
+      return AppStrings.accountDisbledIEM;  
+    case OLD_PASSWORDINCORRECT:
+      return AppStrings.oldPasswordIncorrectError;  
     default:
       return ResponseMessage.INTERNAL_SERVER_ERROR;
   }

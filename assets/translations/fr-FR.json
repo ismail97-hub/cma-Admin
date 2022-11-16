@@ -95,6 +95,7 @@
     "passwordIEM": "Ce mot de passe est incorrect",
     "accountDisbledIEM": "Votre compte est désactivé",
     "accessError": "Vous n'avez pas accès à cette application",
+    "oldPasswordIncorrectError":"Ancien mot de passe est incorrect",
     
     "badRequestError": "Requête invalide. Réessayez plus tard",
     "noContent": "Pas de contenu, réessayez plus tard",
@@ -102,7 +103,7 @@
     "unauthorizedError": "Utilisateur non autorisé, réessayez plus tard",
     "notFoundError": "l'URL n'existe pas, réessayez plus tard",
     "conflictError": "Conflit trouvé, réessayez plus tard",
-    "InternalServerError": "Une erreur s'est produite, réessayez plus tard",
+    "internalServerError": "Une erreur s'est produite, réessayez plus tard",
     "unknownError": "Une erreur s'est produite, réessayez plus tard",
     "timeoutError": "timeout , réessayez tard",
     "defaultError": "Une erreur s'est produite, réessayez plus tard",

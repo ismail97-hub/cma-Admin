@@ -103,18 +103,13 @@ class AppStrings {
   static const String noOrdersAvailable = "noOrdersAvailable";
   static const String noPreCanceledOrdersAvailable = "noPreCanceledOrdersAvailable";
 
-  // internal server error types
-  static const String userNotFound = "User not found";
-  static const String badCredentials = "Bad credentials";
-  static const String userIsDisabled = "User is disabled";
-  static const String indentificationsErronees = "Les identifications sont erronées";
-  static const String oldPasswordIncorrect = "old Password is incorrect";
-  
+
   // internal server error messages
   static const String usernameIEM = "usernameIEM";
   static const String passwordIEM = "passwordIEM";
   static const String accountDisbledIEM = "accountDisbledIEM";
   static const String accessError = "accessError";
+  static const String oldPasswordIncorrectError = "oldPasswordIncorrectError";
 
   static const String badRequestError = "badRequestError";
   static const String noContent = "noContent";
@@ -129,13 +124,10 @@ class AppStrings {
   static const String cacheError = "cacheError";
   static const String noInternetError = "noInternetError";
 
- 
   //Sign IN
   static const String welcomeAdmin = "welcomeAdmin";
   static const String loginInYour = "loginInYour";
   
-  
-
   //color picker
   static const String pickColor = "pickColor";
   

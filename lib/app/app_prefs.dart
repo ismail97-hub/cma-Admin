@@ -1,5 +1,3 @@
-import 'package:cma_admin/presentation/resources/language_manager.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String PREFS_KEY_LANG = "PREFS_KEY_LANG";
@@ -10,34 +8,6 @@ class AppPreferences {
   SharedPreferences _sharedPreferences;
 
   AppPreferences(this._sharedPreferences);
-
-  Future<String> getAppLanguage() async {
-    String? language = _sharedPreferences.getString(PREFS_KEY_LANG);
-
-    if (language != null && language.isNotEmpty) {
-      return language;
-    } else {
-      return LanguageType.ENGLISH.getValue();
-    }
-  }
-
-  Future<void> setLanguageChanged(LanguageType language)async {
-    _sharedPreferences.setString(PREFS_KEY_LANG, language.getValue());
-  }
-
-  Future<Locale> getLocal() async {
-    String currentLanguage = await getAppLanguage();
-    if (currentLanguage == LanguageType.ARABIC.getValue()) {
-      // return arabic local
-      return ARABIC_LOCAL;
-    } else if(currentLanguage == LanguageType.ENGLISH.getValue()) {
-      // return english local
-      return ENGLISH_LOCAL;
-    } else {
-      // return arabic local
-      return FRENCH_LOCAL;  
-    }
-  }
 
   Future<void> setUserToken(String token) async {
     _sharedPreferences.setString(PREFS_KEY_TOKEN, token);

@@ -247,7 +247,7 @@ initInfoSettingsModule(){
 
 initLanguageSettingsModule(){
   if (!GetIt.I.isRegistered<LanguageSettingsViewModel>()) {
-    instance.registerFactory<LanguageSettingsViewModel>(() => LanguageSettingsViewModel(instance()));
+    instance.registerFactory<LanguageSettingsViewModel>(() => LanguageSettingsViewModel());
   }
 }
 

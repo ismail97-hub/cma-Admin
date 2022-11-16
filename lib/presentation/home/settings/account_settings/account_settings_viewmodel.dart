@@ -251,10 +251,11 @@ class AccountSettingsViewModel extends BaseViewModel with AccountSettingsViewMod
 
   bool _isValidToUpdate(){
     if (_viewObject.name.isNotEmpty&&_viewObject.username.isNotEmpty) {
-      if (_viewObject.confirmationNewPassword!.isNotEmpty&&_viewObject.oldPassword!.isNotEmpty) {
+      if (_viewObject.confirmationNewPassword!.isNotEmpty&&_viewObject.oldPassword!.isNotEmpty&&_viewObject.newPassword==_viewObject.confirmationNewPassword) {
         return true;
       }
-      else if(_viewObject.confirmationNewPassword!.isEmpty&&_viewObject.oldPassword!.isEmpty){
+      else if(
+        _viewObject.confirmationNewPassword!.isEmpty&&_viewObject.oldPassword!.isEmpty){
         return true;
       }  
       return false;

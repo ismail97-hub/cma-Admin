@@ -129,7 +129,7 @@ class _UserViewState extends State<UserView> {
           Row(
             children: [
               ActionButton(
-                title: AppStrings.addUser,
+                title: AppStrings.createUser,
                 onTap: () {
                   Navigator.of(context).pushNamed(Routes.addUserRoute).then((_) => _bind());
                 },

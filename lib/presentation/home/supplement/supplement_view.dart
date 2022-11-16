@@ -138,7 +138,7 @@ class _SupplementViewState extends State<SupplementView> {
           Row(
             children: [
               ActionButton(
-                  title: AppStrings.addSupplement,
+                  title: AppStrings.createSupplement,
                   onTap: () {
                     Navigator.of(context)
                         .pushNamed(Routes.addSupplementRoute)

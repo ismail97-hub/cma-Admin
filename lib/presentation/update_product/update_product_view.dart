@@ -153,7 +153,7 @@ class _UpdateProductViewViewState extends State<UpdateProductView> {
               width: double.infinity,
               isAllInputValidStream: _viewModel.outputIsAllInputsValid, 
               onTap: ()=>_viewModel.updateProduct(context), 
-              buttonText: AppStrings.create),
+              buttonText: AppStrings.update),
               ],
             ),
           ),

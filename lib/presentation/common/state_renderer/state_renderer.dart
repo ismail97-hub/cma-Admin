@@ -131,8 +131,7 @@ class StateRenderer extends StatelessWidget {
         child: Text(
           message,
           textAlign: TextAlign.center,
-          style:
-              getMediumStyle(color: ColorManager.black, fontSize: FontSize.s16),
+          style:getMediumStyle(color: ColorManager.black, fontSize: FontSize.s16),
         ).tr(),
       ),
     );

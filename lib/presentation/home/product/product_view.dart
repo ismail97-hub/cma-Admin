@@ -145,7 +145,7 @@ class _ProductViewState extends State<ProductView> {
           Row(
             children: [
               ActionButton(
-                  title: AppStrings.addProduct,
+                  title: AppStrings.createProduct,
                   onTap: () {
                     Navigator.of(context)
                         .pushNamed(Routes.addProductRoute)

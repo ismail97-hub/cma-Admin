@@ -139,9 +139,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
             ],
           ),
         ),
-        Positioned(
+        PositionedDirectional(
             top: 0,
-            left: AppSize.s50,
+            start: AppSize.s50,
             child: Container(
                 padding: EdgeInsets.symmetric(horizontal: AppPadding.p10),
                 child: Text(AppStrings.productInfo,

@@ -96,7 +96,7 @@ class _WaiterInsightsViewState extends State<WaiterInsightsView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:[
-          HeaderText("${widget.args.waiter.name} ${AppStrings.insights.tr()}"),
+          HeaderText("${AppStrings.insights.tr()} ${widget.args.waiter.name}"),
           DateRangeButton(
             dateRangeStream:_viewModel.outputDateRange,
             onSumbit: (dateRange){

@@ -41,11 +41,11 @@ class _SignInViewState extends State<SignInView> {
     _viewModel.isUserLoggedInSuccessfullyStreamController.stream.listen((data) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         SignInData signInData = data;
-        _appPreferences.setUserToken(signInData.token.toString());
-        _appPreferences.setIsUserLoggedIn();
-        HiveHelper.signIn(signInData.user!);
-        resetModules();
         if (signInData.user?.role == Constant.OWNER||signInData.user?.role == Constant.MANAGER) {
+          _appPreferences.setUserToken(signInData.token.toString());
+          _appPreferences.setIsUserLoggedIn();
+          HiveHelper.signIn(signInData.user!);
+          resetModules();
           Navigator.pushNamedAndRemoveUntil(context,Routes.homeRoute, ModalRoute.withName('/'),arguments:0);
         } 
         else{

@@ -43,10 +43,10 @@ class _QuantityChartState extends State<QuantityChart> {
 
   Widget _getHeader() {
     return Text(_categoryCount==null
-          ?AppStrings.categoryPieChartTitle
-          :"${AppStrings.productPieChartTitle} ${_categoryCount!.label}",
+          ?AppStrings.categoryPieChartTitle.tr()
+          :"${AppStrings.productPieChartTitle.tr()} ${_categoryCount!.label}",
         style: getSemiBoldStyle(
-            color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16)).tr();
+            color: ColorManager.black, fontSize: isMobile(context)?FontSize.s14:FontSize.s16));
   }
 
   Widget _getFooter() {

@@ -1,3 +1,4 @@
+import 'package:cma_admin/presentation/resources/language_manager.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../domain/model/model.dart';
@@ -11,6 +12,7 @@ class HiveHelper {
     await Hive.openBox<User>(Constant.userBox);
     Hive.registerAdapter<Info>(InfoAdapter());
     await Hive.openBox<Info>(Constant.infoBox);
+    await Hive.openBox<String>(Constant.languageBox);
   }
   
   static User getCurrentUser(){
@@ -52,5 +54,24 @@ class HiveHelper {
     var infoBox = Hive.box<Info>(Constant.infoBox);
     userBox.clear();
     infoBox.clear();
+  }
+
+  //language
+  static LanguageType getLanguage(){
+    var box = Hive.box<String>(Constant.languageBox);
+    if(box.isNotEmpty){
+      return (box.get(0)??ENGLISH).toLanguageType();
+    }else{
+      return LanguageType.ENGLISH;
+    }
+  }
+
+  static setLanguage(LanguageType languageType){
+    var box = Hive.box<String>(Constant.languageBox);
+    if (box.isEmpty) {
+      box.add(languageType.getValue());
+    } else {
+      box.putAt(0,languageType.getValue());      
+    }
   }
 }
