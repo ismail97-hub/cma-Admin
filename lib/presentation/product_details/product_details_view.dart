@@ -113,7 +113,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 children: [
                   InfoText(text: AppStrings.num, value: product.id.toString()),
                   SizedBox(height: AppSize.s16),
-                  InfoText(text: AppStrings.label, value: product.title),
+                  InfoText(text: AppStrings.name, value: product.title),
                   SizedBox(height: AppSize.s16),
                   InfoText(
                       text: AppStrings.createdAt, value: product.createdAt),

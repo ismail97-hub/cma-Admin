@@ -18,6 +18,7 @@
     "loading": "Chargement...",
     "retry_again": "Réessayer",
     "ok": "Ok",
+    "cancel":"Annuler",
     "success": "Succès",
     "title": "titre",
     "dh": "DH",
@@ -31,6 +32,7 @@
     "activate": "Activer",
     "deactivate": "Désactiver",
     "uploadImage": "télécharger votre image ici",
+    "noImage":"Pas d'image",
     
     "num": "N°",
     "label": "Libellé",
@@ -42,20 +44,20 @@
 
     "latestOrders": "Dernières commandes",
     "numberOfOrders": "Nombre de commandes",
-    "ordersCount": "Compte de commandes",
+    "ordersCount": "Nombre de commandes",
     "totalAmount": "Montant total",
-    "totalAmountByWaiter": "Montant total par serveur",
-    "ordersCountByWaiter": "Compte des commandes par serveur",
+    "totalAmountByWaiter": "Montant total par chaque serveur",
+    "ordersCountByWaiter": "Nombre des commandes par chaque serveur",
     "totalAmountByHour": "Montant total par heure",
-    "ordersCountByHour": "Compte des commandes par heure",
+    "ordersCountByHour": "Nombre des commandes par heure",
     "goBack": "Retour",
     "viewInsights": "Afficher les statistiques",
     "viewAll": "Tout afficher",
     "categoryPieChartTitle": "Quantité consommée par catégorie",
     "productPieChartTitle": "Quantité consommée par produit dans la catégorie",
-    "inProgressOrdersCount": "Compte des commandes en cours",
-    "canceledOrdersCount": "Les commandes annulées comptent",
-    "compeletedOrdersCount": "Nombre de commandes terminées",
+    "inProgressOrdersCount": "Nombre des commandes en cours",
+    "canceledOrdersCount": "Nombre des commandes annulées ",
+    "compeletedOrdersCount": "Nombre des commandes terminées",
     
     "dashboard": "Tableau de bord",
     "orders": "Commandes",
@@ -89,7 +91,7 @@
     "accept": "Accepter",
     "reject": "Rejeter",
     "noOrdersAvailable": "Aucune commande disponible",
-    "noPreCanceledOrdersAvailable": "Aucune commande pré-annulée disponible",
+    "noPreCanceledOrdersAvailable": "Il n'y a pas de commandes disponibles pour annulation",
 
     "usernameIEM": "Ce nom d'utilisateur est incorrect",
     "passwordIEM": "Ce mot de passe est incorrect",
@@ -111,7 +113,7 @@
     "noInternetError": "veuillez vérifier votre connexion Internet",
     
     "welcomeAdmin": "Bienvenue administrateur",
-    "loginInYour": "Connexion à votre compte",
+    "loginInYour": "Connectez-vous à votre compte",
     
     "pickColor": "Choisissez une couleur",
     
@@ -125,12 +127,12 @@
     "createUser": "Créer un utilisateur",
     "create": "Créer",
 
-    "updateInfo": "Mettre à jour les informations",
-    "updateCategory": "Mettre à jour la catégorie",
-    "updateProduct": "Mettre à jour le produit",
-    "updateSupplement": "Mettre à jour le supplément",
-    "updateUser": "Mettre à jour l'utilisateur",
-    "update": "Mettre à jour",
+    "updateInfo": "Modifier les informations",
+    "updateCategory": "Modifier la catégorie",
+    "updateProduct": "Modifier le produit",
+    "updateSupplement": "Modifier le supplément",
+    "updateUser": "Modifier l'utilisateur",
+    "update": "Modifier",
     
     "account": "Compte",
     "info": "Info",
@@ -157,7 +159,7 @@
     "waitersInsights": "Statistiques des serveurs",
     "insights": "statistiques",
     "nameError": "Nom invalide",
-    "priceError": "Le prix doit être entier",
+    "priceError": "Le prix doit être nombre entier",
     "oldPasswordError": "Ancien mot de passe invalide",
     "newPasswordError": "Nouveau mot de passe invalide",
     "confirmationPasswordError": "Les mots de passe ne sont pas les mêmes",
@@ -171,5 +173,9 @@
     "pending": "En cours",
     "pre_canceled": "Prêt à annuler",
     "canceled": "Annulé",
-    "completed": "Terminé"
+    "completed": "Terminé",
+    
+    "supplementDeleteError": "Vous ne pouvez pas supprimer ce supplément",
+    "productDeleteError": "Vous ne pouvez pas supprimer ce produit",
+    "categoryDeleteError": "Vous ne pouvez pas supprimer cette catégorie"
 }

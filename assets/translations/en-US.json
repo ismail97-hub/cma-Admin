@@ -18,6 +18,7 @@
     "loading":"Loading...",
     "retry_again":"Retry Again",
     "ok":"Ok",
+    "cancel":"Cancel",
     "success":"Success",
     "title":"title",
     "dh":"DH",
@@ -31,6 +32,7 @@
     "activate":"Activate",
     "deactivate":"Deactivate",
     "uploadImage":"upload your image here",
+    "noImage":"No Image",
 
     "num":"N°",
     "label":"Label",
@@ -89,7 +91,7 @@
     "accept":"Accept",
     "reject":"Reject",
     "noOrdersAvailable":"No orders available",
-    "noPreCanceledOrdersAvailable":"No pre canceled orders available",
+    "noPreCanceledOrdersAvailable":"There are no orders available for cancellation",
 
     "usernameIEM":"This username is incorrect",
     "passwordIEM":"This password is incorrect",
@@ -111,7 +113,7 @@
     "noInternetError":"no internet error, try again later",
 
     "welcomeAdmin":"Welcom Admin ",
-    "loginInYour":"Login In your account ",
+    "loginInYour":"Log in to your account",
 
     "pickColor":"Pick a color",
 
@@ -171,6 +173,10 @@
     "pending" : "Pending",
     "pre_canceled" : "Ready to cancel",
     "canceled" : "Canceled",
-    "completed" : "Completed"
+    "completed" : "Completed",
+
+   "supplementDeleteError":"You cannot delete this supplement",
+   "productDeleteError":"You cannot delete this product",
+   "categoryDeleteError":"You cannot delete this category"
 }
   

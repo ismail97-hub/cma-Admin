@@ -7,6 +7,7 @@ import 'package:cma_admin/domain/usecase/product_usecase.dart';
 import 'package:cma_admin/presentation/base/baseviewmodel.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -62,7 +63,7 @@ class ProductViewModel extends BaseViewModel with ProductViewModelInput,ProductV
           inputState.add(ContentState());
           Navigator.of(context).pop();
         } else {
-          inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE,"Impossible to delete this product"));
+          inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE,AppStrings.productDeleteError));
         }
         
       });

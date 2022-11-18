@@ -4,6 +4,7 @@ import 'package:cma_admin/domain/usecase/category_details_usecase.dart';
 import 'package:cma_admin/presentation/base/baseviewmodel.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_render_impl.dart';
 import 'package:cma_admin/presentation/common/state_renderer/state_renderer.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -55,7 +56,27 @@ class CategoryDetailsViewModel extends BaseViewModel
           inputState.add(ContentState());
           Navigator.of(context).pop();
         } else {
-          inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE,"Impossible to delete this category"));
+          inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE,AppStrings.categoryDeleteError));
+        }
+        
+      });
+  }
+
+  @override
+  deleteProduct(BuildContext context, Product product, List<Product> products) async{
+    inputState.add(LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
+    (await _useCase.deleteProduct(product.id)).fold(
+      (failure) {
+        inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE,failure.message));
+      }, 
+      (isDeleted) {
+        if (isDeleted) {
+          products.remove(product);
+          inputProducts.add(products);
+          inputState.add(ContentState());
+          Navigator.of(context).pop();
+        } else {
+          inputState.add(ErrorState(StateRendererType.POPUP_ERROR_STATE,AppStrings.productDeleteError));
         }
         
       });
@@ -98,6 +119,7 @@ class CategoryDetailsViewModel extends BaseViewModel
 }
 
 abstract class CategoryDetailsViewModelInput {
+  deleteProduct(BuildContext context, Product product, List<Product> products);
   reorder(BuildContext context,List<Product> products,int oldIndex,int newIndex);
   delete(BuildContext context,int id);
   activeToggle(BuildContext context,Category category);

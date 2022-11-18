@@ -23,6 +23,10 @@ class CategoryDetailsUseCase extends BaseUseCase<String,List<Product>> {
   Future<Either<Failure,bool>> deleteCategory(int id){
     return _repository.delete(categoryType,id.toString());
   }
+  
+  Future<Either<Failure,bool>> deleteProduct(int id){
+    return _repository.delete(productType,id.toString());
+  }
 
   Future<Either<Failure,void>> reorder(int id1,int id2){
     return _repository.reorder(productType,id1.toString(),id2.toString());

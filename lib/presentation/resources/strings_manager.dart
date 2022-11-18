@@ -19,6 +19,7 @@ class AppStrings {
   static const String loading = "loading";
   static const String retry_again = "retry_again";
   static const String ok = "ok";
+  static const String cancel = "cancel";
   static const String success = "success";
   static const String title = "title";
   static const String dh = "dh";
@@ -32,6 +33,7 @@ class AppStrings {
   static const String activate = "activate";
   static const String deactivate = "deactivate";
   static const String uploadImage = "uploadImage";
+  static const String noImage = "noImage";
 
   // attrs
   static const String num = "num";
@@ -194,4 +196,8 @@ class AppStrings {
   static const String pre_canceled = "pre_canceled";
   static const String canceled = "canceled";
   static const String completed = "completed";
+
+  static const String supplementDeleteError = "supplementDeleteError";
+  static const String productDeleteError = "productDeleteError";
+  static const String categoryDeleteError = "categoryDeleteError";
 }

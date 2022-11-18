@@ -115,7 +115,7 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
                 children: [
                   InfoText(text: AppStrings.num, value: category.id.toString()),
                   SizedBox(height: AppSize.s16),
-                  InfoText(text: AppStrings.label, value: category.label),
+                  InfoText(text: AppStrings.name, value: category.label),
                   SizedBox(height: AppSize.s16),
                   InfoText(text: AppStrings.createdAt, value: category.createdAt),
                   SizedBox(height: AppSize.s16),
@@ -212,6 +212,7 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
                                       index: index, 
                                       length: products.length)),        
                                     DataCell(PopUpMenuColumn(
+                                        delete: ()=>_viewModel.deleteProduct(context, products[index], products),
                                         update: () {
                                           Navigator.of(context).pushNamed(Routes.updateProductRoute,arguments: products[index]);
                                         }, view: () {

@@ -18,6 +18,7 @@
     "loading": "تحميل ...",
     "retry_again": "إعادة المحاولة مرة أخرى",
     "ok": "موافق",
+    "cancel":"إلغاء",
     "success": "نجاح",
     "title": "العنوان",
     "dh": "درهم",
@@ -31,6 +32,7 @@
     "activate": "تنشيط",
     "deactivate": "إلغاء التنشيط",
     "uploadImage": "تحميل صورتك هنا",
+    "noImage":"لا توجد صورة",
     
     "num": "رقم",
     "label": "تصنيف",
@@ -44,8 +46,8 @@
     "numberOfOrders": "عدد الطلبات",
     "ordersCount": "عدد الطلبات",
     "totalAmount": "إجمالي المبلغ",
-    "totalAmountByWaiter": "إجمالي المبلغ بواسطة النادل",
-    "ordersCountByWaiter": "عدد الطلبات حسب النادل",
+    "totalAmountByWaiter": "إجمالي المبلغ حسب كل نادل",
+    "ordersCountByWaiter": "عدد الطلبات حسب كل نادل",
     "totalAmountByHour": "إجمالي المبلغ بالساعة",
     "ordersCountByHour": "عدد الطلبات بالساعة",
     "goBack": "العودة",
@@ -89,11 +91,11 @@
     "accept": "قبول",
     "reject": "رفض",
     "noOrdersAvailable": "لا توجد طلبات متاحة",
-    "noPreCanceledOrdersAvailable": "لا توجد طلبات تم إلغاؤها مسبقًا",
+    "noPreCanceledOrdersAvailable": "لا توجد طلبات متاحة للإلغاء",
     
     "usernameIEM": "اسم المستخدم هذا غير صحيح",
     "passwordIEM": "كلمة المرور هذه غير صحيحة",
-    "accountDisbledIEM": "حسابك معطل",
+    "accountDisbledIEM": "حسابك تم ايقافه",
     "accessError": "ليس لديك حق الوصول إلى هذا التطبيق",
     "oldPasswordIncorrectError":"كلمة السر القديمة ليست صحيحة",
     
@@ -171,5 +173,9 @@
     "pending": "قيد التنفيذ",
     "pre_canceled": "جاهز للإلغاء",
     "canceled": "تم الإلغاء",
-    "completed": "مكتمل"
+    "completed": "مكتمل",
+
+    "supplementDeleteError": "لا يمكنك حذف هذه الإضافة",
+    "productDeleteError": "لا يمكنك حذف هذا المنتج",
+    "categoryDeleteError": "لا يمكنك حذف هذه الفئة"
 }

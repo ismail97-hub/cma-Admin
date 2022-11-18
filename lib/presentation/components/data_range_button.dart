@@ -3,10 +3,12 @@ import 'package:cma_admin/presentation/components/bordered_container.dart';
 import 'package:cma_admin/presentation/resources/color_manager.dart';
 import 'package:cma_admin/presentation/resources/font_manager.dart';
 import 'package:cma_admin/presentation/resources/icon_manager.dart';
+import 'package:cma_admin/presentation/resources/strings_manager.dart';
 import 'package:cma_admin/presentation/resources/styles_manager.dart';
 import 'package:cma_admin/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class DateRangeButton extends StatelessWidget {
   final Stream<PickerDateRange> dateRangeStream;
@@ -40,6 +42,8 @@ class DateRangeButton extends StatelessWidget {
                               onCancel: () {
                                 Navigator.of(context).pop();
                               },
+                              confirmText: AppStrings.ok.tr(),
+                              cancelText: AppStrings.cancel.tr(),
                               showActionButtons: true,
                               selectionMode: DateRangePickerSelectionMode.range,
                               initialSelectedRange: dateRange
